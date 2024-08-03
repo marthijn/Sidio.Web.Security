@@ -11,7 +11,9 @@ public sealed class XXssProtectionHeaderValidatorTests : HeaderValidatorTests<XX
     [InlineData("0",  false,false, null)]
     [InlineData("1",  true,false, null)]
     [InlineData("1; mode=block",  true,true, null)]
+    [InlineData("1;mode=block",  true,true, null)]
     [InlineData("1; report=<reporting-uri>",  true,false, "<reporting-uri>")]
+    [InlineData("1;report=<reporting-uri>",  true,false, "<reporting-uri>")]
     public void Validate_GivenValidValue_ShouldReturnValidResult(string value, bool enabled, bool block, string? reportUri)
     {
         // act

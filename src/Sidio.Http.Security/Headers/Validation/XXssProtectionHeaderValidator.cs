@@ -7,7 +7,7 @@ public sealed class XXssProtectionHeaderValidator : IHeaderValidator<XXssProtect
 {
     private static readonly Regex HeaderRegex =
         new(
-            @"^(?<Protection>0|1)(; mode=(?<Mode>block)|; report=(?<Report>.+))?$",
+            @"^(?<Protection>0|1)(;\s*mode=(?<Mode>block)|;\s*report=(?<Report>.+))?$",
             RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
     public HeaderValidationResult Validate(string? headerValue, out XXssProtectionHeaderOptions? options)
