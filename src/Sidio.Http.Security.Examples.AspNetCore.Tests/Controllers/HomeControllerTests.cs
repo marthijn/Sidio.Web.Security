@@ -26,6 +26,10 @@ public sealed class HomeControllerTests : IClassFixture<WebApplicationFactory<Pr
         response.Headers.ShouldHaveXFrameOptionsHeader().WithNonEmptyValue();
         response.Headers.ShouldHaveXFrameOptionsHeader().WithValue("DENY");
 
+        response.Headers.ShouldHaveXContentTypeOptionsHeader().WithValue("nosniff");
+
+        response.Headers.ShouldHaveStrictTransportSecurityHeader();
+
         var content = await response.Content.ReadAsStringAsync();
         content.Should().Contain("Home");
     }

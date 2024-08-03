@@ -1,7 +1,16 @@
-﻿namespace Sidio.Http.Security.Headers;
+﻿using Sidio.Http.Security.Headers.Validation;
 
+namespace Sidio.Http.Security.Headers;
+
+/// <summary>
+/// The base class for HTTP headers.
+/// </summary>
 public abstract class HttpHeader
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="HttpHeader"/> class.
+    /// </summary>
+    /// <param name="value">The header value.</param>
     protected HttpHeader(string? value)
     {
         Value = value;
@@ -21,11 +30,5 @@ public abstract class HttpHeader
     /// Validates the header.
     /// </summary>
     /// <returns>A <see cref="HeaderValidationResult"/>.</returns>
-    public HeaderValidationResult Validate()
-    {
-        var validations = ValidateHeader();
-        return new HeaderValidationResult(validations);
-    }
-
-    protected abstract IEnumerable<HeaderValidation> ValidateHeader();
+    public abstract HeaderValidationResult Validate();
 }

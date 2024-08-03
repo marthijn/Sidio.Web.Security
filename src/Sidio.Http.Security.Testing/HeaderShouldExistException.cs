@@ -3,7 +3,7 @@
 internal sealed class HeaderShouldExistException : Exception
 {
     public HeaderShouldExistException(string headerName)
-        : base($"The header '{headerName}' should exist.")
+        : base($"Expected header '{headerName}' to be present, but was not found.")
     {
     }
 }

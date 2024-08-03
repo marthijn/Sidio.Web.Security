@@ -33,6 +33,26 @@ public static class HttpHeadersExtensions
         throw new HeaderShouldExistException(XFrameOptionsHeader.HeaderName);
     }
 
+    public static XContentTypeOptionsHeader ShouldHaveXContentTypeOptionsHeader(this HttpHeaders headers)
+    {
+        if (headers.TryGetValues(XContentTypeOptionsHeader.HeaderName, out var values))
+        {
+            return new XContentTypeOptionsHeader(values.First());
+        }
+
+        throw new HeaderShouldExistException(XContentTypeOptionsHeader.HeaderName);
+    }
+
+    public static StrictTransportSecurityHeader ShouldHaveStrictTransportSecurityHeader(this HttpHeaders headers)
+    {
+        if (headers.TryGetValues(StrictTransportSecurityHeader.HeaderName, out var values))
+        {
+            return new StrictTransportSecurityHeader(values.First());
+        }
+
+        throw new HeaderShouldExistException(StrictTransportSecurityHeader.HeaderName);
+    }
+
     public static T ShouldHaveHttpHeader<T>(this HttpHeaders headers)
         where T : HttpHeader, new()
     {

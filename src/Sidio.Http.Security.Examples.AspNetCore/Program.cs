@@ -1,4 +1,5 @@
 using Sidio.Http.Security.AspNetCore;
+using Sidio.Http.Security.Headers.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +12,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
 }
 
 app.UseHttpsRedirection();
@@ -23,6 +22,16 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.UseXFrameOptions();
+app.UseXContentTypeOptions();
+app.UseStrictTransportSecurity(new StrictTransportSecurityHeaderOptions
+{
+    MaxAge = 0,
+});
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseHeaderValidation();
+}
 
 app.MapControllerRoute(
     name: "default",

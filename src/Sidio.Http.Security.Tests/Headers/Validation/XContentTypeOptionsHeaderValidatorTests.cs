@@ -1,0 +1,39 @@
+﻿using Sidio.Http.Security.Headers.Options;
+using Sidio.Http.Security.Headers.Validation;
+
+namespace Sidio.Http.Security.Tests.Headers.Validation;
+
+public sealed class XContentTypeOptionsHeaderValidatorTests : HeaderValidatorTests<XContentTypeOptionsHeaderOptions>
+{
+    protected override IHeaderValidator<XContentTypeOptionsHeaderOptions> Validator =>
+        new XContentTypeOptionsHeaderValidator();
+
+    [Fact]
+    public void Validate_WithValidValue_ReturnsValid()
+    {
+        // arrange
+        var value = "nosniff";
+
+        // act
+        var result = Validator.Validate(value, out var options);
+
+        // assert
+        result.IsValid.Should().BeTrue();
+        options.Should().NotBeNull();
+        options!.Value.Should().Be(value);
+    }
+
+    [Fact]
+    public void Validate_WithInvalidValue_ReturnsInvalid()
+    {
+        // arrange
+        var value = "invalid";
+
+        // act
+        var result = Validator.Validate(value, out var options);
+
+        // assert
+        result.IsValid.Should().BeFalse();
+        options.Should().BeNull();
+    }
+}

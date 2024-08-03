@@ -2,7 +2,7 @@
 
 namespace Sidio.Http.Security.Tests.Headers;
 
-public sealed class XFrameOptionsHeaderTests
+public sealed class StrictTransportSecurityHeaderTests
 {
     private readonly Fixture _fixture = new();
 
@@ -13,7 +13,7 @@ public sealed class XFrameOptionsHeaderTests
         var value = _fixture.Create<string>();
 
         // act
-        var header = new XFrameOptionsHeader(value);
+        var header = new StrictTransportSecurityHeader(value);
 
         // assert
         header.Value.Should().Be(value);
