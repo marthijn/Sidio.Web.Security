@@ -31,6 +31,8 @@ public sealed class HomeControllerTests : IClassFixture<WebApplicationFactory<Pr
         response.Headers.ShouldHaveStrictTransportSecurityHeader()
             .HasValidOptions().WithMaxAge(0).WithIncludeSubDomains(true).WithPreload(false);
 
+        response.Headers.ShouldNotHaveXXssProtectionHeader();
+
         var content = await response.Content.ReadAsStringAsync();
         content.Should().Contain("Home");
     }

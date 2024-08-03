@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Sidio.Http.Security.Headers.Options;
 
 namespace Sidio.Http.Security.Headers.Validation;
 
@@ -7,11 +8,15 @@ public sealed class HeaderValidationService
 {
     private static string[] RecommendedHeaders = new[]
     {
-        "Content-Security-Policy",
-        "Strict-Transport-Security",
+        ContentSecurityPolicyHeader.HeaderName,
+        StrictTransportSecurityHeader.HeaderName,
         XContentTypeOptionsHeader.HeaderName,
         XFrameOptionsHeader.HeaderName,
-        "X-Xss-Protection"
+    };
+
+    private static string[] DeprecatedHeaders = new[]
+    {
+        XXssProtectionHeader.HeaderName
     };
 
     private readonly HeaderValidationOptions _options;
@@ -34,9 +39,26 @@ public sealed class HeaderValidationService
         foreach (var httpHeader in httpHeaders)
         {
             HttpHeader? header = null;
+
             if (httpHeader.Key.Equals(XFrameOptionsHeader.HeaderName, StringComparison.OrdinalIgnoreCase))
             {
                 header = new XFrameOptionsHeader(httpHeader.Value.FirstOrDefault());
+            }
+            else if (httpHeader.Key.Equals(StrictTransportSecurityHeader.HeaderName, StringComparison.OrdinalIgnoreCase))
+            {
+                header = new StrictTransportSecurityHeader(httpHeader.Value.FirstOrDefault());
+            }
+            else if (httpHeader.Key.Equals(XXssProtectionHeader.HeaderName, StringComparison.OrdinalIgnoreCase))
+            {
+                header = new XXssProtectionHeader(httpHeader.Value.FirstOrDefault());
+            }
+            else if (httpHeader.Key.Equals(ContentSecurityPolicyHeader.HeaderName, StringComparison.OrdinalIgnoreCase))
+            {
+                header = new ContentSecurityPolicyHeader(httpHeader.Value.FirstOrDefault());
+            }
+            else if (httpHeader.Key.Equals(XContentTypeOptionsHeader.HeaderName, StringComparison.OrdinalIgnoreCase))
+            {
+                header = new XContentTypeOptionsHeader(httpHeader.Value.FirstOrDefault());
             }
 
             if (header != null)
@@ -82,7 +104,7 @@ public sealed class HeaderValidationService
         {
             foreach(var error in validationResult.Errors)
             {
-                _logger.LogWarning("The HTTP header '{HeaderName}' is invalid: {ErrorMessage}", header.Name, error.Message);
+                _logger.LogError("The HTTP header '{HeaderName}' is invalid: {ErrorMessage}", header.Name, error.Message);
             }
         }
     }

@@ -54,6 +54,25 @@ public static class HttpHeadersExtensions
         throw new HeaderShouldExistException(StrictTransportSecurityHeader.HeaderName);
     }
 
+    [Obsolete($"It is not recommended to use the {XXssProtectionHeader.HeaderName} header. Use {nameof(ShouldNotHaveXXssProtectionHeader)} to validate instead.")]
+    public static XXssProtectionHeader ShouldHaveXXssProtectionHeader(this HttpHeaders headers)
+    {
+        if (headers.TryGetValues(XXssProtectionHeader.HeaderName, out var values))
+        {
+            return new XXssProtectionHeader(values.First());
+        }
+
+        throw new HeaderShouldExistException(XXssProtectionHeader.HeaderName);
+    }
+
+    public static void ShouldNotHaveXXssProtectionHeader(this HttpHeaders headers)
+    {
+        if (headers.TryGetValues(XXssProtectionHeader.HeaderName, out _))
+        {
+            throw new HeaderShouldNotExistException(XXssProtectionHeader.HeaderName);
+        }
+    }
+
     public static T ShouldHaveHttpHeader<T>(this HttpHeaders headers)
         where T : HttpHeader, new()
     {

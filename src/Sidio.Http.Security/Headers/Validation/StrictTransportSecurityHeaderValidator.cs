@@ -7,7 +7,7 @@ public sealed class StrictTransportSecurityHeaderValidator : IHeaderValidator<St
 {
     private const string MaxAge = "max-age";
 
-    private static readonly char[] Separator = {';'};
+    private static readonly char[] Separator = [';'];
 
     private static readonly Regex MaxAgeRegex = new ($@"{MaxAge}=(\d+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
