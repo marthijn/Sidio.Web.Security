@@ -7,9 +7,9 @@ public sealed class StrictTransportSecurityHeaderValidator : IHeaderValidator<St
 {
     private const string MaxAge = "max-age";
 
-    private static readonly char[] Separator = [';'];
-
-    private static readonly Regex MaxAgeRegex = new ($@"{MaxAge}=(\d+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private static readonly Regex HeaderRegex = new(
+        @"^max-age=(?<MaxAge>\d+)(;\s*includeSubDomains)?(;\s*preload)?$",
+        RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
     public HeaderValidationResult Validate(string? headerValue, out StrictTransportSecurityHeaderOptions? options)
     {
@@ -19,29 +19,25 @@ public sealed class StrictTransportSecurityHeaderValidator : IHeaderValidator<St
             return new HeaderValidationResult(validations);
         }
 
+        var match = HeaderRegex.Match(headerValue);
+        if (!match.Success)
+        {
+            options = null;
+            return new HeaderValidationResult(new[]
+            {
+                new HeaderValidation(
+                    HeaderValidationSeverityLevel.Error,
+                    "The header value must be in the format 'max-age=<seconds>; includeSubDomains; preload'.")
+            });
+        }
+
         options = new StrictTransportSecurityHeaderOptions();
+        options.MaxAge = long.Parse(match.Groups["MaxAge"].Value);
+        options.IncludeSubDomains = match.Groups[1].Success;
+        options.Preload = match.Groups[2].Success;
 
-        // check for valid values
-        var values = headerValue.Split(Separator, StringSplitOptions.RemoveEmptyEntries).Select(v => v.Trim()).ToList();
-        var validationResult = values.Where(s => !IsValidValue(s)).Select(
-            s => new HeaderValidation(HeaderValidationSeverityLevel.Error, $"The value '{s}' is not a valid directive.")).ToList();
-
-        options.Preload = values.Any(v => v.Equals("preload", StringComparison.OrdinalIgnoreCase));
-        options.IncludeSubDomains = values.Any(v => v.Equals("includeSubDomains", StringComparison.OrdinalIgnoreCase));
-
-        // check max age
-        var maxAgeValueMatch = MaxAgeRegex.Match(headerValue);
-        if (!maxAgeValueMatch.Success)
-        {
-            validationResult.Add(new HeaderValidation(HeaderValidationSeverityLevel.Error, $"The {MaxAge} value is missing."));
-        }
-        else
-        {
-            options.MaxAge = long.Parse(maxAgeValueMatch.Groups[1].Value);
-            validationResult.AddRange(Validate(options).ValidationResults);
-        }
-
-        return new HeaderValidationResult(validationResult).ClearOptionsWhenInvalid(ref options);
+        var result = Validate(options);
+        return new HeaderValidationResult(result.ValidationResults).ClearOptionsWhenInvalid(ref options);
     }
 
     public HeaderValidationResult Validate(StrictTransportSecurityHeaderOptions options)
@@ -70,13 +66,5 @@ public sealed class StrictTransportSecurityHeaderValidator : IHeaderValidator<St
         }
 
         return new HeaderValidationResult(validationResult);
-    }
-
-    private static bool IsValidValue(string s)
-    {
-        return s.StartsWith($"{MaxAge}=", StringComparison.OrdinalIgnoreCase) ||
-               s.Equals("includeSubDomains", StringComparison.OrdinalIgnoreCase) || s.Equals(
-                   "preload",
-                   StringComparison.OrdinalIgnoreCase);
     }
 }
