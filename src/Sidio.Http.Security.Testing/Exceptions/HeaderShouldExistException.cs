@@ -1,6 +1,6 @@
-﻿namespace Sidio.Http.Security.Testing;
+﻿namespace Sidio.Http.Security.Testing.Exceptions;
 
-internal sealed class HeaderShouldExistException : Exception
+public sealed class HeaderShouldExistException : Exception
 {
     public HeaderShouldExistException(string headerName)
         : base($"Expected header '{headerName}' to be present, but was not found.")

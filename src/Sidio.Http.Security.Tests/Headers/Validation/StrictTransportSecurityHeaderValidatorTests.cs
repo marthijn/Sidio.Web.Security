@@ -22,8 +22,8 @@ public sealed class StrictTransportSecurityHeaderValidatorTests : HeaderValidato
         result.IsValid.Should().BeTrue();
         options.Should().NotBeNull();
         options!.MaxAge.Should().Be(maxAge);
-        options!.IncludeSubDomains.Should().Be(includeSubDomains);
-        options!.Preload.Should().Be(preload);
+        options.IncludeSubDomains.Should().Be(includeSubDomains);
+        options.Preload.Should().Be(preload);
     }
 
     [Fact]
@@ -57,5 +57,47 @@ public sealed class StrictTransportSecurityHeaderValidatorTests : HeaderValidato
         // assert
         result.IsValid.Should().BeFalse();
         options.Should().BeNull();
+    }
+
+    [Theory]
+    [InlineData(0, false, false)]
+    [InlineData(1, false, false)]
+    [InlineData(31536000, true, false)]
+    [InlineData(31536000, true, true)]
+    public void Validate_FromOptions_ShouldReturnValidResult(long maxAge, bool includeSubDomains, bool preload)
+    {
+        // arrange
+        var options = new StrictTransportSecurityHeaderOptions
+        {
+            MaxAge = maxAge,
+            IncludeSubDomains = includeSubDomains,
+            Preload = preload,
+        };
+
+        // act
+        var result = Validator.Validate(options);
+
+        // assert
+        result.IsValid.Should().BeTrue();
+    }
+
+    [Theory]
+    [InlineData(31535999, true, true)]
+    [InlineData(-1, false, false)]
+    public void Validate_FromOptions_ShouldReturnInvalidResult(long maxAge, bool includeSubDomains, bool preload)
+    {
+        // arrange
+        var options = new StrictTransportSecurityHeaderOptions
+        {
+            MaxAge = maxAge,
+            IncludeSubDomains = includeSubDomains,
+            Preload = preload,
+        };
+
+        // act
+        var result = Validator.Validate(options);
+
+        // assert
+        result.IsValid.Should().BeFalse();
     }
 }

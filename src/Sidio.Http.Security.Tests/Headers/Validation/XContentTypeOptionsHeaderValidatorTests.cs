@@ -36,4 +36,14 @@ public sealed class XContentTypeOptionsHeaderValidatorTests : HeaderValidatorTes
         result.IsValid.Should().BeFalse();
         options.Should().BeNull();
     }
+
+    [Fact]
+    public void Validate_FromOptions_ShouldReturnValidResult()
+    {
+        // act
+        var result = Validator.Validate(new XContentTypeOptionsHeaderOptions());
+
+        // assert
+        result.IsValid.Should().BeTrue();
+    }
 }

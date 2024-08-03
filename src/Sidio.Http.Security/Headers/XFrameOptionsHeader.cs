@@ -32,5 +32,6 @@ public sealed class XFrameOptionsHeader : ValidatableHttpHeader<XFrameOptionsHea
     /// <inheritdoc />
     public override string Name => HeaderName;
 
+    /// <inheritdoc />
     protected override IHeaderValidator<XFrameOptionsHeaderOptions> Validator => new XFrameOptionsHeaderValidator();
 }

@@ -28,8 +28,10 @@ public sealed class StrictTransportSecurityHeader : ValidatableHttpHeader<Strict
     {
     }
 
+    /// <inheritdoc />
     public override string Name => HeaderName;
 
+    /// <inheritdoc />
     protected override IHeaderValidator<StrictTransportSecurityHeaderOptions> Validator =>
         new StrictTransportSecurityHeaderValidator();
 }

@@ -42,4 +42,14 @@ public sealed class XFrameOptionsHeaderValidatorTests : HeaderValidatorTests<XFr
         // assert
         result.IsValid.Should().BeFalse();
     }
+
+    [Fact]
+    public void Validate_FromOptions_ShouldReturnValidResult()
+    {
+        // act
+        var result = Validator.Validate(new XFrameOptionsHeaderOptions());
+
+        // assert
+        result.IsValid.Should().BeTrue();
+    }
 }

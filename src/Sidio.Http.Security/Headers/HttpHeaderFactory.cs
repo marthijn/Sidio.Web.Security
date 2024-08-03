@@ -3,6 +3,9 @@ using Sidio.Http.Security.Headers.Validation;
 
 namespace Sidio.Http.Security.Headers;
 
+/// <summary>
+/// The HTTP header factory.
+/// </summary>
 public static class HttpHeaderFactory
 {
     /// <summary>
@@ -10,7 +13,7 @@ public static class HttpHeaderFactory
     /// </summary>
     /// <param name="value">The value.</param>
     /// <typeparam name="T">The header type.</typeparam>
-    /// <returns></returns>
+    /// <returns>An HTTP header of type <see cref="T"/>.</returns>
     /// <exception cref="InvalidHeaderException">Thrown when the header value is invalid.</exception>
     public static T Create<T>(string? value)
         where T : HttpHeader
@@ -31,7 +34,7 @@ public static class HttpHeaderFactory
     /// </summary>
     /// <param name="options">The options.</param>
     /// <typeparam name="T">The header type.</typeparam>
-    /// <returns></returns>
+    /// <returns>An HTTP header of type <see cref="T"/>.</returns>
     /// <exception cref="InvalidHeaderException">Thrown when the header value is invalid.</exception>
     public static T Create<T>(IHttpHeaderOptions options)
         where T : HttpHeader =>

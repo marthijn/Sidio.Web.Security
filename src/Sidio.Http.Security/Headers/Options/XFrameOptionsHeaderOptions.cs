@@ -1,6 +1,4 @@
-﻿using Sidio.Http.Security.Headers.Validation;
-
-namespace Sidio.Http.Security.Headers.Options;
+﻿namespace Sidio.Http.Security.Headers.Options;
 
 /// <summary>
 /// The X-Frame-Options header options.
@@ -42,61 +40,5 @@ public sealed class XFrameOptionsHeaderOptions : IHttpHeaderOptions
         /// The page can only be displayed in a frame on the same origin as the page itself.
         /// </summary>
         SameOrigin,
-    }
-
-#if NETSTANDARD2_0
-    public static bool TryCreate(
-        string? headerValue,
-        out XFrameOptionsHeaderOptions? options,
-        out HeaderValidationResult headerValidationResult)
-#else
-    public static bool TryCreate(
-        string? headerValue,
-        [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out XFrameOptionsHeaderOptions? options,
-        out HeaderValidationResult headerValidationResult)
-#endif
-    {
-        if (headerValue.IsNullOrWhiteSpace(out var validations))
-        {
-            options = null;
-            headerValidationResult = new HeaderValidationResult(validations);
-            return headerValidationResult.IsValid;
-        }
-
-        if (headerValue.StartsWith(XFrameOptionsHeader.AllowFrom, StringComparison.OrdinalIgnoreCase))
-        {
-            options = null;
-            headerValidationResult = new HeaderValidationResult(
-                new[]
-                {
-                    new HeaderValidation(
-                        HeaderValidationSeverityLevel.Error,
-                        $"The {XFrameOptionsHeader.AllowFrom} directive is is deprecated. Use the Content-Security-Policy with the frame-ancestors directive.")
-                });
-            return headerValidationResult.IsValid;
-        }
-
-        if (!XFrameOptionsHeader.AllowedValues.Contains(headerValue, StringComparer.OrdinalIgnoreCase))
-        {
-            options = null;
-            headerValidationResult = new HeaderValidationResult(
-                new[]
-                {
-                    new HeaderValidation(
-                        HeaderValidationSeverityLevel.Error,
-                        $"The header value must be one of the following: {string.Join(", ", XFrameOptionsHeader.AllowedValues)}.")
-                });
-            return headerValidationResult.IsValid;
-        }
-
-        options = new XFrameOptionsHeaderOptions
-        {
-            Directive = headerValue.Equals(XFrameOptionsHeader.Deny, StringComparison.OrdinalIgnoreCase)
-                ? XFrameOptionsDirective.Deny
-                : XFrameOptionsDirective.SameOrigin
-        };
-
-        headerValidationResult = new HeaderValidationResult([]);
-        return headerValidationResult.IsValid;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Headers;
 using Sidio.Http.Security.Headers;
+using Sidio.Http.Security.Testing.Exceptions;
 
 namespace Sidio.Http.Security.Testing;
 

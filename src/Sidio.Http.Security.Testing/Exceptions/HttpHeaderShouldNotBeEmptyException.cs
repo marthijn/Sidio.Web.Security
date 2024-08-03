@@ -1,8 +1,8 @@
 ﻿using Sidio.Http.Security.Headers;
 
-namespace Sidio.Http.Security.Testing;
+namespace Sidio.Http.Security.Testing.Exceptions;
 
-internal sealed class HttpHeaderShouldNotBeEmptyException : Exception
+public sealed class HttpHeaderShouldNotBeEmptyException : Exception
 {
     public HttpHeaderShouldNotBeEmptyException(HttpHeader header) : base(
         $"The header '{header.Name}' should not be empty.")

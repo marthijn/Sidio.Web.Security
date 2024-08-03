@@ -1,8 +1,8 @@
 ﻿using Sidio.Http.Security.Headers;
 
-namespace Sidio.Http.Security.Testing;
+namespace Sidio.Http.Security.Testing.Exceptions;
 
-internal sealed class HttpHeaderShouldHaveValueException : Exception
+public sealed class HttpHeaderShouldHaveValueException : Exception
 {
     public HttpHeaderShouldHaveValueException(HttpHeader header, string expectedValue)
         : base($"The header '{header.Name}' was expected to have the value '{expectedValue}' but was '{header.Value}'.")
