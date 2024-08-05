@@ -5,7 +5,6 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LangVersion>Latest</LangVersion>
-        <DevelopmentDependency>true</DevelopmentDependency>
     </PropertyGroup>
 
     <ItemGroup>
