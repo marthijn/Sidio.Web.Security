@@ -51,7 +51,7 @@ public sealed class XXssProtectionHeaderValidator : IHeaderValidator<XXssProtect
                     {
                         new HeaderValidation(
                             HeaderValidationSeverityLevel.Error,
-                            "When the block directive is set to true, the report directive must not be set.")
+                            "When the block directive is set to true, the report directive must not be set. And vice versa.")
                     });
             }
         }
