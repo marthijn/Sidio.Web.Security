@@ -6,26 +6,30 @@
 public abstract class SrcBuilderBase<T> : ISrcBuilder
     where T : class, ISrcBuilder
 {
-    internal readonly HashSet<string> Sources = new();
+    protected readonly HashSet<string> Sources = new();
+
+    protected T This => this as T ?? throw new InvalidOperationException();
+
+    internal IReadOnlyCollection<string> SourcesInternal => Sources;
 
     /// <summary>
     /// Add the 'self' source to the directive.
     /// </summary>
     /// <returns></returns>
-    public SrcBuilderBase<T> AllowSelf()
+    public T AllowSelf()
     {
         Sources.Add("'self'");
-        return this;
+        return This;
     }
 
     /// <summary>
     /// Add the wildcard source to the directive.
     /// </summary>
     /// <returns></returns>
-    public SrcBuilderBase<T> AllowAll()
+    public T AllowAll()
     {
         Sources.Add("*");
-        return this;
+        return This;
     }
 
     /// <summary>
@@ -33,7 +37,7 @@ public abstract class SrcBuilderBase<T> : ISrcBuilder
     /// </summary>
     /// <param name="url"></param>
     /// <returns></returns>
-    public SrcBuilderBase<T> AllowUrl(string url)
+    public T AllowUrl(string url)
     {
         if (string.IsNullOrWhiteSpace(url))
         {
@@ -41,97 +45,107 @@ public abstract class SrcBuilderBase<T> : ISrcBuilder
         }
 
         Sources.Add(url);
-        return this;
+        return This;
     }
 
     /// <summary>
     /// Add the 'none' source to the directive.
     /// </summary>
     /// <returns></returns>
-    public SrcBuilderBase<T> AllowNone()
+    public T AllowNone()
     {
         Sources.Add("'none'");
-        return this;
+        return This;
     }
 
     /// <summary>
     /// Add the 'data:' to the directive.
     /// </summary>
     /// <returns></returns>
-    public SrcBuilderBase<T> AllowData()
+    public T AllowData()
     {
         Sources.Add("data:");
-        return this;
+        return This;
     }
 
     /// <summary>
     /// Adds the 'unsafe-inline' to the directive.
     /// </summary>
     /// <returns></returns>
-    public SrcBuilderBase<T> AllowUnsafeInline()
+    public T AllowUnsafeInline()
     {
         Sources.Add("'unsafe-inline'");
-        return this;
+        return This;
     }
 
     /// <summary>
     /// Adds the 'https:' to the directives.
     /// </summary>
     /// <returns></returns>
-    public SrcBuilderBase<T> AllowHttp()
+    public T AllowHttp()
     {
         Sources.Add("http:");
-        return this;
+        return This;
     }
 
     /// <summary>
     /// Adds the 'https:' to the directives.
     /// </summary>
     /// <returns></returns>
-    public SrcBuilderBase<T> AllowHttps()
+    public T AllowHttps()
     {
         Sources.Add("https:");
-        return this;
+        return This;
     }
 
     /// <summary>
     /// Adds the 'mediastream:' to the directives.
     /// </summary>
     /// <returns></returns>
-    public SrcBuilderBase<T> AllowMediaStream()
+    public T AllowMediaStream()
     {
         Sources.Add("mediastream:");
-        return this;
+        return This;
     }
 
     /// <summary>
     /// Adds the 'blob:' to the directives.
     /// </summary>
     /// <returns></returns>
-    public SrcBuilderBase<T> AllowBlob()
+    public T AllowBlob()
     {
         Sources.Add("blob:");
-        return this;
+        return This;
     }
 
     /// <summary>
     /// Adds the 'filesystem:' to the directives.
     /// </summary>
     /// <returns></returns>
-    public SrcBuilderBase<T> AllowFileSystem()
+    public T AllowFileSystem()
     {
         Sources.Add("filesystem:");
-        return this;
+        return This;
     }
 
     /// <summary>
     /// Adds the 'report-sample' to the directives.
     /// </summary>
     /// <returns></returns>
-    public SrcBuilderBase<T> ShouldReportSample()
+    public T ShouldReportSample()
     {
         Sources.Add("'report-sample'");
-        return this;
+        return This;
+    }
+
+    /// <summary>
+    /// Adds the 'allow-duplicates' to the directives.
+    /// </summary>
+    /// <returns></returns>
+    public T AllowDuplicates()
+    {
+        Sources.Add("'allow-duplicates'");
+        return This;
     }
 
     /// <inheritdoc />

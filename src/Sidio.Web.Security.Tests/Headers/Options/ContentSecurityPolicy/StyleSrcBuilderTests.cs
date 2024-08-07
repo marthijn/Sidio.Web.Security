@@ -2,6 +2,4 @@
 
 namespace Sidio.Web.Security.Tests.Headers.Options.ContentSecurityPolicy;
 
-public sealed class StyleSrcBuilderTests : NonceSrcBuilderTests<StyleSrcBuilder>
-{
-}
+public sealed class StyleSrcBuilderTests : NonceSrcBuilderTests<StyleSrcBuilder>;

@@ -21,7 +21,7 @@ public abstract class SrcBuilderBaseTests<T>
         var result = Builder.AllowSelf();
 
         // assert
-        result.Sources.Should().ContainSingle("'self'");
+        result.SourcesInternal.Should().ContainSingle("'self'");
         result.Should().BeSameAs(Builder);
     }
 
@@ -32,7 +32,7 @@ public abstract class SrcBuilderBaseTests<T>
         var result = Builder.AllowAll();
 
         // assert
-        result.Sources.Should().ContainSingle("*");
+        result.SourcesInternal.Should().ContainSingle("*");
         result.Should().BeSameAs(Builder);
     }
 
@@ -46,7 +46,7 @@ public abstract class SrcBuilderBaseTests<T>
         var result = Builder.AllowUrl(url);
 
         // assert
-        result.Sources.Should().ContainSingle(url);
+        result.SourcesInternal.Should().ContainSingle(url);
         result.Should().BeSameAs(Builder);
     }
 
@@ -70,7 +70,7 @@ public abstract class SrcBuilderBaseTests<T>
         var result = Builder.AllowNone();
 
         // assert
-        result.Sources.Should().ContainSingle("'none'");
+        result.SourcesInternal.Should().ContainSingle("'none'");
         result.Should().BeSameAs(Builder);
     }
 
@@ -81,7 +81,7 @@ public abstract class SrcBuilderBaseTests<T>
         var result = Builder.AllowData();
 
         // assert
-        result.Sources.Should().ContainSingle("data:");
+        result.SourcesInternal.Should().ContainSingle("data:");
         result.Should().BeSameAs(Builder);
     }
 
@@ -92,7 +92,7 @@ public abstract class SrcBuilderBaseTests<T>
         var result = Builder.AllowUnsafeInline();
 
         // assert
-        result.Sources.Should().ContainSingle("'unsafe-inline'");
+        result.SourcesInternal.Should().ContainSingle("'unsafe-inline'");
         result.Should().BeSameAs(Builder);
     }
 
@@ -103,7 +103,7 @@ public abstract class SrcBuilderBaseTests<T>
         var result = Builder.AllowHttp();
 
         // assert
-        result.Sources.Should().ContainSingle("http:");
+        result.SourcesInternal.Should().ContainSingle("http:");
         result.Should().BeSameAs(Builder);
     }
 
@@ -114,7 +114,7 @@ public abstract class SrcBuilderBaseTests<T>
         var result = Builder.AllowHttps();
 
         // assert
-        result.Sources.Should().ContainSingle("https:");
+        result.SourcesInternal.Should().ContainSingle("https:");
         result.Should().BeSameAs(Builder);
     }
 
@@ -125,7 +125,7 @@ public abstract class SrcBuilderBaseTests<T>
         var result = Builder.AllowMediaStream();
 
         // assert
-        result.Sources.Should().ContainSingle("mediastream:");
+        result.SourcesInternal.Should().ContainSingle("mediastream:");
         result.Should().BeSameAs(Builder);
     }
 
@@ -136,7 +136,7 @@ public abstract class SrcBuilderBaseTests<T>
         var result = Builder.AllowBlob();
 
         // assert
-        result.Sources.Should().ContainSingle("blob:");
+        result.SourcesInternal.Should().ContainSingle("blob:");
         result.Should().BeSameAs(Builder);
     }
 
@@ -147,7 +147,7 @@ public abstract class SrcBuilderBaseTests<T>
         var result = Builder.AllowFileSystem();
 
         // assert
-        result.Sources.Should().ContainSingle("filesystem:");
+        result.SourcesInternal.Should().ContainSingle("filesystem:");
         result.Should().BeSameAs(Builder);
     }
 
@@ -158,7 +158,18 @@ public abstract class SrcBuilderBaseTests<T>
         var result = Builder.ShouldReportSample();
 
         // assert
-        result.Sources.Should().ContainSingle("'report-sample'");
+        result.SourcesInternal.Should().ContainSingle("'report-sample'");
+        result.Should().BeSameAs(Builder);
+    }
+
+    [Fact]
+    public void AllowDuplicates_DirectiveShouldExist()
+    {
+        // act
+        var result = Builder.AllowDuplicates();
+
+        // assert
+        result.SourcesInternal.Should().ContainSingle("'allow-duplicates'");
         result.Should().BeSameAs(Builder);
     }
 

@@ -1,5 +1,9 @@
 ﻿namespace Sidio.Web.Security.Headers.Options.ContentSecurityPolicy;
 
+/// <summary>
+/// The nonce builder for the Content Security Policy directive 'src'.
+/// </summary>
+/// <typeparam name="T"></typeparam>
 public abstract class NonceSrcBuilder<T> : SrcBuilderBase<T>
     where T : class, ISrcBuilder
 {
@@ -8,15 +12,15 @@ public abstract class NonceSrcBuilder<T> : SrcBuilderBase<T>
     /// The nonce should be a secure random base64 string, and should not be reused.
     /// </summary>
     /// <returns></returns>
-    public NonceSrcBuilder<T> AddNonce(string nonce)
+    public T AddNonce(string nonce)
     {
         if (string.IsNullOrWhiteSpace(nonce))
         {
             throw new ArgumentException("The nonce should not be null or empty.", nameof(nonce));
         }
 
-        Sources.Add($"nonce-{nonce}");
-        return this;
+        Sources.Add($"'nonce-{nonce}'");
+        return This;
     }
 
     /// <summary>
@@ -24,7 +28,7 @@ public abstract class NonceSrcBuilder<T> : SrcBuilderBase<T>
     /// </summary>
     /// <param name="sha256">The hash as base64.</param>
     /// <returns>The <see cref="NonceSrcBuilder{T}"/>.</returns>
-    public NonceSrcBuilder<T> AddSha256(string sha256)
+    public T AddSha256(string sha256)
     {
         if (string.IsNullOrWhiteSpace(sha256))
         {
@@ -32,7 +36,7 @@ public abstract class NonceSrcBuilder<T> : SrcBuilderBase<T>
         }
 
         Sources.Add($"'sha256-{sha256}'");
-        return this;
+        return This;
     }
 
     /// <summary>
@@ -40,7 +44,7 @@ public abstract class NonceSrcBuilder<T> : SrcBuilderBase<T>
     /// </summary>
     /// <param name="sha384">The hash as base64.</param>
     /// <returns>The <see cref="NonceSrcBuilder{T}"/>.</returns>
-    public NonceSrcBuilder<T> AddSha384(string sha384)
+    public T AddSha384(string sha384)
     {
         if (string.IsNullOrWhiteSpace(sha384))
         {
@@ -48,7 +52,7 @@ public abstract class NonceSrcBuilder<T> : SrcBuilderBase<T>
         }
 
         Sources.Add($"'sha384-{sha384}'");
-        return this;
+        return This;
     }
 
     /// <summary>
@@ -56,7 +60,7 @@ public abstract class NonceSrcBuilder<T> : SrcBuilderBase<T>
     /// </summary>
     /// <param name="sha512">The hash as base64.</param>
     /// <returns>The <see cref="NonceSrcBuilder{T}"/>.</returns>
-    public NonceSrcBuilder<T> AddSha512(string sha512)
+    public T AddSha512(string sha512)
     {
         if (string.IsNullOrWhiteSpace(sha512))
         {
@@ -64,6 +68,6 @@ public abstract class NonceSrcBuilder<T> : SrcBuilderBase<T>
         }
 
         Sources.Add($"'sha512-{sha512}'");
-        return this;
+        return This;
     }
 }

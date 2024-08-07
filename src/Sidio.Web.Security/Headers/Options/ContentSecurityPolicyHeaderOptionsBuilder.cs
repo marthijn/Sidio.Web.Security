@@ -2,6 +2,9 @@
 
 namespace Sidio.Web.Security.Headers.Options;
 
+/// <summary>
+/// The builder for the Content Security Policy header options.
+/// </summary>
 public sealed class ContentSecurityPolicyHeaderOptionsBuilder
 {
     private readonly ContentSecurityPolicyHeaderOptions _options = new();
@@ -28,11 +31,43 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
         return this;
     }
 
+    public ContentSecurityPolicyHeaderOptionsBuilder AddScriptSrcAttr(Func<ScriptSrcBuilder, ScriptSrcBuilder> builder)
+    {
+        var srcBuilder = new ScriptSrcBuilder();
+        var result = builder.Invoke(srcBuilder);
+        _options.ScriptSrcAttr = result.ToString();
+        return this;
+    }
+
+    public ContentSecurityPolicyHeaderOptionsBuilder AddScriptSrcElem(Func<ScriptSrcBuilder, ScriptSrcBuilder> builder)
+    {
+        var srcBuilder = new ScriptSrcBuilder();
+        var result = builder.Invoke(srcBuilder);
+        _options.ScriptSrcElem = result.ToString();
+        return this;
+    }
+
     public ContentSecurityPolicyHeaderOptionsBuilder AddStyleSrc(Func<StyleSrcBuilder, StyleSrcBuilder> builder)
     {
         var srcBuilder = new StyleSrcBuilder();
         var result = builder.Invoke(srcBuilder);
         _options.StyleSrc = result.ToString();
+        return this;
+    }
+
+    public ContentSecurityPolicyHeaderOptionsBuilder AddStyleSrcAttr(Func<StyleSrcBuilder, StyleSrcBuilder> builder)
+    {
+        var srcBuilder = new StyleSrcBuilder();
+        var result = builder.Invoke(srcBuilder);
+        _options.StyleSrcAttr = result.ToString();
+        return this;
+    }
+
+    public ContentSecurityPolicyHeaderOptionsBuilder AddStyleSrcElem(Func<StyleSrcBuilder, StyleSrcBuilder> builder)
+    {
+        var srcBuilder = new StyleSrcBuilder();
+        var result = builder.Invoke(srcBuilder);
+        _options.StyleSrcElem = result.ToString();
         return this;
     }
 
@@ -134,7 +169,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
     {
         var srcBuilder = new SrcBuilder();
         var result = builder.Invoke(srcBuilder);
-        _options.PrefetchSrc = builder.ToString();
+        _options.PrefetchSrc = result.ToString();
         return this;
     }
 
@@ -146,33 +181,43 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
         return this;
     }
 
-    public ContentSecurityPolicyHeaderOptionsBuilder AddSandbox()
+    public ContentSecurityPolicyHeaderOptionsBuilder AddSandbox(string? value = null)
     {
+        _options.Sandbox = value ?? string.Empty;
         return this;
     }
 
     [Obsolete("This feature is no longer recommended, use report-to instead.")]
-    public ContentSecurityPolicyHeaderOptionsBuilder AddReportUri(string uri)
+    public ContentSecurityPolicyHeaderOptionsBuilder AddReportUri(params string[] uris)
     {
-        _options.ReportUri = uri;
+        if (uris.Length == 0)
+        {
+            throw new ArgumentException("At least one URI should be provided.", nameof(uris));
+        }
+
+        _options.ReportUri = string.Join(" ", uris).Trim();;
         return this;
     }
 
-    public ContentSecurityPolicyHeaderOptionsBuilder SetFrameAncestors(string value = "'none'")
+    public ContentSecurityPolicyHeaderOptionsBuilder SetFrameAncestors(params string[] sources)
     {
-        _options.FrameAncestors = value;
+        if (sources.Length == 0)
+        {
+            throw new ArgumentException("At least one source should be provided.", nameof(sources));
+        }
+
+        _options.FrameAncestors = string.Join(" ", sources).Trim();
         return this;
     }
 
-    public ContentSecurityPolicyHeaderOptionsBuilder AddPluginTypes(string value)
+    public ContentSecurityPolicyHeaderOptionsBuilder AddReportTo(string groupName)
     {
-        _options.PluginTypes = value;
-        return this;
-    }
+        if (string.IsNullOrWhiteSpace(groupName))
+        {
+            throw new ArgumentException("The group name should not be null or empty.", nameof(groupName));
+        }
 
-    public ContentSecurityPolicyHeaderOptionsBuilder AddReportTo(string group)
-    {
-        _options.ReportTo = group;
+        _options.ReportTo = groupName;
         return this;
     }
 
@@ -186,8 +231,31 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
         return this;
     }
 
-    public ContentSecurityPolicyHeaderOptionsBuilder TrustedTypes()
+    public ContentSecurityPolicyHeaderOptionsBuilder AddTrustedTypes(bool allowDuplicates = false, params string[] policyNames)
     {
+        _options.TrustedTypes = string.Empty;
+        if (policyNames.Length > 0)
+        {
+            _options.TrustedTypes = string.Join(" ", policyNames);
+        }
+
+        if (allowDuplicates)
+        {
+            _options.TrustedTypes += " 'allow-duplicates'";
+        }
+
+        _options.TrustedTypes = _options.TrustedTypes.Trim();
+        return this;
+    }
+
+    /// <summary>
+    /// Instructs user agents to treat all of a site's insecure URLs (those served over HTTP) as though they have
+    /// been replaced with secure URLs (those served over HTTPS)
+    /// </summary>
+    /// <returns></returns>
+    public ContentSecurityPolicyHeaderOptionsBuilder UpgradeInsecureRequests()
+    {
+        _options.UpgradeInsecureRequests = true;
         return this;
     }
 

@@ -43,7 +43,11 @@ public sealed partial class ContentSecurityPolicyHeaderValidator : IHeaderValida
         // src
         options.DefaultSrc = GetDirectiveValue(Directives.DefaultSrc, headerValue);
         options.ScriptSrc = GetDirectiveValue(Directives.ScriptSrc, headerValue);
+        options.ScriptSrcAttr = GetDirectiveValue(Directives.ScriptSrcAttr, headerValue);
+        options.ScriptSrcElem = GetDirectiveValue(Directives.ScriptSrcElem, headerValue);
         options.StyleSrc = GetDirectiveValue(Directives.StyleSrc, headerValue);
+        options.StyleSrcAttr = GetDirectiveValue(Directives.StyleSrcAttr, headerValue);
+        options.StyleSrcElem = GetDirectiveValue(Directives.StyleSrcElem, headerValue);
         options.ImgSrc = GetDirectiveValue(Directives.ImgSrc, headerValue);
         options.PrefetchSrc = GetDirectiveValue(Directives.PrefetchSrc, headerValue);
         options.ConnectSrc = GetDirectiveValue(Directives.ConnectSrc, headerValue);
@@ -60,9 +64,12 @@ public sealed partial class ContentSecurityPolicyHeaderValidator : IHeaderValida
         options.FencedFrameSrc = GetDirectiveValue(Directives.FencedFrameSrc, headerValue);
 
         // other
-        options.Sandbox = GetDirectiveValue(Directives.Sandbox, headerValue);
+        options.Sandbox = GetDirectiveValue(Directives.Sandbox, headerValue) ??
+                          (GetDirectiveBoolValue(Directives.Sandbox, headerValue) ? string.Empty : null);
         options.ReportTo = GetDirectiveValue(Directives.ReportTo, headerValue);
-        options.PluginTypes = GetDirectiveValue(Directives.PluginTypes, headerValue);
+        options.RequireTrustedTypesFor = GetDirectiveValue(Directives.RequireTrustedTypesFor, headerValue);
+        options.TrustedTypes = GetDirectiveValue(Directives.TrustedTypes, headerValue) ??
+                               (GetDirectiveBoolValue(Directives.TrustedTypes, headerValue) ? string.Empty : null);
 
         // deprecated or unofficial
         options.ReportUri = GetDirectiveValue(Directives.ReportUri, headerValue);
@@ -134,14 +141,6 @@ public sealed partial class ContentSecurityPolicyHeaderValidator : IHeaderValida
                     "The block-all-mixed-content directive is not part of the CSP specification."));
         }
 
-        if (options.UpgradeInsecureRequests)
-        {
-            validationResult.Add(
-                new HeaderValidation(
-                    HeaderValidationSeverityLevel.Warning,
-                    "The upgrade-insecure-requests directive is not part of the CSP specification."));
-        }
-
         return validationResult;
     }
 
@@ -149,7 +148,7 @@ public sealed partial class ContentSecurityPolicyHeaderValidator : IHeaderValida
     {
         var validationResult = new List<HeaderValidation>();
 
-        if (!string.IsNullOrWhiteSpace(options.Sandbox) && !AllowedSandboxTokens.Contains(
+        if (options.Sandbox != null && !AllowedSandboxTokens.Contains(
                 options.Sandbox,
                 StringComparer.OrdinalIgnoreCase))
         {
@@ -165,14 +164,6 @@ public sealed partial class ContentSecurityPolicyHeaderValidator : IHeaderValida
                 new HeaderValidation(
                     HeaderValidationSeverityLevel.Error,
                     "The report-to header is empty or contains an invalid value."));
-        }
-
-        if (options.PluginTypes != null && !IsValidMimeType(options.PluginTypes))
-        {
-            validationResult.Add(
-                new HeaderValidation(
-                    HeaderValidationSeverityLevel.Error,
-                    "The plugin-types directive contains an invalid value."));
         }
 
         return validationResult;

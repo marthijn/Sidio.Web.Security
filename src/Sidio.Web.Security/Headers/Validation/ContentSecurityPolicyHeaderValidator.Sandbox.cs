@@ -4,6 +4,7 @@ public sealed partial class ContentSecurityPolicyHeaderValidator
 {
     internal static readonly string[] AllowedSandboxTokens =
     {
+        string.Empty,
         "allow-downloads",
         "allow-forms",
         "allow-modals",

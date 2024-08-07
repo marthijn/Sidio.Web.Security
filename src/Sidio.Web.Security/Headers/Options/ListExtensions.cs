@@ -16,7 +16,7 @@ internal static class ListExtensions
     {
         if (value != null && value.Value)
         {
-            list.Add($"{directive} {value}");
+            list.Add(directive);
         }
 
         return list;

@@ -1,12 +1,14 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Sidio.Web.Security.Headers.Options;
 
 namespace Sidio.Web.Security.Headers.Validation;
 
+/// <summary>
+/// The service that validates HTTP headers.
+/// </summary>
 public sealed class HeaderValidationService
 {
-    private static string[] RecommendedHeaders = new[]
+    private static readonly string[] RecommendedHeaders = new[]
     {
         ContentSecurityPolicyHeader.HeaderName,
         StrictTransportSecurityHeader.HeaderName,
@@ -14,7 +16,7 @@ public sealed class HeaderValidationService
         XFrameOptionsHeader.HeaderName,
     };
 
-    private static string[] DeprecatedHeaders = new[]
+    private static readonly string[] DeprecatedHeaders = new[]
     {
         XXssProtectionHeader.HeaderName
     };
@@ -28,6 +30,10 @@ public sealed class HeaderValidationService
         _logger = logger;
     }
 
+    /// <summary>
+    /// Validates the HTTP headers.
+    /// </summary>
+    /// <param name="httpHeaders">A dictionary of HTTP headers.</param>
     public void Validate(IDictionary<string, IEnumerable<string?>> httpHeaders)
     {
         if (_options.ValidateRecommendedHeadersArePresent)

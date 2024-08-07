@@ -1,12 +1,13 @@
 # Sidio.Web.Security
 
 # Goal of this project
-The goal of this project is to provide a set of classes that can be used to secure an ASP.NET Core application.
-The classes are based on the [Mozilla Web Security Guidelines](https://infosec.mozilla.org/guidelines/web_security).
+The goal of this project is to provide a set of functions that can be used to secure an ASP.NET Core application.
+The functions are based on the [Mozilla Web Security Guidelines](https://infosec.mozilla.org/guidelines/web_security).
 
 The library is currently in preview and is not yet ready for production use.
 
-## Headers
+## HTTP headers
+- Content-Security-Policy: [Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy)
 - X-Content-Type-Options: [Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options)
 - X-Frame-Options: [Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options)
 

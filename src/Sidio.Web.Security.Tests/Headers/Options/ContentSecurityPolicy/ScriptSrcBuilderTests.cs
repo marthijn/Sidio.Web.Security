@@ -5,13 +5,13 @@ namespace Sidio.Web.Security.Tests.Headers.Options.ContentSecurityPolicy;
 public sealed class ScriptSrcBuilderTests : NonceSrcBuilderTests<ScriptSrcBuilder>
 {
     [Fact]
-    public void AllowScriptDynamic_DirectiveShouldExist()
+    public void AllowStrictDynamic_DirectiveShouldExist()
     {
         // act
-        var result = Builder.AllowScriptDynamic();
+        var result = Builder.AllowStrictDynamic();
 
         // assert
-        result.Sources.Should().ContainSingle("'script-dynamic'");
+        result.SourcesInternal.Should().OnlyContain(x => x == "'strict-dynamic'");
         result.Should().BeSameAs(Builder);
     }
 
@@ -22,7 +22,7 @@ public sealed class ScriptSrcBuilderTests : NonceSrcBuilderTests<ScriptSrcBuilde
         var result = Builder.AllowUnsafeEval();
 
         // assert
-        result.Sources.Should().ContainSingle("'unsafe-eval'");
+        result.SourcesInternal.Should().OnlyContain(x => x == "'unsafe-eval'");
         result.Should().BeSameAs(Builder);
     }
 
@@ -33,7 +33,7 @@ public sealed class ScriptSrcBuilderTests : NonceSrcBuilderTests<ScriptSrcBuilde
         var result = Builder.AllowUnsafeHashes();
 
         // assert
-        result.Sources.Should().ContainSingle("'unsafe-hashes'");
+        result.SourcesInternal.Should().OnlyContain(x => x == "'unsafe-hashes'");
         result.Should().BeSameAs(Builder);
     }
 
@@ -41,10 +41,10 @@ public sealed class ScriptSrcBuilderTests : NonceSrcBuilderTests<ScriptSrcBuilde
     public void AllowInlineSpeculationRules_DirectiveShouldExist()
     {
         // act
-        var result = Builder.AllowUnsafeHashes();
+        var result = Builder.AllowInlineSpeculationRules();
 
         // assert
-        result.Sources.Should().ContainSingle("'inline-speculation-rules'");
+        result.SourcesInternal.Should().OnlyContain(x => x == "'inline-speculation-rules'");
         result.Should().BeSameAs(Builder);
     }
 }

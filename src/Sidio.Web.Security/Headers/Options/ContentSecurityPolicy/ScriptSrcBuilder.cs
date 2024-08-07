@@ -1,12 +1,15 @@
 ﻿namespace Sidio.Web.Security.Headers.Options.ContentSecurityPolicy;
 
+/// <summary>
+/// The builder for the Content Security Policy directive 'script-src'.
+/// </summary>
 public sealed class ScriptSrcBuilder : NonceSrcBuilder<ScriptSrcBuilder>
 {
     /// <summary>
     /// Add the 'strict-dynamic' to the directive.
     /// </summary>
     /// <returns></returns>
-    public ScriptSrcBuilder AllowScriptDynamic()
+    public ScriptSrcBuilder AllowStrictDynamic()
     {
         Sources.Add("'strict-dynamic'");
         return this;

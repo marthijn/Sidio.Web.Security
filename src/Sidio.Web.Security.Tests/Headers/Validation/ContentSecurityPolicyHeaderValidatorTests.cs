@@ -7,12 +7,6 @@ namespace Sidio.Web.Security.Tests.Headers.Validation;
 
 public sealed class ContentSecurityPolicyHeaderValidatorTests : HeaderValidatorTests<ContentSecurityPolicyHeaderOptions>
 {
-#if NET6_0_OR_GREATER
-    private readonly Random _random = Random.Shared;
-#else
-    private readonly Random _random = new();
-#endif
-
     private readonly Fixture _fixture = new();
 
     protected override IHeaderValidator<ContentSecurityPolicyHeaderOptions> Validator =>
@@ -47,10 +41,6 @@ public sealed class ContentSecurityPolicyHeaderValidatorTests : HeaderValidatorT
         "navigate-to https://example.com",
         "https://example.com")]
     [InlineData(
-        nameof(ContentSecurityPolicyHeaderOptions.UpgradeInsecureRequests),
-        "upgrade-insecure-requests",
-        true)]
-    [InlineData(
         nameof(ContentSecurityPolicyHeaderOptions.BlockAllMixedContent),
         "block-all-mixed-content",
         true)]
@@ -71,19 +61,17 @@ public sealed class ContentSecurityPolicyHeaderValidatorTests : HeaderValidatorT
         propertyValue.Should().Be(expectedValue);
     }
 
-    [Fact]
-    public void Validate_GivenValidSandboxValue_ShouldReturnValidOptionsValue()
+    [Theory]
+    [ClassData(typeof(SandboxDataGenerator))]
+    public void Validate_GivenValidSandboxValue_ShouldReturnValidOptionsValue(string value)
     {
         // act
-        var randomSandboxValue = ContentSecurityPolicyHeaderValidator.AllowedSandboxTokens[_random.Next(
-            0,
-            ContentSecurityPolicyHeaderValidator.AllowedSandboxTokens.Length)];
-        var result = Validator.Validate($"sandbox {randomSandboxValue}", out var options);
+        var result = Validator.Validate($"sandbox {value}".Trim(), out var options);
 
         // assert
         result.IsValid.Should().BeTrue();
         options.Should().NotBeNull();
-        options!.Sandbox.Should().BeEquivalentTo(randomSandboxValue);
+        options!.Sandbox.Should().BeEquivalentTo(value);
     }
 
     [Fact]
@@ -121,31 +109,6 @@ public sealed class ContentSecurityPolicyHeaderValidatorTests : HeaderValidatorT
         options.Should().BeNull();
     }
 
-    [Fact]
-    public void Validate_GivenValidPluginTypesValue_ShouldReturnValidOptionsValue()
-    {
-        // act
-        const string MimeType = "application/pdf";
-        var result = Validator.Validate($"plugin-types {MimeType}", out var options);
-
-        // assert
-        result.IsValid.Should().BeTrue();
-        options.Should().NotBeNull();
-        options!.PluginTypes.Should().BeEquivalentTo(MimeType);
-    }
-
-    [Fact]
-    public void Validate_GivenInvalidPluginTypesValue_OptionsShouldBeNull()
-    {
-        // act
-        var result = Validator.Validate("plugin-types https://example.com", out var options);
-
-        // assert
-        result.IsValid.Should().BeFalse();
-        options.Should().BeNull();
-    }
-
-
     private sealed class DirectiveDataGenerator : IEnumerable<object[]>
     {
         private readonly List<object?[]> _data = new();
@@ -154,6 +117,11 @@ public sealed class ContentSecurityPolicyHeaderValidatorTests : HeaderValidatorT
         {
             AddDirective(nameof(ContentSecurityPolicyHeaderOptions.DefaultSrc), Directives.DefaultSrc);
             AddDirective(nameof(ContentSecurityPolicyHeaderOptions.ScriptSrc), Directives.ScriptSrc);
+            AddDirective(nameof(ContentSecurityPolicyHeaderOptions.ScriptSrcAttr), Directives.ScriptSrcAttr);
+            AddDirective(nameof(ContentSecurityPolicyHeaderOptions.ScriptSrcElem), Directives.ScriptSrcElem);
+            AddDirective(nameof(ContentSecurityPolicyHeaderOptions.StyleSrc), Directives.StyleSrc);
+            AddDirective(nameof(ContentSecurityPolicyHeaderOptions.StyleSrcAttr), Directives.StyleSrcAttr);
+            AddDirective(nameof(ContentSecurityPolicyHeaderOptions.StyleSrcElem), Directives.StyleSrcElem);
             AddDirective(nameof(ContentSecurityPolicyHeaderOptions.ImgSrc), Directives.ImgSrc);
             AddDirective(nameof(ContentSecurityPolicyHeaderOptions.ConnectSrc), Directives.ConnectSrc);
             AddDirective(nameof(ContentSecurityPolicyHeaderOptions.FontSrc), Directives.FontSrc);
@@ -187,6 +155,23 @@ public sealed class ContentSecurityPolicyHeaderValidatorTests : HeaderValidatorT
                 [propertyName, $"{directive} *", "*"],
                 [propertyName, $"{directive} data: blob:", "data: blob:"],
             ]);
+        }
+    }
+
+    private sealed class SandboxDataGenerator : IEnumerable<object[]>
+    {
+        private readonly List<object?[]> _data = new();
+
+        public SandboxDataGenerator()
+        {
+            _data.AddRange(
+                ContentSecurityPolicyHeaderValidator.AllowedSandboxTokens.Select(token => new object[] {token}));
+        }
+
+        public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
