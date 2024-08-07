@@ -1,4 +1,4 @@
-# Sidio.Http.Security
+# Sidio.Web.Security
 
 # Goal of this project
 The goal of this project is to provide a set of classes that can be used to secure an ASP.NET Core application.

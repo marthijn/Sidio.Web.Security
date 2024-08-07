@@ -1,0 +1,75 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sidio.Web.Security", "src\Sidio.Web.Security\Sidio.Web.Security.csproj", "{785B3838-EF31-4D99-B88F-0851B6C18B42}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{531E2A0A-AC4F-45B2-BDB1-34E0C6E00547}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{64849F87-5167-48C0-B1C2-D36C38B17240}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{B19F8ECB-1A0D-47CB-8C1C-5EABCD114BE9}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sidio.Web.Security.Tests", "src\Sidio.Web.Security.Tests\Sidio.Web.Security.Tests.csproj", "{29362024-EFE1-4BAD-A94A-4620BACABAA1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sidio.Web.Security.AspNetCore", "src\Sidio.Web.Security.AspNetCore\Sidio.Web.Security.AspNetCore.csproj", "{0176BD5B-16F4-41ED-99E2-04BF5AEDEACC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{0C3287AC-0DD7-40DE-A703-3B60CFACEE85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidio.Web.Security.Examples.AspNetCore", "src\Sidio.Web.Security.Examples.AspNetCore\Sidio.Web.Security.Examples.AspNetCore.csproj", "{69935459-0BA6-421B-9315-48AB25C7161B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidio.Web.Security.Examples.AspNetCore.Tests", "src\Sidio.Web.Security.Examples.AspNetCore.Tests\Sidio.Web.Security.Examples.AspNetCore.Tests.csproj", "{B042364C-505A-498D-A52D-8685CFB9292E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidio.Web.Security.Testing", "src\Sidio.Web.Security.Testing\Sidio.Web.Security.Testing.csproj", "{73ECF330-B42E-460B-9CEB-F642B5E1C1F0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{785B3838-EF31-4D99-B88F-0851B6C18B42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{785B3838-EF31-4D99-B88F-0851B6C18B42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{785B3838-EF31-4D99-B88F-0851B6C18B42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{785B3838-EF31-4D99-B88F-0851B6C18B42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29362024-EFE1-4BAD-A94A-4620BACABAA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29362024-EFE1-4BAD-A94A-4620BACABAA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29362024-EFE1-4BAD-A94A-4620BACABAA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29362024-EFE1-4BAD-A94A-4620BACABAA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0176BD5B-16F4-41ED-99E2-04BF5AEDEACC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0176BD5B-16F4-41ED-99E2-04BF5AEDEACC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0176BD5B-16F4-41ED-99E2-04BF5AEDEACC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0176BD5B-16F4-41ED-99E2-04BF5AEDEACC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69935459-0BA6-421B-9315-48AB25C7161B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69935459-0BA6-421B-9315-48AB25C7161B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69935459-0BA6-421B-9315-48AB25C7161B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69935459-0BA6-421B-9315-48AB25C7161B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B042364C-505A-498D-A52D-8685CFB9292E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B042364C-505A-498D-A52D-8685CFB9292E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B042364C-505A-498D-A52D-8685CFB9292E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B042364C-505A-498D-A52D-8685CFB9292E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73ECF330-B42E-460B-9CEB-F642B5E1C1F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73ECF330-B42E-460B-9CEB-F642B5E1C1F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73ECF330-B42E-460B-9CEB-F642B5E1C1F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73ECF330-B42E-460B-9CEB-F642B5E1C1F0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{785B3838-EF31-4D99-B88F-0851B6C18B42} = {531E2A0A-AC4F-45B2-BDB1-34E0C6E00547}
+		{29362024-EFE1-4BAD-A94A-4620BACABAA1} = {64849F87-5167-48C0-B1C2-D36C38B17240}
+		{0176BD5B-16F4-41ED-99E2-04BF5AEDEACC} = {531E2A0A-AC4F-45B2-BDB1-34E0C6E00547}
+		{69935459-0BA6-421B-9315-48AB25C7161B} = {0C3287AC-0DD7-40DE-A703-3B60CFACEE85}
+		{B042364C-505A-498D-A52D-8685CFB9292E} = {64849F87-5167-48C0-B1C2-D36C38B17240}
+		{73ECF330-B42E-460B-9CEB-F642B5E1C1F0} = {531E2A0A-AC4F-45B2-BDB1-34E0C6E00547}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {860E18DF-D5F3-4AD1-A39D-3F56FFDA0180}
+	EndGlobalSection
+EndGlobal
