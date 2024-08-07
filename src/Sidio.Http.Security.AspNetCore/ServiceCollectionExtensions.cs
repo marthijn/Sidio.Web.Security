@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Sidio.Http.Security.AspNetCore.ContentSecurityPolicy;
 
 namespace Sidio.Http.Security.AspNetCore;
 
@@ -12,4 +13,10 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<XFrameOptionsHeaderOptions>();
         return services;
     }*/
+
+    public static IServiceCollection AddContentSecurityPolicy(this IServiceCollection services)
+    {
+        services.AddScoped<INonceService, NonceService>();
+        return services;
+    }
 }

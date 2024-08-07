@@ -25,5 +25,6 @@ public sealed class ContentSecurityPolicyHeader : ValidatableHttpHeader<ContentS
     public override string Name => HeaderName;
 
     /// <inheritdoc />
-    protected override IHeaderValidator<ContentSecurityPolicyHeaderOptions> Validator { get; }
+    protected override IHeaderValidator<ContentSecurityPolicyHeaderOptions> Validator =>
+        new ContentSecurityPolicyHeaderValidator();
 }

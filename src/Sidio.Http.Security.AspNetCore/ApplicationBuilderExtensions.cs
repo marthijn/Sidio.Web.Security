@@ -34,4 +34,22 @@ public static class ApplicationBuilderExtensions
         app.UseMiddleware<StrictTransportSecurityMiddleware>(Options.Create(optionsValue));
         return app;
     }
+
+    public static IApplicationBuilder UseContentSecurityPolicy(this IApplicationBuilder app, ContentSecurityPolicyHeaderOptions? options = null)
+    {
+        var optionsValue = options ?? new ContentSecurityPolicyHeaderOptions();
+        app.UseMiddleware<ContentSecurityPolicyMiddleware>(Options.Create(optionsValue));
+        return app;
+    }
+
+    public static IApplicationBuilder UseContentSecurityPolicy(
+        this IApplicationBuilder app,
+        Action<ContentSecurityPolicyHeaderOptionsBuilder> options)
+    {
+        var builder = new ContentSecurityPolicyHeaderOptionsBuilder();
+        options(builder);
+        var optionsValue = builder.Build();
+        app.UseMiddleware<ContentSecurityPolicyMiddleware>(Options.Create(optionsValue));
+        return app;
+    }
 }

@@ -27,6 +27,11 @@ app.UseStrictTransportSecurity(new StrictTransportSecurityHeaderOptions
 {
     MaxAge = 0,
 });
+app.UseContentSecurityPolicy(
+    b =>
+    {
+        b.AddDefaultSrc(x => x.AllowSelf());
+    });
 
 if (app.Environment.IsDevelopment())
 {
