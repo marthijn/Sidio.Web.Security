@@ -148,10 +148,9 @@ public sealed partial class ContentSecurityPolicyHeaderValidator : IHeaderValida
     {
         var validationResult = new List<HeaderValidation>();
 
-        if (options.Sandbox != null && !AllowedSandboxTokens.Contains(
-                options.Sandbox,
-                StringComparer.OrdinalIgnoreCase))
+        if (options.Sandbox != null && !options.Sandbox.TryToEnum(out Sandbox _))
         {
+            options.Sandbox = null;
             validationResult.Add(
                 new HeaderValidation(
                     HeaderValidationSeverityLevel.Error,

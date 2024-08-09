@@ -1,4 +1,5 @@
 ﻿using Sidio.Web.Security.Headers.Options;
+using Sidio.Web.Security.Headers.Options.ContentSecurityPolicy;
 
 namespace Sidio.Web.Security.Tests.Headers.Options;
 
@@ -325,16 +326,15 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilderTests
     }
 
     [Theory]
-    [InlineData(null, "")]
-    [InlineData("", "")]
-    [InlineData("test", "test")]
-    public void AddSandbox_GivenValue_DirectiveShouldExist(string? value, string expected)
+    [InlineData(Sandbox.None, "")]
+    [InlineData(Sandbox.AllowDownloads, "allow-downloads")]
+    public void AddSandbox_GivenValue_DirectiveShouldExist(Sandbox sandbox, string expected)
     {
         // arrange
         var builder = new ContentSecurityPolicyHeaderOptionsBuilder();
 
         // act
-        var result = builder.AddSandbox(value).Build();
+        var result = builder.AddSandbox(sandbox).Build();
 
         // assert
         result.Sandbox.Should().Be(expected);

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Runtime.Serialization;
 using Sidio.Web.Security.Headers.Options;
 using Sidio.Web.Security.Headers.Options.ContentSecurityPolicy;
 using Sidio.Web.Security.Headers.Validation;
@@ -136,6 +137,8 @@ public sealed class ContentSecurityPolicyHeaderValidatorTests : HeaderValidatorT
             AddDirective(nameof(ContentSecurityPolicyHeaderOptions.FrameAncestors), Directives.FrameAncestors);
             AddDirective(nameof(ContentSecurityPolicyHeaderOptions.BaseUri), Directives.BaseUri);
             AddDirective(nameof(ContentSecurityPolicyHeaderOptions.FencedFrameSrc), Directives.FencedFrameSrc);
+
+            _data.Should().NotBeEmpty();
         }
 
         public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
@@ -164,8 +167,17 @@ public sealed class ContentSecurityPolicyHeaderValidatorTests : HeaderValidatorT
 
         public SandboxDataGenerator()
         {
-            _data.AddRange(
-                ContentSecurityPolicyHeaderValidator.AllowedSandboxTokens.Select(token => new object[] {token}));
+            var sandboxType = typeof(Sandbox);
+            foreach (var name in Enum.GetNames(sandboxType))
+            {
+                var enumMemberAttribute =
+                    ((EnumMemberAttribute[]) sandboxType.GetField(name)
+                        .GetCustomAttributes(typeof(EnumMemberAttribute), true))
+                    .Single();
+                _data.Add([enumMemberAttribute.Value]);
+            }
+
+            _data.Should().NotBeEmpty();
         }
 
         public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();

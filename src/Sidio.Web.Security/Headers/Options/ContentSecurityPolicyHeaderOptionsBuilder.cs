@@ -181,9 +181,9 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
         return this;
     }
 
-    public ContentSecurityPolicyHeaderOptionsBuilder AddSandbox(string? value = null)
+    public ContentSecurityPolicyHeaderOptionsBuilder AddSandbox(Sandbox value = Sandbox.None)
     {
-        _options.Sandbox = value ?? string.Empty;
+        _options.Sandbox = value.ToValue();
         return this;
     }
 

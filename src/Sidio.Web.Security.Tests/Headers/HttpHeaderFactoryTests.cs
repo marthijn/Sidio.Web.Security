@@ -33,4 +33,14 @@ public sealed class HttpHeaderFactoryTests
         // assert
         result.Should().NotBeNull();
     }
+
+    [Fact]
+    public void Create_ContentSecurityPolicyHeader_ReturnsInstance()
+    {
+        // act
+        var result = HttpHeaderFactory.Create<ContentSecurityPolicyHeader>("default-src 'self'");
+
+        // assert
+        result.Should().NotBeNull();
+    }
 }
