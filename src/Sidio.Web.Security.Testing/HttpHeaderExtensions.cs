@@ -5,9 +5,10 @@ namespace Sidio.Web.Security.Testing;
 
 public static class HttpHeaderExtensions
 {
-    public static HttpHeader WithValue(this HttpHeader header, string expectedValue)
+    public static T WithValue<T>(this T header, string expectedValue)
+        where T : HttpHeader
     {
-        if (!expectedValue.Equals(header.Value, StringComparison.InvariantCultureIgnoreCase))
+        if (!expectedValue.Equals(header.Value, StringComparison.OrdinalIgnoreCase))
         {
             throw new HttpHeaderShouldHaveValueException(header, expectedValue);
         }
@@ -15,7 +16,8 @@ public static class HttpHeaderExtensions
         return header;
     }
 
-    public static HttpHeader WithNonEmptyValue(this HttpHeader header)
+    public static T WithNonEmptyValue<T>(this T header)
+        where T : HttpHeader
     {
         if (string.IsNullOrEmpty(header.Value))
         {
@@ -25,9 +27,10 @@ public static class HttpHeaderExtensions
         return header;
     }
 
-    public static HttpHeader ContainsValue(this HttpHeader header, string expectedValue)
+    public static T ContainsValue<T>(this T header, string expectedValue)
+        where T : HttpHeader
     {
-        if (header.Value.IndexOf(expectedValue, StringComparison.InvariantCultureIgnoreCase) < 0)
+        if (header.Value == null || header.Value.IndexOf(expectedValue, StringComparison.OrdinalIgnoreCase) < 0)
         {
             throw new HttpHeaderShouldHaveValueException(header, expectedValue);
         }
