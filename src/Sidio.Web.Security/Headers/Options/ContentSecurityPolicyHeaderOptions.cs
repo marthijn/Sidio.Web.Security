@@ -170,6 +170,8 @@ public sealed class ContentSecurityPolicyHeaderOptions : IHttpHeaderOptions
 
     public string Value => ToString();
 
+    internal static Func<string>? NonceGenerator { get; set; }
+
     public override string ToString()
     {
         var policies = new List<string>();

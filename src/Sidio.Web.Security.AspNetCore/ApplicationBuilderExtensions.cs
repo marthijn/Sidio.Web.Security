@@ -44,12 +44,9 @@ public static class ApplicationBuilderExtensions
 
     public static IApplicationBuilder UseContentSecurityPolicy(
         this IApplicationBuilder app,
-        Action<ContentSecurityPolicyHeaderOptionsBuilder> options)
+        Action<IServiceProvider, ContentSecurityPolicyHeaderOptionsBuilder> options)
     {
-        var builder = new ContentSecurityPolicyHeaderOptionsBuilder();
-        options(builder);
-        var optionsValue = builder.Build();
-        app.UseMiddleware<ContentSecurityPolicyMiddleware>(Options.Create(optionsValue));
+        app.UseMiddleware<ContentSecurityPolicyMiddleware>(options);
         return app;
     }
 }

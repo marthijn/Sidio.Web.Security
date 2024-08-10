@@ -8,9 +8,9 @@ public abstract class NonceSrcBuilder<T> : SrcBuilderBase<T>
     where T : class, ISrcBuilder
 {
     /// <summary>
-    /// Add the 'nonce' to the directive.
-    /// The nonce should be a secure random base64 string, and should not be reused.
+    /// Add a static 'nonce' to the directive.
     /// </summary>
+    /// <remarks>The nonce should be a secure random base64 string, and should not be reused.</remarks>
     /// <returns></returns>
     public T AddNonce(string nonce)
     {

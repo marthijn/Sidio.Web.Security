@@ -16,7 +16,8 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddContentSecurityPolicy(this IServiceCollection services)
     {
-        services.AddScoped<INonceService, NonceService>();
+        ArgumentNullException.ThrowIfNull(services);
+        services.AddHttpContextAccessor().AddSingleton<INonceService, NonceService>();
         return services;
     }
 }

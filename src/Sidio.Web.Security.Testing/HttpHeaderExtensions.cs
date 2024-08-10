@@ -24,4 +24,14 @@ public static class HttpHeaderExtensions
 
         return header;
     }
+
+    public static HttpHeader ContainsValue(this HttpHeader header, string expectedValue)
+    {
+        if (header.Value.IndexOf(expectedValue, StringComparison.InvariantCultureIgnoreCase) < 0)
+        {
+            throw new HttpHeaderShouldHaveValueException(header, expectedValue);
+        }
+
+        return header;
+    }
 }

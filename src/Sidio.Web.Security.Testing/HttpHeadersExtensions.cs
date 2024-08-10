@@ -73,6 +73,16 @@ public static class HttpHeadersExtensions
         }
     }
 
+    public static ContentSecurityPolicyHeader ShouldHaveContentSecurityPolicyHeader(this HttpHeaders headers)
+    {
+        if (headers.TryGetValues(ContentSecurityPolicyHeader.HeaderName, out var values))
+        {
+            return new ContentSecurityPolicyHeader(values.First());
+        }
+
+        throw new HeaderShouldExistException(ContentSecurityPolicyHeader.HeaderName);
+    }
+
     public static T ShouldHaveHttpHeader<T>(this HttpHeaders headers)
         where T : HttpHeader, new()
     {

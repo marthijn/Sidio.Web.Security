@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidio.Web.Security.Examples
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidio.Web.Security.Testing", "src\Sidio.Web.Security.Testing\Sidio.Web.Security.Testing.csproj", "{73ECF330-B42E-460B-9CEB-F642B5E1C1F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidio.Web.Security.AspNetCore.Tests", "src\Sidio.Web.Security.AspNetCore.Tests\Sidio.Web.Security.AspNetCore.Tests.csproj", "{6D2494C5-AC38-4E8D-BB42-1D53C96AD259}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{73ECF330-B42E-460B-9CEB-F642B5E1C1F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73ECF330-B42E-460B-9CEB-F642B5E1C1F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73ECF330-B42E-460B-9CEB-F642B5E1C1F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D2494C5-AC38-4E8D-BB42-1D53C96AD259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D2494C5-AC38-4E8D-BB42-1D53C96AD259}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D2494C5-AC38-4E8D-BB42-1D53C96AD259}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D2494C5-AC38-4E8D-BB42-1D53C96AD259}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +74,7 @@ Global
 		{69935459-0BA6-421B-9315-48AB25C7161B} = {0C3287AC-0DD7-40DE-A703-3B60CFACEE85}
 		{B042364C-505A-498D-A52D-8685CFB9292E} = {64849F87-5167-48C0-B1C2-D36C38B17240}
 		{73ECF330-B42E-460B-9CEB-F642B5E1C1F0} = {531E2A0A-AC4F-45B2-BDB1-34E0C6E00547}
+		{6D2494C5-AC38-4E8D-BB42-1D53C96AD259} = {64849F87-5167-48C0-B1C2-D36C38B17240}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {860E18DF-D5F3-4AD1-A39D-3F56FFDA0180}
