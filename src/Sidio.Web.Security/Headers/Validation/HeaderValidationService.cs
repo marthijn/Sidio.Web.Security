@@ -24,6 +24,11 @@ public sealed class HeaderValidationService
     private readonly HeaderValidationOptions _options;
     private readonly ILogger<HeaderValidationService> _logger;
 
+    /// <summary>
+    /// Creates a new instance of the <see cref="HeaderValidationService"/> class.
+    /// </summary>
+    /// <param name="options"></param>
+    /// <param name="logger"></param>
     public HeaderValidationService(IOptions<HeaderValidationOptions> options, ILogger<HeaderValidationService> logger)
     {
         _options = options.Value;
@@ -40,6 +45,8 @@ public sealed class HeaderValidationService
         {
             ValidateRecommendedHeaders(httpHeaders);
         }
+
+        ValidateDeprecatedHeaders(httpHeaders);
 
         var nonValidatedHeaders = new List<string>();
         foreach (var httpHeader in httpHeaders)
@@ -90,6 +97,17 @@ public sealed class HeaderValidationService
             if (!httpHeaders.ContainsKey(header))
             {
                 _logger.LogWarning("The recommended HTTP header '{HeaderName}' is missing", header);
+            }
+        }
+    }
+
+    private void ValidateDeprecatedHeaders(IDictionary<string, IEnumerable<string?>> httpHeaders)
+    {
+        foreach (var header in DeprecatedHeaders)
+        {
+            if (httpHeaders.ContainsKey(header))
+            {
+                _logger.LogWarning("The HTTP header '{HeaderName}' is deprecated or non-standard", header);
             }
         }
     }

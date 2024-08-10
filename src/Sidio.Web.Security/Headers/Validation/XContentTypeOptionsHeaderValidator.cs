@@ -2,8 +2,12 @@
 
 namespace Sidio.Web.Security.Headers.Validation;
 
+/// <summary>
+/// The X-Content-Type-Options header validator.
+/// </summary>
 public sealed class XContentTypeOptionsHeaderValidator : IHeaderValidator<XContentTypeOptionsHeaderOptions>
 {
+    /// <inheritdoc />
     public HeaderValidationResult Validate(string? headerValue, out XContentTypeOptionsHeaderOptions? options)
     {
         if (headerValue.IsNullOrWhiteSpace(out var validations))
@@ -28,6 +32,7 @@ public sealed class XContentTypeOptionsHeaderValidator : IHeaderValidator<XConte
         return new HeaderValidationResult([]);
     }
 
+    /// <inheritdoc />
     public HeaderValidationResult Validate(XContentTypeOptionsHeaderOptions options)
     {
         return new HeaderValidationResult([]);

@@ -4,8 +4,12 @@ using Sidio.Web.Security.Headers.Options.ContentSecurityPolicy;
 
 namespace Sidio.Web.Security.Headers.Validation;
 
+/// <summary>
+/// The Content-Security-Policy header validator.
+/// </summary>
 public sealed partial class ContentSecurityPolicyHeaderValidator : IHeaderValidator<ContentSecurityPolicyHeaderOptions>
 {
+    /// <inheritdoc />
     public HeaderValidationResult Validate(string? headerValue, out ContentSecurityPolicyHeaderOptions? options)
     {
         if (headerValue.IsNullOrWhiteSpace(out var validations))
@@ -28,6 +32,7 @@ public sealed partial class ContentSecurityPolicyHeaderValidator : IHeaderValida
         return result;
     }
 
+    /// <inheritdoc />
     public HeaderValidationResult Validate(ContentSecurityPolicyHeaderOptions options)
     {
         var validationResult = new List<HeaderValidation>();

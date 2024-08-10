@@ -2,8 +2,12 @@
 
 namespace Sidio.Web.Security.Headers.Validation;
 
+/// <summary>
+/// The X-Frame-Options header validator.
+/// </summary>
 public sealed class XFrameOptionsHeaderValidator : IHeaderValidator<XFrameOptionsHeaderOptions>
 {
+    /// <inheritdoc />
     public HeaderValidationResult Validate(string? headerValue, out XFrameOptionsHeaderOptions? options)
     {
         if (headerValue.IsNullOrWhiteSpace(out var validations))
@@ -46,6 +50,7 @@ public sealed class XFrameOptionsHeaderValidator : IHeaderValidator<XFrameOption
         return new HeaderValidationResult([]);
     }
 
+    /// <inheritdoc />
     public HeaderValidationResult Validate(XFrameOptionsHeaderOptions options)
     {
         return new HeaderValidationResult([]);

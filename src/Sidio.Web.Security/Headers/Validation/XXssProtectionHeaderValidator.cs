@@ -3,6 +3,9 @@ using Sidio.Web.Security.Headers.Options;
 
 namespace Sidio.Web.Security.Headers.Validation;
 
+/// <summary>
+/// The X-Xss-Protection header validator.
+/// </summary>
 public sealed class XXssProtectionHeaderValidator : IHeaderValidator<XXssProtectionHeaderOptions>
 {
     private static readonly Regex HeaderRegex =
@@ -10,6 +13,7 @@ public sealed class XXssProtectionHeaderValidator : IHeaderValidator<XXssProtect
             @"^(?<Protection>0|1)(;\s*mode=(?<Mode>block)|;\s*report=(?<Report>.+))?$",
             RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
+    /// <inheritdoc />
     public HeaderValidationResult Validate(string? headerValue, out XXssProtectionHeaderOptions? options)
     {
         if (headerValue.IsNullOrWhiteSpace(out var validations))
@@ -40,6 +44,7 @@ public sealed class XXssProtectionHeaderValidator : IHeaderValidator<XXssProtect
         return result.ClearOptionsWhenInvalid(ref options);
     }
 
+    /// <inheritdoc />
     public HeaderValidationResult Validate(XXssProtectionHeaderOptions options)
     {
         if (options.Enabled)

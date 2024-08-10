@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.CookiePolicy;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Sidio.Web.Security.AspNetCore.Middleware;
 using Sidio.Web.Security.Headers.Options;
@@ -48,5 +50,29 @@ public static class ApplicationBuilderExtensions
     {
         app.UseMiddleware<ContentSecurityPolicyMiddleware>(options);
         return app;
+    }
+
+    /// <summary>
+    /// Apply a secure cookie policy.
+    /// </summary>
+    /// <param name="applicationBuilder">The application builder.</param>
+    /// <param name="secured">When true the cookies require HTTPS.</param>
+    /// <param name="httpOnly">When true the cookies cannot be read by JavaScript.</param>
+    /// <param name="strictSameSite">When true the same site policy is set to <see cref="SameSiteMode.Strict"/>,
+    /// otherwise <see cref="SameSiteMode.Lax"/>.</param>
+    /// <returns>The <see cref="IApplicationBuilder"/>.</returns>
+    public static IApplicationBuilder ApplySecureCookiePolicy(
+        IApplicationBuilder applicationBuilder,
+        bool secured = true,
+        bool httpOnly = true,
+        bool strictSameSite = true)
+    {
+        return applicationBuilder.UseCookiePolicy(
+            new CookiePolicyOptions
+            {
+                Secure = secured ? CookieSecurePolicy.Always : CookieSecurePolicy.SameAsRequest,
+                HttpOnly = httpOnly ? HttpOnlyPolicy.Always : HttpOnlyPolicy.None,
+                MinimumSameSitePolicy = strictSameSite ? SameSiteMode.Strict : SameSiteMode.Lax,
+            });
     }
 }

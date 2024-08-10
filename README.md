@@ -14,3 +14,10 @@ The library is currently in preview and is not yet ready for production use.
 ### Non-standard headers
 - X-XSS-Protection: [Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection)
   - This header is non-standard and is not on a standard track. Do not use it.
+
+## Secure cookies
+By using the following code, a secure cookie policy is configured that is based 
+on the [Mozilla Web Security Guidelines](https://infosec.mozilla.org/guidelines/web_security).
+```csharp
+app.ApplySecureCookiePolicy();
+```

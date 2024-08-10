@@ -13,13 +13,25 @@ public sealed class XFrameOptionsHeader : ValidatableHttpHeader<XFrameOptionsHea
     /// </summary>
     public const string HeaderName = "X-Frame-Options";
 
+    /// <summary>
+    /// The DENY option.
+    /// </summary>
     public const string Deny = "DENY";
 
+    /// <summary>
+    /// The SAMEORIGIN option.
+    /// </summary>
     public const string SameOrigin = "SAMEORIGIN";
 
+    /// <summary>
+    /// The ALLOW-FROM option.
+    /// </summary>
     internal const string AllowFrom = "ALLOW-FROM";
 
-    internal static string[] AllowedValues = { Deny, SameOrigin };
+    /// <summary>
+    /// The allowed/recommended values.
+    /// </summary>
+    internal static readonly string[] AllowedValues = [Deny, SameOrigin];
 
     /// <summary>
     /// Initializes a new instance of the <see cref="XFrameOptionsHeader"/> class.

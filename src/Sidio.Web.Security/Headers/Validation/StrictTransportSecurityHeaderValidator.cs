@@ -3,6 +3,9 @@ using Sidio.Web.Security.Headers.Options;
 
 namespace Sidio.Web.Security.Headers.Validation;
 
+/// <summary>
+/// The Strict-Transport-Security header validator.
+/// </summary>
 public sealed class StrictTransportSecurityHeaderValidator : IHeaderValidator<StrictTransportSecurityHeaderOptions>
 {
     private const string MaxAge = "max-age";
@@ -11,6 +14,7 @@ public sealed class StrictTransportSecurityHeaderValidator : IHeaderValidator<St
         @"^max-age=(?<MaxAge>\d+)(;\s*includeSubDomains)?(;\s*preload)?$",
         RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
+    /// <inheritdoc />
     public HeaderValidationResult Validate(string? headerValue, out StrictTransportSecurityHeaderOptions? options)
     {
         if (headerValue.IsNullOrWhiteSpace(out var validations))
@@ -40,6 +44,7 @@ public sealed class StrictTransportSecurityHeaderValidator : IHeaderValidator<St
         return new HeaderValidationResult(result.ValidationResults).ClearOptionsWhenInvalid(ref options);
     }
 
+    /// <inheritdoc />
     public HeaderValidationResult Validate(StrictTransportSecurityHeaderOptions options)
     {
         var validationResult = new List<HeaderValidation>();

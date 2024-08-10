@@ -23,6 +23,10 @@ public sealed class StrictTransportSecurityHeader : ValidatableHttpHeader<Strict
     /// </summary>
     public const int TwoYears = OneYear * 2;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StrictTransportSecurityHeader"/> class.
+    /// </summary>
+    /// <param name="value">The header value.</param>
     public StrictTransportSecurityHeader(string? value)
         : base(value)
     {
