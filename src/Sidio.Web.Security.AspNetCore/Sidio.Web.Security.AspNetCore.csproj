@@ -4,6 +4,23 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+        <Authors>Marthijn van den Heuvel,Sidio</Authors>
+        <Copyright>Copyright (c) 2024 Marthijn van den Heuvel</Copyright>
+        <PackageId>Sidio.Web.Security.AspNetCore</PackageId>
+        <RepositoryType>git</RepositoryType>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <Description>Sidio.Web.Security.AspNetCore is .....</Description>
+        <PackageTags>aspnetcore web security http headers csp contentsecuritypolicy hsts</PackageTags>
+        <PackageReleaseNotes>https://github.com/marthijn/Sidio.Web.Security/releases</PackageReleaseNotes>
+        <PackageIcon>icon.png</PackageIcon>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <Deterministic>true</Deterministic>
     </PropertyGroup>
 
     <ItemGroup>
@@ -30,5 +47,9 @@
         <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
         <None Include="..\..\icon.png" Pack="true" PackagePath="\"/>
     </ItemGroup>
+
+    <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    </PropertyGroup>
 
 </Project>
