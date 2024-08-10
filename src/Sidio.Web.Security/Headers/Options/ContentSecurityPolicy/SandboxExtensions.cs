@@ -15,10 +15,10 @@ public static class SandboxExtensions
     public static string ToValue(this Sandbox sandbox)
     {
         var enumMemberAttribute =
-            ((EnumMemberAttribute[]) typeof(Sandbox).GetField(sandbox.ToString())
+            ((EnumMemberAttribute[]) typeof(Sandbox).GetField(sandbox.ToString())!
                 .GetCustomAttributes(typeof(EnumMemberAttribute), true))
             .Single();
-        return enumMemberAttribute.Value;
+        return enumMemberAttribute.Value!;
     }
 
     internal static bool TryToEnum<T>(this string value, out T? result)
@@ -28,9 +28,9 @@ public static class SandboxExtensions
         foreach (var name in Enum.GetNames(enumType))
         {
             var enumMemberAttribute =
-                ((EnumMemberAttribute[]) enumType.GetField(name).GetCustomAttributes(typeof(EnumMemberAttribute), true))
+                ((EnumMemberAttribute[]) enumType.GetField(name)!.GetCustomAttributes(typeof(EnumMemberAttribute), true))
                 .Single();
-            if (!enumMemberAttribute.Value.Equals(value, StringComparison.OrdinalIgnoreCase))
+            if (!enumMemberAttribute.Value!.Equals(value, StringComparison.OrdinalIgnoreCase))
             {
                 continue;
             }

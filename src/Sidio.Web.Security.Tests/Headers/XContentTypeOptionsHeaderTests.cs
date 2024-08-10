@@ -23,7 +23,7 @@ public sealed class XContentTypeOptionsHeaderTests
     public void Validate_GivenValidValue_ShouldReturnValidResult()
     {
         // arrange
-        var header = new XContentTypeOptionsHeader("nosniff");
+        var header = new XContentTypeOptionsHeader();
 
         // act
         var result = header.Validate();

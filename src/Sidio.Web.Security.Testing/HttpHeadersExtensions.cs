@@ -82,17 +82,4 @@ public static class HttpHeadersExtensions
 
         throw new HeaderShouldExistException(ContentSecurityPolicyHeader.HeaderName);
     }
-
-    public static T ShouldHaveHttpHeader<T>(this HttpHeaders headers)
-        where T : HttpHeader, new()
-    {
-        var tmpHeader = Activator.CreateInstance<T>();
-
-        if (headers.TryGetValues(tmpHeader.Name, out var values))
-        {
-            return (T)Activator.CreateInstance(typeof(T), values.First());
-        }
-
-        throw new HeaderShouldExistException(tmpHeader.Name);
-    }
 }

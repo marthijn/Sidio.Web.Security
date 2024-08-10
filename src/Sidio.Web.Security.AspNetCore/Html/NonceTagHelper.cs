@@ -13,6 +13,7 @@ public sealed class NonceTagHelper : TagHelper
     private readonly ILogger<NonceTagHelper> _logger;
 
     [HtmlAttributeName("asp-add-nonce")]
+    // ReSharper disable once PropertyCanBeMadeInitOnly.Global
     public bool AddNonce { get; set; }
 
     public NonceTagHelper(INonceService nonceService, ILogger<NonceTagHelper> logger)

@@ -28,7 +28,7 @@ public sealed class XFrameOptionsHeaderValidatorTests : HeaderValidatorTests<XFr
     public void Validate_GivenInvalidValue_ShouldReturnInvalidResult(string? value)
     {
         // act
-        var result = Validator.Validate(value, out var options);
+        var result = Validator.Validate(value, out _);
 
         // assert
         result.IsValid.Should().BeFalse();

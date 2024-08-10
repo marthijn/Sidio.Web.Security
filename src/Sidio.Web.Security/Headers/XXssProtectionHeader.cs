@@ -16,5 +16,5 @@ public sealed class XXssProtectionHeader : ValidatableHttpHeader<XXssProtectionH
 
     public override string Name => HeaderName;
 
-    protected override IHeaderValidator<XXssProtectionHeaderOptions> Validator { get; }
+    protected override IHeaderValidator<XXssProtectionHeaderOptions> Validator => new XXssProtectionHeaderValidator();
 }
