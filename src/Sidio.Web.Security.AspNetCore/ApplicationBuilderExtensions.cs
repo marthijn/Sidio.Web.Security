@@ -21,6 +21,7 @@ public static class ApplicationBuilderExtensions
     /// <returns>The <see cref="IApplicationBuilder"/>.</returns>
     public static IApplicationBuilder UseHeaderValidation(this IApplicationBuilder app, HeaderValidationOptions? options = null)
     {
+        ArgumentNullException.ThrowIfNull(app);
         var optionsValue = options ?? new HeaderValidationOptions();
         app.UseMiddleware<HeaderValidationMiddleware>(Options.Create(optionsValue));
         return app;
@@ -35,6 +36,7 @@ public static class ApplicationBuilderExtensions
     /// <returns>The <see cref="IApplicationBuilder"/>.</returns>
     public static IApplicationBuilder UseXFrameOptions(this IApplicationBuilder app, XFrameOptionsHeaderOptions? options = null)
     {
+        ArgumentNullException.ThrowIfNull(app);
         var optionsValue = options ?? new XFrameOptionsHeaderOptions();
         app.UseMiddleware<XFrameOptionsMiddleware>(Options.Create(optionsValue));
         return app;
@@ -47,6 +49,7 @@ public static class ApplicationBuilderExtensions
     /// <returns>The <see cref="IApplicationBuilder"/>.</returns>
     public static IApplicationBuilder UseXContentTypeOptions(this IApplicationBuilder app)
     {
+        ArgumentNullException.ThrowIfNull(app);
         app.UseMiddleware<XContentTypeOptionsMiddleware>();
         return app;
     }
@@ -59,6 +62,7 @@ public static class ApplicationBuilderExtensions
     /// <returns>The <see cref="IApplicationBuilder"/>.</returns>
     public static IApplicationBuilder UseStrictTransportSecurity(this IApplicationBuilder app, StrictTransportSecurityHeaderOptions? options = null)
     {
+        ArgumentNullException.ThrowIfNull(app);
         var optionsValue = options ?? new StrictTransportSecurityHeaderOptions();
         app.UseMiddleware<StrictTransportSecurityMiddleware>(Options.Create(optionsValue));
         return app;
@@ -74,6 +78,7 @@ public static class ApplicationBuilderExtensions
         this IApplicationBuilder app,
         Action<IServiceProvider, ContentSecurityPolicyHeaderOptionsBuilder> options)
     {
+        ArgumentNullException.ThrowIfNull(app);
         app.UseMiddleware<ContentSecurityPolicyMiddleware>(options);
         return app;
     }
@@ -81,19 +86,20 @@ public static class ApplicationBuilderExtensions
     /// <summary>
     /// Use a secure cookie policy.
     /// </summary>
-    /// <param name="applicationBuilder">The application builder.</param>
+    /// <param name="app">The application builder.</param>
     /// <param name="secured">When true the cookies require HTTPS.</param>
     /// <param name="httpOnly">When true the cookies cannot be read by JavaScript.</param>
     /// <param name="strictSameSite">When true the same site policy is set to <see cref="SameSiteMode.Strict"/>,
     /// otherwise <see cref="SameSiteMode.Lax"/>.</param>
     /// <returns>The <see cref="IApplicationBuilder"/>.</returns>
     public static IApplicationBuilder UseSecureCookiePolicy(
-        this IApplicationBuilder applicationBuilder,
+        this IApplicationBuilder app,
         bool secured = true,
         bool httpOnly = true,
         bool strictSameSite = true)
     {
-        return applicationBuilder.UseCookiePolicy(
+        ArgumentNullException.ThrowIfNull(app);
+        return app.UseCookiePolicy(
             new CookiePolicyOptions
             {
                 Secure = secured ? CookieSecurePolicy.Always : CookieSecurePolicy.SameAsRequest,

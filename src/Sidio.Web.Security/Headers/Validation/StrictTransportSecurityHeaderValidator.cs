@@ -35,10 +35,12 @@ public sealed class StrictTransportSecurityHeaderValidator : IHeaderValidator<St
             });
         }
 
-        options = new StrictTransportSecurityHeaderOptions();
-        options.MaxAge = long.Parse(match.Groups["MaxAge"].Value);
-        options.IncludeSubDomains = match.Groups[1].Success;
-        options.Preload = match.Groups[2].Success;
+        options = new StrictTransportSecurityHeaderOptions
+        {
+            MaxAge = long.Parse(match.Groups["MaxAge"].Value),
+            IncludeSubDomains = match.Groups[1].Success,
+            Preload = match.Groups[2].Success
+        };
 
         var result = Validate(options);
         return new HeaderValidationResult(result.ValidationResults).ClearOptionsWhenInvalid(ref options);
