@@ -12,14 +12,21 @@ public static class HttpHeaderFactory
     /// Creates a new instance of the specified header type with the given value.
     /// </summary>
     /// <param name="value">The value.</param>
+    /// <param name="validate">When true the <see cref="value"/> is validated. Validation involves minimal performance loss.</param>
     /// <typeparam name="T">The header type.</typeparam>
     /// <returns>An HTTP header of type <see cref="T"/>.</returns>
-    /// <exception cref="InvalidHeaderException">Thrown when the header value is invalid.</exception>
-    public static T Create<T>(string? value)
+    /// <exception cref="InvalidHeaderException">Thrown when the header value is invalid (<see cref="validate"/> should be set to <c>true</c>).</exception>
+    public static T Create<T>(string? value, bool validate = false)
         where T : HttpHeader
     {
         var header = Activator.CreateInstance(typeof(T), value) as T ??
                      throw new InvalidOperationException($"Failed to create header instance of type {typeof(T).Name}");
+
+        if (!validate)
+        {
+            return header;
+        }
+
         var validationResult = header.Validate();
         if (validationResult.HasErrors)
         {

@@ -1,4 +1,5 @@
 ﻿using Sidio.Web.Security.Headers;
+using Sidio.Web.Security.Headers.Validation;
 
 namespace Sidio.Web.Security.Tests.Headers;
 
@@ -42,5 +43,24 @@ public sealed class HttpHeaderFactoryTests
 
         // assert
         result.Should().NotBeNull();
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void Create_WithInvalidHeaderValue_ShouldThrowException(bool validate)
+    {
+        // act
+        Action act = () => HttpHeaderFactory.Create<XContentTypeOptionsHeader>(string.Empty, validate);
+
+        // assert
+        if (validate)
+        {
+            act.Should().Throw<InvalidHeaderException>();
+        }
+        else
+        {
+            act.Should().NotThrow();
+        }
     }
 }
