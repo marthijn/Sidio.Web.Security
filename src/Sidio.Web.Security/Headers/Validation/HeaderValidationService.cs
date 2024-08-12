@@ -103,6 +103,11 @@ public sealed class HeaderValidationService
 
     private void ValidateDeprecatedHeaders(IDictionary<string, IEnumerable<string?>> httpHeaders)
     {
+        if (_options.SuppressWarnings)
+        {
+            return;
+        }
+
         foreach (var header in DeprecatedHeaders)
         {
             if (httpHeaders.ContainsKey(header))
