@@ -326,7 +326,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilderTests
     }
 
     [Theory]
-    [InlineData(Sandbox.None, "")]
+    [InlineData(Sandbox.Default, "")]
     [InlineData(Sandbox.AllowDownloads, "allow-downloads")]
     public void AddSandbox_GivenValue_DirectiveShouldExist(Sandbox sandbox, string expected)
     {

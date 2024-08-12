@@ -5,6 +5,7 @@
 /// </summary>
 public static class Directives
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public const string DefaultSrc = "default-src";
     public const string ScriptSrc = "script-src";
     public const string ScriptSrcAttr = "script-src-attr";
@@ -36,4 +37,5 @@ public static class Directives
     public const string NavigateTo = "navigate-to";
     public const string UpgradeInsecureRequests = "upgrade-insecure-requests";
     public const string BlockAllMixedContent = "block-all-mixed-content";
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }
