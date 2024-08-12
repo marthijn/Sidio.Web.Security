@@ -1,7 +1,12 @@
-﻿using Sidio.Web.Security.Headers.Options.ContentSecurityPolicy;
+﻿using System.Diagnostics;
+using Sidio.Web.Security.Headers.Options.ContentSecurityPolicy;
 
 namespace Sidio.Web.Security.Headers.Options;
 
+/// <summary>
+/// The Content Security Policy header options.
+/// </summary>
+[DebuggerDisplay("{Value}")]
 public sealed class ContentSecurityPolicyHeaderOptions : IHttpHeaderOptions
 {
     /// <summary>
@@ -168,10 +173,10 @@ public sealed class ContentSecurityPolicyHeaderOptions : IHttpHeaderOptions
     /// <remarks>This is an experimental technology.</remarks>
     public string? TrustedTypes { get; set; }
 
+    /// <inheritdoc />
     public string Value => ToString();
 
-    internal static Func<string>? NonceGenerator { get; set; }
-
+    /// <inheritdoc />
     public override string ToString()
     {
         var policies = new List<string>();

@@ -1,8 +1,11 @@
-﻿namespace Sidio.Web.Security.Headers.Options;
+﻿using System.Diagnostics;
+
+namespace Sidio.Web.Security.Headers.Options;
 
 /// <summary>
 /// The X-Frame-Options header options.
 /// </summary>
+[DebuggerDisplay("{Value}")]
 public sealed class XFrameOptionsHeaderOptions : IHttpHeaderOptions
 {
     /// <summary>

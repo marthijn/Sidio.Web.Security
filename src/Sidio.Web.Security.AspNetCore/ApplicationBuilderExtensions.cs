@@ -8,8 +8,17 @@ using Sidio.Web.Security.Headers.Validation;
 
 namespace Sidio.Web.Security.AspNetCore;
 
+/// <summary>
+/// The application builder extensions.
+/// </summary>
 public static class ApplicationBuilderExtensions
 {
+    /// <summary>
+    /// Adds the header validation middleware.
+    /// </summary>
+    /// <param name="app">The application builder.</param>
+    /// <param name="options">The options.</param>
+    /// <returns>The <see cref="IApplicationBuilder"/>.</returns>
     public static IApplicationBuilder UseHeaderValidation(this IApplicationBuilder app, HeaderValidationOptions? options = null)
     {
         var optionsValue = options ?? new HeaderValidationOptions();
@@ -17,6 +26,13 @@ public static class ApplicationBuilderExtensions
         return app;
     }
 
+
+    /// <summary>
+    /// Adds the X-Frame-Options header middleware.
+    /// </summary>
+    /// <param name="app">The application builder.</param>
+    /// <param name="options">The options.</param>
+    /// <returns>The <see cref="IApplicationBuilder"/>.</returns>
     public static IApplicationBuilder UseXFrameOptions(this IApplicationBuilder app, XFrameOptionsHeaderOptions? options = null)
     {
         var optionsValue = options ?? new XFrameOptionsHeaderOptions();
@@ -24,12 +40,23 @@ public static class ApplicationBuilderExtensions
         return app;
     }
 
+    /// <summary>
+    /// Adds the X-Content-Type-Options header middleware.
+    /// </summary>
+    /// <param name="app">The application builder.</param>
+    /// <returns>The <see cref="IApplicationBuilder"/>.</returns>
     public static IApplicationBuilder UseXContentTypeOptions(this IApplicationBuilder app)
     {
         app.UseMiddleware<XContentTypeOptionsMiddleware>();
         return app;
     }
 
+    /// <summary>
+    /// Adds the strict transport security (HSTS) header middleware.
+    /// </summary>
+    /// <param name="app">The application builder.</param>
+    /// <param name="options">The options.</param>
+    /// <returns>The <see cref="IApplicationBuilder"/>.</returns>
     public static IApplicationBuilder UseStrictTransportSecurity(this IApplicationBuilder app, StrictTransportSecurityHeaderOptions? options = null)
     {
         var optionsValue = options ?? new StrictTransportSecurityHeaderOptions();
@@ -37,13 +64,12 @@ public static class ApplicationBuilderExtensions
         return app;
     }
 
-    public static IApplicationBuilder UseContentSecurityPolicy(this IApplicationBuilder app, ContentSecurityPolicyHeaderOptions? options = null)
-    {
-        var optionsValue = options ?? new ContentSecurityPolicyHeaderOptions();
-        app.UseMiddleware<ContentSecurityPolicyMiddleware>(Options.Create(optionsValue));
-        return app;
-    }
-
+    /// <summary>
+    /// Adds the content security policy (CSP) header middleware.
+    /// </summary>
+    /// <param name="app">The application builder.</param>
+    /// <param name="options">The options builder.</param>
+    /// <returns>The <see cref="IApplicationBuilder"/>.</returns>
     public static IApplicationBuilder UseContentSecurityPolicy(
         this IApplicationBuilder app,
         Action<IServiceProvider, ContentSecurityPolicyHeaderOptionsBuilder> options)
@@ -53,7 +79,7 @@ public static class ApplicationBuilderExtensions
     }
 
     /// <summary>
-    /// Apply a secure cookie policy.
+    /// Use a secure cookie policy.
     /// </summary>
     /// <param name="applicationBuilder">The application builder.</param>
     /// <param name="secured">When true the cookies require HTTPS.</param>
@@ -61,8 +87,8 @@ public static class ApplicationBuilderExtensions
     /// <param name="strictSameSite">When true the same site policy is set to <see cref="SameSiteMode.Strict"/>,
     /// otherwise <see cref="SameSiteMode.Lax"/>.</param>
     /// <returns>The <see cref="IApplicationBuilder"/>.</returns>
-    public static IApplicationBuilder ApplySecureCookiePolicy(
-        IApplicationBuilder applicationBuilder,
+    public static IApplicationBuilder UseSecureCookiePolicy(
+        this IApplicationBuilder applicationBuilder,
         bool secured = true,
         bool httpOnly = true,
         bool strictSameSite = true)
