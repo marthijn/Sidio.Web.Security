@@ -6,16 +6,26 @@
 public abstract class SrcBuilderBase<T> : ISrcBuilder
     where T : class, ISrcBuilder
 {
+    /// <summary>
+    /// The sources for the directive.
+    /// </summary>
     protected readonly HashSet<string> Sources = new();
 
+    /// <summary>
+    /// Gets the current instance of the builder.
+    /// </summary>
+    /// <exception cref="InvalidOperationException">Thrown when this instance cannot be converted to T.</exception>
     protected T This => this as T ?? throw new InvalidOperationException();
 
+    /// <summary>
+    /// Gets a read-only collection of the sources.
+    /// </summary>
     internal IReadOnlyCollection<string> SourcesInternal => Sources;
 
     /// <summary>
     /// Add the 'self' source to the directive.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The <see cref="ISrcBuilder"/> of type <see cref="T"/>.</returns>
     public T AllowSelf()
     {
         Sources.Add("'self'");
@@ -25,7 +35,7 @@ public abstract class SrcBuilderBase<T> : ISrcBuilder
     /// <summary>
     /// Add the wildcard source to the directive.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The <see cref="ISrcBuilder"/> of type <see cref="T"/></returns>
     public T AllowAll()
     {
         Sources.Add("*");
@@ -36,7 +46,7 @@ public abstract class SrcBuilderBase<T> : ISrcBuilder
     /// Add a URL source to the directive.
     /// </summary>
     /// <param name="url"></param>
-    /// <returns></returns>
+    /// <returns>The <see cref="ISrcBuilder"/> of type <see cref="T"/></returns>
     public T AllowUrl(string url)
     {
         if (string.IsNullOrWhiteSpace(url))
@@ -51,7 +61,7 @@ public abstract class SrcBuilderBase<T> : ISrcBuilder
     /// <summary>
     /// Add the 'none' source to the directive.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The <see cref="ISrcBuilder"/> of type <see cref="T"/></returns>
     public T AllowNone()
     {
         Sources.Add("'none'");
@@ -61,7 +71,7 @@ public abstract class SrcBuilderBase<T> : ISrcBuilder
     /// <summary>
     /// Add the 'data:' to the directive.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The <see cref="ISrcBuilder"/> of type <see cref="T"/></returns>
     public T AllowData()
     {
         Sources.Add("data:");
@@ -71,7 +81,7 @@ public abstract class SrcBuilderBase<T> : ISrcBuilder
     /// <summary>
     /// Adds the 'unsafe-inline' to the directive.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The <see cref="ISrcBuilder"/> of type <see cref="T"/></returns>
     public T AllowUnsafeInline()
     {
         Sources.Add("'unsafe-inline'");
@@ -81,7 +91,7 @@ public abstract class SrcBuilderBase<T> : ISrcBuilder
     /// <summary>
     /// Adds the 'https:' to the directives.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The <see cref="ISrcBuilder"/> of type <see cref="T"/></returns>
     public T AllowHttp()
     {
         Sources.Add("http:");
@@ -91,7 +101,7 @@ public abstract class SrcBuilderBase<T> : ISrcBuilder
     /// <summary>
     /// Adds the 'https:' to the directives.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The <see cref="ISrcBuilder"/> of type <see cref="T"/></returns>
     public T AllowHttps()
     {
         Sources.Add("https:");
@@ -101,7 +111,7 @@ public abstract class SrcBuilderBase<T> : ISrcBuilder
     /// <summary>
     /// Adds the 'mediastream:' to the directives.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The <see cref="ISrcBuilder"/> of type <see cref="T"/></returns>
     public T AllowMediaStream()
     {
         Sources.Add("mediastream:");
@@ -111,7 +121,7 @@ public abstract class SrcBuilderBase<T> : ISrcBuilder
     /// <summary>
     /// Adds the 'blob:' to the directives.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The <see cref="ISrcBuilder"/> of type <see cref="T"/></returns>
     public T AllowBlob()
     {
         Sources.Add("blob:");
@@ -121,7 +131,7 @@ public abstract class SrcBuilderBase<T> : ISrcBuilder
     /// <summary>
     /// Adds the 'filesystem:' to the directives.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The <see cref="ISrcBuilder"/> of type <see cref="T"/></returns>
     public T AllowFileSystem()
     {
         Sources.Add("filesystem:");
@@ -131,7 +141,7 @@ public abstract class SrcBuilderBase<T> : ISrcBuilder
     /// <summary>
     /// Adds the 'report-sample' to the directives.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The <see cref="ISrcBuilder"/> of type <see cref="T"/></returns>
     public T ShouldReportSample()
     {
         Sources.Add("'report-sample'");
@@ -141,7 +151,7 @@ public abstract class SrcBuilderBase<T> : ISrcBuilder
     /// <summary>
     /// Adds the 'allow-duplicates' to the directives.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The <see cref="ISrcBuilder"/> of type <see cref="T"/></returns>
     public T AllowDuplicates()
     {
         Sources.Add("'allow-duplicates'");
@@ -149,8 +159,5 @@ public abstract class SrcBuilderBase<T> : ISrcBuilder
     }
 
     /// <inheritdoc />
-    public override string ToString()
-    {
-        return string.Join(" ", Sources);
-    }
+    public override string ToString() => string.Join(" ", Sources);
 }

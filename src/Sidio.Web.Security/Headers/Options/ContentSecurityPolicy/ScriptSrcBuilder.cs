@@ -8,7 +8,7 @@ public sealed class ScriptSrcBuilder : NonceSrcBuilder<ScriptSrcBuilder>
     /// <summary>
     /// Add the 'strict-dynamic' to the directive.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The <see cref="ScriptSrcBuilder"/>.</returns>
     public ScriptSrcBuilder AllowStrictDynamic()
     {
         Sources.Add("'strict-dynamic'");
@@ -18,7 +18,7 @@ public sealed class ScriptSrcBuilder : NonceSrcBuilder<ScriptSrcBuilder>
     /// <summary>
     /// Add the 'unsafe-eval' to the directive.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The <see cref="ScriptSrcBuilder"/>.</returns>
     public ScriptSrcBuilder AllowUnsafeEval()
     {
         Sources.Add("'unsafe-eval'");
@@ -28,7 +28,7 @@ public sealed class ScriptSrcBuilder : NonceSrcBuilder<ScriptSrcBuilder>
     /// <summary>
     /// Adds the 'unsafe-hashes' to the directive.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The <see cref="ScriptSrcBuilder"/>.</returns>
     public ScriptSrcBuilder AllowUnsafeHashes()
     {
         Sources.Add("'unsafe-hashes'");
@@ -39,7 +39,7 @@ public sealed class ScriptSrcBuilder : NonceSrcBuilder<ScriptSrcBuilder>
     /// Adds the 'inline-speculation-rules' to the directives which allows the inclusion
     /// of speculation rules in scripts.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The <see cref="ScriptSrcBuilder"/>.</returns>
     public ScriptSrcBuilder AllowInlineSpeculationRules()
     {
         Sources.Add("'inline-speculation-rules'");
