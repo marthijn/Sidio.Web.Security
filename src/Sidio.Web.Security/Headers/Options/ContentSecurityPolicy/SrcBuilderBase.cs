@@ -69,7 +69,7 @@ public abstract class SrcBuilderBase<T> : ISrcBuilder
     }
 
     /// <summary>
-    /// Add the 'data:' to the directive.
+    /// Add the 'data:' scheme to the directive.
     /// </summary>
     /// <returns>The <see cref="ISrcBuilder"/> of type <see cref="T"/></returns>
     public T AllowData()
@@ -89,7 +89,7 @@ public abstract class SrcBuilderBase<T> : ISrcBuilder
     }
 
     /// <summary>
-    /// Adds the 'https:' to the directives.
+    /// Adds the 'https:' scheme to the directives.
     /// </summary>
     /// <returns>The <see cref="ISrcBuilder"/> of type <see cref="T"/></returns>
     public T AllowHttp()
@@ -99,7 +99,7 @@ public abstract class SrcBuilderBase<T> : ISrcBuilder
     }
 
     /// <summary>
-    /// Adds the 'https:' to the directives.
+    /// Adds the 'https:' scheme to the directives.
     /// </summary>
     /// <returns>The <see cref="ISrcBuilder"/> of type <see cref="T"/></returns>
     public T AllowHttps()
@@ -109,7 +109,7 @@ public abstract class SrcBuilderBase<T> : ISrcBuilder
     }
 
     /// <summary>
-    /// Adds the 'mediastream:' to the directives.
+    /// Adds the 'mediastream:' scheme to the directives.
     /// </summary>
     /// <returns>The <see cref="ISrcBuilder"/> of type <see cref="T"/></returns>
     public T AllowMediaStream()
@@ -119,7 +119,7 @@ public abstract class SrcBuilderBase<T> : ISrcBuilder
     }
 
     /// <summary>
-    /// Adds the 'blob:' to the directives.
+    /// Adds the 'blob:' scheme to the directives.
     /// </summary>
     /// <returns>The <see cref="ISrcBuilder"/> of type <see cref="T"/></returns>
     public T AllowBlob()
@@ -129,7 +129,7 @@ public abstract class SrcBuilderBase<T> : ISrcBuilder
     }
 
     /// <summary>
-    /// Adds the 'filesystem:' to the directives.
+    /// Adds the 'filesystem:' scheme to the directives.
     /// </summary>
     /// <returns>The <see cref="ISrcBuilder"/> of type <see cref="T"/></returns>
     public T AllowFileSystem()
