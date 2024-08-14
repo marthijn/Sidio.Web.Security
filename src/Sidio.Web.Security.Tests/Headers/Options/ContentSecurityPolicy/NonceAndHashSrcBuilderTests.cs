@@ -3,8 +3,8 @@ using Sidio.Web.Security.Headers.Options.ContentSecurityPolicy;
 
 namespace Sidio.Web.Security.Tests.Headers.Options.ContentSecurityPolicy;
 
-public abstract class NonceSrcBuilderTests<T> : SrcBuilderBaseTests<T>
-    where T : NonceSrcBuilder<T>, new()
+public abstract class NonceAndHashSrcBuilderTests<T> : SrcBuilderBaseTests<T>
+    where T : NonceAndHashSrcBuilder<T>, new()
 {
     private readonly Fixture _fixture = new();
 

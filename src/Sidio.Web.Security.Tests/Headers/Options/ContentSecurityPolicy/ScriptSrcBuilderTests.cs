@@ -2,7 +2,7 @@
 
 namespace Sidio.Web.Security.Tests.Headers.Options.ContentSecurityPolicy;
 
-public sealed class ScriptSrcBuilderTests : NonceSrcBuilderTests<ScriptSrcBuilder>
+public sealed class ScriptSrcBuilderTests : NonceAndHashSrcBuilderTests<ScriptSrcBuilder>
 {
     [Fact]
     public void AllowStrictDynamic_DirectiveShouldExist()

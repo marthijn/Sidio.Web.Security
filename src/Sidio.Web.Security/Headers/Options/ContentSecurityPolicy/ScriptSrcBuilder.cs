@@ -3,7 +3,7 @@
 /// <summary>
 /// The builder for the Content Security Policy directive 'script-src'.
 /// </summary>
-public sealed class ScriptSrcBuilder : NonceSrcBuilder<ScriptSrcBuilder>
+public sealed class ScriptSrcBuilder : NonceAndHashSrcBuilder<ScriptSrcBuilder>
 {
     /// <summary>
     /// Add the 'strict-dynamic' to the directive.

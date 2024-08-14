@@ -1,10 +1,10 @@
 ﻿namespace Sidio.Web.Security.Headers.Options.ContentSecurityPolicy;
 
 /// <summary>
-/// The nonce builder for the Content Security Policy directive 'src'.
+/// The nonce and hash builder for the Content Security Policy directive 'src'.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public abstract class NonceSrcBuilder<T> : SrcBuilderBase<T>
+public abstract class NonceAndHashSrcBuilder<T> : SrcBuilderBase<T>
     where T : class, ISrcBuilder
 {
     /// <summary>
@@ -27,7 +27,7 @@ public abstract class NonceSrcBuilder<T> : SrcBuilderBase<T>
     /// Add the 'sha256' to the directive.
     /// </summary>
     /// <param name="sha256">The hash as base64.</param>
-    /// <returns>The <see cref="NonceSrcBuilder{T}"/>.</returns>
+    /// <returns>The <see cref="NonceAndHashSrcBuilder{T}"/>.</returns>
     public T AddSha256(string sha256)
     {
         if (string.IsNullOrWhiteSpace(sha256))
@@ -43,7 +43,7 @@ public abstract class NonceSrcBuilder<T> : SrcBuilderBase<T>
     /// Add the 'sha256' to the directive.
     /// </summary>
     /// <param name="sha384">The hash as base64.</param>
-    /// <returns>The <see cref="NonceSrcBuilder{T}"/>.</returns>
+    /// <returns>The <see cref="NonceAndHashSrcBuilder{T}"/>.</returns>
     public T AddSha384(string sha384)
     {
         if (string.IsNullOrWhiteSpace(sha384))
@@ -59,7 +59,7 @@ public abstract class NonceSrcBuilder<T> : SrcBuilderBase<T>
     /// Add the 'sha256' to the directive.
     /// </summary>
     /// <param name="sha512">The hash as base64.</param>
-    /// <returns>The <see cref="NonceSrcBuilder{T}"/>.</returns>
+    /// <returns>The <see cref="NonceAndHashSrcBuilder{T}"/>.</returns>
     public T AddSha512(string sha512)
     {
         if (string.IsNullOrWhiteSpace(sha512))

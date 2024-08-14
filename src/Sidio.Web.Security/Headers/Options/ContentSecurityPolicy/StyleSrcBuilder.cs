@@ -3,4 +3,4 @@
 /// <summary>
 /// The builder for the Content Security Policy directive 'style-src'.
 /// </summary>
-public sealed class StyleSrcBuilder : NonceSrcBuilder<StyleSrcBuilder>;
+public sealed class StyleSrcBuilder : NonceAndHashSrcBuilder<StyleSrcBuilder>;
