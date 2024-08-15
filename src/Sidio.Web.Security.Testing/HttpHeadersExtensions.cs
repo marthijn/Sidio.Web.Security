@@ -82,4 +82,20 @@ public static class HttpHeadersExtensions
 
         throw new HeaderShouldExistException(ContentSecurityPolicyHeader.HeaderName);
     }
+
+    /// <summary>
+    /// The HTTP Header "Report-To" should exist.
+    /// </summary>
+    /// <param name="headers">The HTTP headers.</param>
+    /// <returns>A <see cref="ReportToHeader"/>.</returns>
+    /// <exception cref="HeaderShouldExistException">Thrown when the header does not exist.</exception>
+    public static ReportToHeader ShouldHaveReportToHeader(this HttpHeaders headers)
+    {
+        if (headers.TryGetValues(ReportToHeader.HeaderName, out var values))
+        {
+            return new ReportToHeader(values.First());
+        }
+
+        throw new HeaderShouldExistException(ReportToHeader.HeaderName);
+    }
 }

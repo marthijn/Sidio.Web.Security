@@ -41,6 +41,35 @@ app.UseContentSecurityPolicy(
     });
 ```
 
+## Reporting API
+The reporting API can be used to report violations of the Content Security Policy. Add the following headers:
+```csharp
+app.UseContentSecurityPolicy(
+    (services, b) =>
+    {
+        // ...
+        b.AddReportTo("csp-report");
+    });
+
+app.UseReportTo(
+    new ReportToHeaderOptions
+    {
+        Groups =
+        [
+            new("csp-report", "/Home/Report")
+        ],
+    });
+```
+Create an action in a controller that will receive the reports:
+```csharp
+[HttpPost]
+public IActionResult Report([FromBody] Reports model)
+{
+    _logger.LogWarning("Report sent from browser: {Report}", JsonSerializer.Serialize(model));
+    return Ok();
+}
+```
+
 ## Secure cookies
 By using the following code, a secure cookie policy is configured that is based 
 on the [Mozilla Web Security Guidelines](https://infosec.mozilla.org/guidelines/web_security).

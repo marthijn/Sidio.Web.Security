@@ -210,6 +210,13 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
         return this;
     }
 
+    /// <summary>
+    /// Adds the name of the report group to send the reports to.
+    /// </summary>
+    /// <param name="groupName">The name of the group.</param>
+    /// <remarks>Ensure the Report-To or Reporting-Endpoints are configured.</remarks>
+    /// <returns>The <see cref="ContentSecurityPolicyHeaderOptionsBuilder"/>.</returns>
+    /// <exception cref="ArgumentException">Thrown when the group name is invalid.</exception>
     public ContentSecurityPolicyHeaderOptionsBuilder AddReportTo(string groupName)
     {
         if (string.IsNullOrWhiteSpace(groupName))
@@ -259,5 +266,9 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
         return this;
     }
 
+    /// <summary>
+    /// Builds the Content Security Policy header options.
+    /// </summary>
+    /// <returns>An instance of <see cref="ContentSecurityPolicyHeaderOptions"/>.</returns>
     public ContentSecurityPolicyHeaderOptions Build() => _options;
 }

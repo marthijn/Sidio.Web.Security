@@ -73,6 +73,10 @@ public sealed class HeaderValidationService
             {
                 header = new XContentTypeOptionsHeader(httpHeader.Value.FirstOrDefault());
             }
+            else if (httpHeader.Key.Equals(ReportToHeader.HeaderName, StringComparison.OrdinalIgnoreCase))
+            {
+                header = new ReportToHeader(httpHeader.Value.FirstOrDefault());
+            }
 
             if (header != null)
             {

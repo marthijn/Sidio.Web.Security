@@ -35,6 +35,8 @@ public sealed class HomeControllerTests : IClassFixture<WebApplicationFactory<Pr
 
         response.Headers.ShouldHaveContentSecurityPolicyHeader().ContainsValue("nonce");
 
+        response.Headers.ShouldHaveReportToHeader();
+
         var content = await response.Content.ReadAsStringAsync();
         content.Should().Contain("Home");
     }

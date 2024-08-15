@@ -84,6 +84,19 @@ public static class ApplicationBuilderExtensions
     }
 
     /// <summary>
+    /// Adds the Report-To header middleware.
+    /// </summary>
+    /// <param name="app">The application builder.</param>
+    /// <param name="options">The options.</param>
+    /// <returns>The <see cref="IApplicationBuilder"/>.</returns>
+    public static IApplicationBuilder UseReportTo(this IApplicationBuilder app, ReportToHeaderOptions options)
+    {
+        ArgumentNullException.ThrowIfNull(app);
+        app.UseMiddleware<ReportToMiddleware>(Options.Create(options));
+        return app;
+    }
+
+    /// <summary>
     /// Use a secure cookie policy.
     /// </summary>
     /// <param name="app">The application builder.</param>

@@ -37,8 +37,19 @@ app.UseContentSecurityPolicy(
         b.AddScriptSrc(x => x.AddNonce(services));
         b.AddStyleSrc(x => x.AddNonce(services));
 
+        b.AddReportTo("csp-report");
+
         // add a deprecated header for testing purposes
-        b.AddReportUri("https://localhost");
+        b.AddReportUri("/Home/Report");
+    });
+
+app.UseReportTo(
+    new ReportToHeaderOptions
+    {
+        Groups =
+        [
+            new("csp-report", "/Home/Report")
+        ],
     });
 
 if (app.Environment.IsDevelopment())

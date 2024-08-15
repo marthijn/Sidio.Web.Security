@@ -85,6 +85,21 @@ public sealed class ApplicationBuilderExtensionsTests
     }
 
     [Fact]
+    public void UseReportTo_WithDefaultOptions_ReturnsApplicationBuilder()
+    {
+        // arrange
+        var options = _fixture.Create<ReportToHeaderOptions>();
+        var applicationBuilder = CreateApplicationBuilder();
+
+        // act
+        var result = applicationBuilder.UseReportTo(options);
+
+        // assert
+        result.Should().BeSameAs(applicationBuilder);
+        applicationBuilder.Middleware.Should().ContainSingle();
+    }
+
+    [Fact]
     public void UseSecureCookiePolicy_ReturnsApplicationBuilder()
     {
         // arrange
