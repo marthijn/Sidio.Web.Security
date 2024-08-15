@@ -29,6 +29,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidio.Web.Security.Testing"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sidio.Web.Security.AspNetCore.Tests", "src\Sidio.Web.Security.AspNetCore.Tests\Sidio.Web.Security.AspNetCore.Tests.csproj", "{6D2494C5-AC38-4E8D-BB42-1D53C96AD259}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{109799EC-50CD-4945-ABCA-A7AE478BC84D}"
+	ProjectSection(SolutionItems) = preProject
+		.github\dependabot.yml = .github\dependabot.yml
+		.github\workflows\build.yml = .github\workflows\build.yml
+		.github\workflows\release.yml = .github\workflows\release.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
