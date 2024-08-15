@@ -13,8 +13,8 @@
         <RepositoryType>git</RepositoryType>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
-        <Description>Sidio.Web.Testing is .....</Description>
-        <PackageTags>aspnetcore web security http headers csp contentsecuritypolicy hsts testing unittest</PackageTags>
+        <Description>Sidio.Web.Testing provides testing functionality that can be used to verify that the security headers are set correctly.</Description>
+        <PackageTags>aspnetcore web security http headers csp content-security-policy hsts testing unittest unittesting</PackageTags>
         <PackageReleaseNotes>https://github.com/marthijn/Sidio.Web.Security/releases</PackageReleaseNotes>
         <PackageIcon>icon.png</PackageIcon>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>

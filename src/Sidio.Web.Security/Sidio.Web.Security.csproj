@@ -13,8 +13,8 @@
         <RepositoryType>git</RepositoryType>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
-        <Description>Sidio.Web.Security is .....</Description>
-        <PackageTags>aspnetcore web security http headers csp contentsecuritypolicy hsts</PackageTags>
+        <Description>Sidio.Web.Security provides the core functionality to secure web applications. It is useful to use this package if .NET Framework is still in use. Otherwise, use Sidio.Web.Security.AspNetCore.</Description>
+        <PackageTags>aspnetcore web security http headers csp content-security-policy hsts</PackageTags>
         <PackageReleaseNotes>https://github.com/marthijn/Sidio.Web.Security/releases</PackageReleaseNotes>
         <PackageIcon>icon.png</PackageIcon>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>

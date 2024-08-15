@@ -10,9 +10,6 @@ updates:
     schedule:
       interval: "weekly"
     groups:
-      microsoft:
-        patterns:
-          - "Microsoft*"
       tests:
         patterns:
           - "AutoFixture"
@@ -22,6 +19,10 @@ updates:
           - "*Test*"
           - "coverlet*"
           - "Microsoft.AspNetCore.Mvc.Testing"
+      microsoft:
+        patterns:
+          - "Microsoft.*"
+          - "System.*"
   - package-ecosystem: "github-actions" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:

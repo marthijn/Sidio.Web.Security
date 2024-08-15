@@ -1,26 +1,28 @@
 # Sidio.Web.Security
 
 # Goal of this project
-The goal of this project is to provide a set of helper functions and middleware that can be used to secure an ASP.NET Core application.
+The goal of this project is to provide a set of services, helper functions and middleware that can be used to secure an ASP.NET Core application.
 All features are based on the [Mozilla Web Security Guidelines](https://infosec.mozilla.org/guidelines/web_security).
 
-The library is currently in preview and is not yet ready for production use. During the preview phase,
-breaking changes may be introduced.
+__Note:__
+The packages are currently in preview and is not yet ready for production use. During the preview phase,
+breaking changes may be introduced. Extensive documentation is also still being worked on.
 
-# Projects
+# Packages
 ## Sidio.Web.Security
-[Sidio.Web.Security](https://www.nuget.org/packages/Sidio.Web.Security/) provides the core functionality. Can be used in .NET Standard 2.0 projects.
+[Sidio.Web.Security](https://www.nuget.org/packages/Sidio.Web.Security/) provides the core functionality. Can be used in projects targeting .NET Standard 2.0.
+It is useful to use this package if .NET Framework is still in use. Otherwise, use [Sidio.Web.Security.AspNetCore](https://www.nuget.org/packages/Sidio.Web.Security.AspNetCore/).
 
 [![build](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml/badge.svg)](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml)
 [![NuGet Version](https://img.shields.io/nuget/v/Sidio.Web.Security)](https://www.nuget.org/packages/Sidio.Web.Security/)
 
 ## Sidio.Web.Security.AspNetCore
-[Sidio.Web.Security.AspNetCore](https://www.nuget.org/packages/Sidio.Web.Security.AspNetCore/) provides the ASP.NET Core middleware. The project targets .NET 8.0 and higher.
+[Sidio.Web.Security.AspNetCore](https://www.nuget.org/packages/Sidio.Web.Security.AspNetCore/) provides the ASP.NET Core services and middleware. The project targets .NET 8.0 and higher.
 
 [![build](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml/badge.svg)](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml)
 [![NuGet Version](https://img.shields.io/nuget/v/Sidio.Web.Security.AspNetCore)](https://www.nuget.org/packages/Sidio.Web.Security.AspNetCore/)
 
-## Sidio.Web.Security.AspNetCore.Mvc
+## Sidio.Web.Security.Testing
 [Sidio.Web.Security.Testing](https://www.nuget.org/packages/Sidio.Web.Security.AspNetCore.Mvc/) provides testing 
 functionality that can be used to verify that the security headers are set correctly.
 
@@ -76,7 +78,7 @@ app.UseReportTo(
         ],
     });
 ```
-Create an action in a controller that will receive the reports:
+Create an action named `Report` in the `HomeController`:
 ```csharp
 [HttpPost]
 public IActionResult Report([FromBody] Reports model)
@@ -94,3 +96,4 @@ app.UseSecureCookiePolicy();
 ```
 
 # Testing
+_todo_

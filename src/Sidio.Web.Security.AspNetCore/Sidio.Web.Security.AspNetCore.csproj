@@ -12,8 +12,8 @@
         <RepositoryType>git</RepositoryType>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
-        <Description>Sidio.Web.Security.AspNetCore is .....</Description>
-        <PackageTags>aspnetcore web security http headers csp contentsecuritypolicy hsts</PackageTags>
+        <Description>Sidio.Web.Security.AspNetCore provides services and middleware to secure ASP.NET Core applications.</Description>
+        <PackageTags>aspnetcore web security http headers csp content-security-policy hsts</PackageTags>
         <PackageReleaseNotes>https://github.com/marthijn/Sidio.Web.Security/releases</PackageReleaseNotes>
         <PackageIcon>icon.png</PackageIcon>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
