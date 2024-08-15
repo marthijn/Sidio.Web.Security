@@ -1,24 +1,40 @@
 # Sidio.Web.Security
 
 # Goal of this project
-The goal of this project is to provide a set of functions that can be used to secure an ASP.NET Core application.
-The functions are based on the [Mozilla Web Security Guidelines](https://infosec.mozilla.org/guidelines/web_security).
+The goal of this project is to provide a set of helper functions and middleware that can be used to secure an ASP.NET Core application.
+All features are based on the [Mozilla Web Security Guidelines](https://infosec.mozilla.org/guidelines/web_security).
 
-The library is currently in preview and is not yet ready for production use.
+The library is currently in preview and is not yet ready for production use. During the preview phase,
+breaking changes may be introduced.
 
-# Installation
-Get the packages on NuGet:
-- [Sidio.Web.Security](https://www.nuget.org/packages/Sidio.Web.Security/): provides the core functionality. Can be used in .NET Standard 2.0 projects.
-- [Sidio.Web.Security.AspNetCore](https://www.nuget.org/packages/Sidio.Web.Security.AspNetCore/): provides the ASP.NET Core middleware.
-- [Sidio.Web.Security.Testing](https://www.nuget.org/packages/Sidio.Web.Security.AspNetCore.Mvc/): provides testing functionality.
+# Projects
+## Sidio.Web.Security
+[Sidio.Web.Security](https://www.nuget.org/packages/Sidio.Web.Security/) provides the core functionality. Can be used in .NET Standard 2.0 projects.
 
-## HTTP headers
+[![build](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml/badge.svg)](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml)
+[![NuGet Version](https://img.shields.io/nuget/v/Sidio.Web.Security)](https://www.nuget.org/packages/Sidio.Web.Security/)
+
+## Sidio.Web.Security.AspNetCore
+[Sidio.Web.Security.AspNetCore](https://www.nuget.org/packages/Sidio.Web.Security.AspNetCore/) provides the ASP.NET Core middleware. The project targets .NET 8.0 and higher.
+
+[![build](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml/badge.svg)](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml)
+[![NuGet Version](https://img.shields.io/nuget/v/Sidio.Web.Security.AspNetCore)](https://www.nuget.org/packages/Sidio.Web.Security.AspNetCore/)
+
+## Sidio.Web.Security.AspNetCore.Mvc
+[Sidio.Web.Security.Testing](https://www.nuget.org/packages/Sidio.Web.Security.AspNetCore.Mvc/) provides testing 
+functionality that can be used to verify that the security headers are set correctly.
+
+[![build](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml/badge.svg)](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml)
+[![NuGet Version](https://img.shields.io/nuget/v/Sidio.Web.Security.Testing)](https://www.nuget.org/packages/Sidio.Web.Security.Testing/)
+
+# HTTP headers
 - Content-Security-Policy: [Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy)
 - Referrer-Policy: [Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy)
+- Report-To: [Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Report-To)
 - X-Content-Type-Options: [Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options)
 - X-Frame-Options: [Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options)
 
-### Non-standard headers
+## Non-standard headers
 - X-XSS-Protection: [Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection)
   - This header is non-standard and is not on a standard track. Do not use it.
 
@@ -70,7 +86,7 @@ public IActionResult Report([FromBody] Reports model)
 }
 ```
 
-## Secure cookies
+# Secure cookies
 By using the following code, a secure cookie policy is configured that is based 
 on the [Mozilla Web Security Guidelines](https://infosec.mozilla.org/guidelines/web_security).
 ```csharp
