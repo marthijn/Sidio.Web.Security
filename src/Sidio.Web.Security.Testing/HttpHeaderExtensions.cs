@@ -3,8 +3,19 @@ using Sidio.Web.Security.Testing.Exceptions;
 
 namespace Sidio.Web.Security.Testing;
 
+/// <summary>
+/// The extension methods for <see cref="HttpHeader"/>.
+/// </summary>
 public static class HttpHeaderExtensions
 {
+    /// <summary>
+    /// Asserts that the header has a specific value.
+    /// </summary>
+    /// <param name="header">The header.</param>
+    /// <param name="expectedValue">The expected value.</param>
+    /// <typeparam name="T">The header type.</typeparam>
+    /// <returns>The header of type <see cref="T"/>.</returns>
+    /// <exception cref="HttpHeaderShouldHaveValueException">Thrown when the actual value is different from the expected value.</exception>
     public static T WithValue<T>(this T header, string expectedValue)
         where T : HttpHeader
     {
@@ -16,6 +27,13 @@ public static class HttpHeaderExtensions
         return header;
     }
 
+    /// <summary>
+    /// Asserts that the header has a non-empty value.
+    /// </summary>
+    /// <param name="header">The header.</param>
+    /// <typeparam name="T">The header type.</typeparam>
+    /// <returns>The header of type <see cref="T"/>.</returns>
+    /// <exception cref="HttpHeaderShouldNotBeEmptyException">Thrown when the header value is empty.</exception>
     public static T WithNonEmptyValue<T>(this T header)
         where T : HttpHeader
     {
@@ -27,6 +45,14 @@ public static class HttpHeaderExtensions
         return header;
     }
 
+    /// <summary>
+    /// Asserts that the header contains a specific value.
+    /// </summary>
+    /// <param name="header">The header.</param>
+    /// <param name="expectedValue">The expected value.</param>
+    /// <typeparam name="T">The header type.</typeparam>
+    /// <returns>The header of type <see cref="T"/>.</returns>
+    /// <exception cref="HttpHeaderShouldHaveValueException">Thrown when the header value does not contain the expected value.</exception>
     public static T ContainsValue<T>(this T header, string expectedValue)
         where T : HttpHeader
     {
