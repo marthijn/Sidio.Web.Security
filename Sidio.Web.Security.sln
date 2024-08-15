@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		README.md = README.md
+		SECURITY.md = SECURITY.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sidio.Web.Security.Tests", "src\Sidio.Web.Security.Tests\Sidio.Web.Security.Tests.csproj", "{29362024-EFE1-4BAD-A94A-4620BACABAA1}"
