@@ -1,6 +1,5 @@
-﻿using Sidio.Web.Security.Headers;
-using Sidio.Web.Security.Headers.Options;
-using Sidio.Web.Security.Testing;
+﻿using Sidio.Web.Security.Headers.Options;
+using Sidio.Web.Security.Testing.Headers;
 
 namespace Sidio.Web.Security.Examples.AspNetCore.Tests.Controllers;
 
