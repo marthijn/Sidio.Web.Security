@@ -11,20 +11,26 @@ public sealed class ReferrerPolicyHeaderValidator : IHeaderValidator<ReferrerPol
     /// <inheritdoc />
     public HeaderValidationResult Validate(string? headerValue, out ReferrerPolicyHeaderOptions? options)
     {
-        options = null;
         if (headerValue.IsNullOrWhiteSpace(out var validations))
         {
+            options = null;
             return new HeaderValidationResult(validations);
         }
 
         var validation = new List<HeaderValidation>();
-        if (!headerValue.TryToEnum(out ReferrerPolicy policy))
+
+        options = new ReferrerPolicyHeaderOptions();
+        var stringValues = headerValue.Split(',').Select(v => v.Trim());
+        foreach (var stringValue in stringValues)
         {
-            validation.Add(new HeaderValidation(HeaderValidationSeverityLevel.Error, "The header value is not a valid Referrer-Policy directive."));
-        }
-        else
-        {
-            options = new ReferrerPolicyHeaderOptions { Policy = policy };
+            if (!stringValue.TryToEnum(out ReferrerPolicy policy))
+            {
+                validation.Add(new HeaderValidation(HeaderValidationSeverityLevel.Error, "The header value is not a valid Referrer-Policy directive."));
+            }
+            else
+            {
+                options.Policies.Add(policy);
+            }
         }
 
         return new HeaderValidationResult(validation).ClearOptionsWhenInvalid(ref options);

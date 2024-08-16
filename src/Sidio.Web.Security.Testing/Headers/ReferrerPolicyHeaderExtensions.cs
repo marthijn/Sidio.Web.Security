@@ -9,9 +9,9 @@ public static class ReferrerPolicyHeaderExtensions
         this ReferrerPolicyHeaderOptions options,
         ReferrerPolicy expectedReferrerPolicy)
     {
-        if (options.Policy != expectedReferrerPolicy)
+        if (!options.Policies.Contains(expectedReferrerPolicy))
         {
-            throw new DirectiveShouldHaveValueException(nameof(options.Policy), expectedReferrerPolicy, options.Policy);
+            throw new DirectiveShouldHaveValueException(nameof(options.Policies), expectedReferrerPolicy, options.Policies);
         }
 
         return options;

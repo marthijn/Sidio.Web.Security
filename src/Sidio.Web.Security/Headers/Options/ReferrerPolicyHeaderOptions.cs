@@ -10,13 +10,14 @@ namespace Sidio.Web.Security.Headers.Options;
 public sealed class ReferrerPolicyHeaderOptions : IHttpHeaderOptions
 {
     /// <summary>
-    /// Gets or sets the Referrer-Policy directive. The default value is <see cref="ReferrerPolicy.StrictOriginWhenCrossOrigin"/>.
+    /// Gets or sets the Referrer-Policy directives. The default value is <see cref="ReferrerPolicy.StrictOriginWhenCrossOrigin"/>.
+    /// Multiple values can be used to specify a fallback policy.
     /// </summary>
-    public ReferrerPolicy Policy { get; set; } = ReferrerPolicy.StrictOriginWhenCrossOrigin;
+    public List<ReferrerPolicy> Policies { get; set; } = [ReferrerPolicy.StrictOriginWhenCrossOrigin];
 
     /// <inheritdoc />
     public string Value => ToString();
 
     /// <inheritdoc />
-    public override string ToString() => Policy.ToStringValue();
+    public override string ToString() => string.Join(", ", Policies.Select(p => p.ToStringValue()));
 }

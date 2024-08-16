@@ -10,7 +10,7 @@ public sealed class ReferrerPolicyHeaderOptionsTests
         // arrange
         var options = new ReferrerPolicyHeaderOptions
         {
-            Policy = ReferrerPolicy.Origin,
+            Policies = [ReferrerPolicy.Origin],
         };
 
         // act
@@ -18,6 +18,23 @@ public sealed class ReferrerPolicyHeaderOptionsTests
 
         // assert
         result.Should().Be("origin");
+        result.Should().BeEquivalentTo(options.Value);
+    }
+
+    [Fact]
+    public void ToString_ReferrerPolicyHeaderOptionsWithFallback_ReturnsString()
+    {
+        // arrange
+        var options = new ReferrerPolicyHeaderOptions
+        {
+            Policies = [ReferrerPolicy.Origin, ReferrerPolicy.SameOrigin, ReferrerPolicy.StrictOriginWhenCrossOrigin],
+        };
+
+        // act
+        var result = options.ToString();
+
+        // assert
+        result.Should().Be("origin, same-origin, strict-origin-when-cross-origin");
         result.Should().BeEquivalentTo(options.Value);
     }
 }

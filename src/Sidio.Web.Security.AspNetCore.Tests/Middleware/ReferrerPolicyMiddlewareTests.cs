@@ -16,7 +16,7 @@ public sealed class ReferrerPolicyMiddlewareTests
             _ => Task.CompletedTask,
             Options.Create(new ReferrerPolicyHeaderOptions
             {
-                Policy = ReferrerPolicy.NoReferrer,
+                Policies = [ReferrerPolicy.NoReferrer],
             }),
             NullLogger<ReferrerPolicyMiddleware>.Instance);
 

@@ -19,14 +19,14 @@ public sealed class ReferrerPolicyHeaderValidatorTests : HeaderValidatorTests<Re
         // assert
         result.IsValid.Should().BeTrue();
         options.Should().NotBeNull();
-        options!.Policy.Should().Be(policy);
+        options!.Policies.Should().Contain(policy);
     }
 
     [Fact]
     public void Validate_GivenOptions_ShouldReturnValidResult()
     {
         // arrange
-        var options = new ReferrerPolicyHeaderOptions { Policy = ReferrerPolicy.NoReferrer };
+        var options = new ReferrerPolicyHeaderOptions { Policies = [ReferrerPolicy.NoReferrer] };
 
         // act
         var result = Validator.Validate(options);
