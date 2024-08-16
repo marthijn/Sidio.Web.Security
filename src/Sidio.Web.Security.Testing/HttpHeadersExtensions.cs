@@ -136,4 +136,20 @@ public static class HttpHeadersExtensions
 
         throw new HeaderShouldExistException(ReportToHeader.HeaderName);
     }
+
+    /// <summary>
+    /// Asserts that the headers contain the Referrer-Policy header.
+    /// </summary>
+    /// <param name="headers">The HTTP headers.</param>
+    /// <returns>A <see cref="ReferrerPolicyHeader"/>.</returns>
+    /// <exception cref="HeaderShouldExistException">Thrown when the expected header does not exist.</exception>
+    public static ReferrerPolicyHeader ShouldHaveReferrerPolicyHeader(this HttpHeaders headers)
+    {
+        if (headers.TryGetValues(ReferrerPolicyHeader.HeaderName, out var values))
+        {
+            return new ReferrerPolicyHeader(values.First());
+        }
+
+        throw new HeaderShouldExistException(ReferrerPolicyHeader.HeaderName);
+    }
 }

@@ -1,4 +1,5 @@
 ﻿using Sidio.Web.Security.Headers;
+using Sidio.Web.Security.Headers.Options;
 using Sidio.Web.Security.Testing.Exceptions;
 
 namespace Sidio.Web.Security.Testing;
@@ -62,5 +63,25 @@ public static class HttpHeaderExtensions
         }
 
         return header;
+    }
+
+    /// <summary>
+    /// Asserts that the header has a valid value that can be converted to the corresponding options.
+    /// </summary>
+    /// <param name="header">The header.</param>
+    /// <typeparam name="TOptions">The options type.</typeparam>
+    /// <returns>Options of type <see cref="TOptions"/>.</returns>
+    /// <exception cref="InvalidOperationException">Thrown when the result is valid, but the options are null.</exception>
+    /// <exception cref="HeaderShouldBeValidException">Thrown when the header value is invalid.</exception>
+    public static TOptions HasValidOptions<TOptions>(this ValidatableHttpHeader<TOptions> header)
+        where TOptions : class, IHttpHeaderOptions, new()
+    {
+        var validationResult = header.Validate(out TOptions? options);
+        if (validationResult.IsValid)
+        {
+            return options ?? throw new InvalidOperationException("The options should not be null.");
+        }
+
+        throw new HeaderShouldBeValidException(header);
     }
 }

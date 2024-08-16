@@ -1,4 +1,6 @@
-﻿using Sidio.Web.Security.Testing;
+﻿using Sidio.Web.Security.Headers;
+using Sidio.Web.Security.Headers.Options;
+using Sidio.Web.Security.Testing;
 
 namespace Sidio.Web.Security.Examples.AspNetCore.Tests.Controllers;
 
@@ -36,6 +38,8 @@ public sealed class HomeControllerTests : IClassFixture<WebApplicationFactory<Pr
         response.Headers.ShouldHaveContentSecurityPolicyHeader().ContainsValue("nonce");
 
         response.Headers.ShouldHaveReportToHeader();
+
+        response.Headers.ShouldHaveReferrerPolicyHeader().HasValidOptions().WithPolicy(ReferrerPolicy.NoReferrer);
 
         var content = await response.Content.ReadAsStringAsync();
         content.Should().Contain("Home");

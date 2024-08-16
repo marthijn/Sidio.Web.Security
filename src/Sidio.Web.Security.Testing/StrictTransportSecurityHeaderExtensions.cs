@@ -10,24 +10,6 @@ namespace Sidio.Web.Security.Testing;
 public static class StrictTransportSecurityHeaderExtensions
 {
     /// <summary>
-    /// Asserts that the header has valid options.
-    /// </summary>
-    /// <param name="header">The header.</param>
-    /// <returns>The <see cref="StrictTransportSecurityHeaderOptions"/>.</returns>
-    /// <exception cref="InvalidOperationException">Thrown when the result is valid, but the options are null.</exception>
-    /// <exception cref="HeaderShouldBeValidException">Thrown when the options are invalid.</exception>
-    public static StrictTransportSecurityHeaderOptions HasValidOptions(this StrictTransportSecurityHeader header)
-    {
-        var validationResult = header.Validate(out var options);
-        if (validationResult.IsValid)
-        {
-            return options ?? throw new InvalidOperationException("The options should not be null.");
-        }
-
-        throw new HeaderShouldBeValidException(header);
-    }
-
-    /// <summary>
     /// Asserts that the header has a specific value for the max-age directive.
     /// </summary>
     /// <param name="options">The options.</param>

@@ -91,6 +91,19 @@ public static class ApplicationBuilderExtensions
     }
 
     /// <summary>
+    /// Adds the Referrer-Policy header middleware.
+    /// </summary>
+    /// <param name="app">The application builder.</param>
+    /// <param name="options">The options.</param>
+    /// <returns>The <see cref="IApplicationBuilder"/>.</returns>
+    public static IApplicationBuilder UseReferrerPolicy(this IApplicationBuilder app, ReferrerPolicyHeaderOptions? options = null)
+    {
+        ArgumentNullException.ThrowIfNull(app);
+        var optionsValue = options ?? new ReferrerPolicyHeaderOptions();
+        return app.UseMiddleware<ReferrerPolicyMiddleware>(Options.Create(optionsValue));
+    }
+
+    /// <summary>
     /// Adds the X-XSS-Protection header middleware.
     /// </summary>
     /// <remarks>This feature is non-standard and is not on a standards track. Do not use it on production sites facing the Web: it will not work for every user.</remarks>

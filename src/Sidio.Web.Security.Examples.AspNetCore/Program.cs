@@ -52,6 +52,11 @@ app.UseReportTo(
         ],
     });
 
+app.UseReferrerPolicy(new ReferrerPolicyHeaderOptions
+{
+    Policy = ReferrerPolicy.NoReferrer,
+});
+
 if (app.Environment.IsDevelopment())
 {
     app.UseHeaderValidation();

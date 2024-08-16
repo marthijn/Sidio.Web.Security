@@ -1,21 +1,23 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Sidio.Web.Security.Headers.Options.ContentSecurityPolicy;
+namespace Sidio.Web.Security.Common;
 
 /// <summary>
-/// The sandbox extensions.
+/// The enum extensions.
 /// </summary>
-public static class SandboxExtensions
+public static class EnumExtensions
 {
     /// <summary>
-    /// Converts the sandbox to its value.
+    /// Converts the enum value to its value, taken from the <see cref="EnumMemberAttribute"/>.
     /// </summary>
-    /// <param name="sandbox">The sandbox value.</param>
+    /// <param name="enumValue">The enum value.</param>
+    /// <typeparam name="T">The enum type.</typeparam>
     /// <returns>A <see cref="string"/>.</returns>
-    public static string ToValue(this Sandbox sandbox)
+    public static string ToStringValue<T>(this T enumValue)
+        where T : Enum
     {
         var enumMemberAttribute =
-            ((EnumMemberAttribute[]) typeof(Sandbox).GetField(sandbox.ToString())!
+            ((EnumMemberAttribute[]) typeof(T).GetField(enumValue.ToString())!
                 .GetCustomAttributes(typeof(EnumMemberAttribute), true))
             .Single();
         return enumMemberAttribute.Value!;

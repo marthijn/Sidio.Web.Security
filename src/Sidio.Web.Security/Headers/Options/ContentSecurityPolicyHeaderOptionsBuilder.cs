@@ -1,4 +1,5 @@
-﻿using Sidio.Web.Security.Headers.Options.ContentSecurityPolicy;
+﻿using Sidio.Web.Security.Common;
+using Sidio.Web.Security.Headers.Options.ContentSecurityPolicy;
 
 namespace Sidio.Web.Security.Headers.Options;
 
@@ -183,7 +184,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
 
     public ContentSecurityPolicyHeaderOptionsBuilder AddSandbox(Sandbox value = Sandbox.Default)
     {
-        _options.Sandbox = value.ToValue();
+        _options.Sandbox = value.ToStringValue();
         return this;
     }
 

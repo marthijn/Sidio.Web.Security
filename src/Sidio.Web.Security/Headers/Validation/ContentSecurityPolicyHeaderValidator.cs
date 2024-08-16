@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using Sidio.Web.Security.Common;
 using Sidio.Web.Security.Headers.Options;
 using Sidio.Web.Security.Headers.Options.ContentSecurityPolicy;
 
