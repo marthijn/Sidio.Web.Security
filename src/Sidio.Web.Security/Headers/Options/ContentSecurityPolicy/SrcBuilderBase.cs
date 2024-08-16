@@ -45,16 +45,21 @@ public abstract class SrcBuilderBase<T> : ISrcBuilder
     /// <summary>
     /// Add a URL source to the directive.
     /// </summary>
-    /// <param name="url"></param>
+    /// <param name="urls">The urls.</param>
     /// <returns>The <see cref="ISrcBuilder"/> of type <see cref="T"/></returns>
-    public T AllowUrl(string url)
+    /// <exception cref="ArgumentException">Thrown when no URLs are provided, or when a URL is null or empty.</exception>
+    public T AllowUrl(params string[] urls)
     {
-        if (string.IsNullOrWhiteSpace(url))
+        if (urls.Length == 0)
         {
-            throw new ArgumentException("The URL should not be null or empty.", nameof(url));
+            throw new ArgumentException("At least one URL is required.", nameof(urls));
         }
 
-        Sources.Add(url);
+        foreach (var url in urls)
+        {
+            AllowSingleUrl(url);
+        }
+
         return This;
     }
 
@@ -160,4 +165,15 @@ public abstract class SrcBuilderBase<T> : ISrcBuilder
 
     /// <inheritdoc />
     public override string ToString() => string.Join(" ", Sources);
+
+    private T AllowSingleUrl(string url)
+    {
+        if (string.IsNullOrWhiteSpace(url))
+        {
+            throw new ArgumentException("The URL should not be null or empty.", nameof(url));
+        }
+
+        Sources.Add(url);
+        return This;
+    }
 }

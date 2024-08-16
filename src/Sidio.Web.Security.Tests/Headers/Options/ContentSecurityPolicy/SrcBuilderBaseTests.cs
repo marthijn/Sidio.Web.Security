@@ -64,6 +64,19 @@ public abstract class SrcBuilderBaseTests<T>
     }
 
     [Fact]
+    public void AllowUrl_EmptyList_ShouldThrowException()
+    {
+        // arrange
+        var urls = Array.Empty<string>();
+
+        // act
+        var action = () => Builder.AllowUrl(urls);
+
+        // assert
+        action.Should().Throw<ArgumentException>();
+    }
+
+    [Fact]
     public void AllowNone_DirectiveShouldExist()
     {
         // act
