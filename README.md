@@ -33,14 +33,14 @@ targeting .NET Framework.
 [![NuGet Version](https://img.shields.io/nuget/v/Sidio.Web.Security)](https://www.nuget.org/packages/Sidio.Web.Security/)
 
 # HTTP headers
-- Content-Security-Policy: [Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy)
-- Referrer-Policy: [Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy)
-- Report-To: [Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Report-To)
-- X-Content-Type-Options: [Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options)
-- X-Frame-Options: [Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options)
+- Content-Security-Policy: [docs](https://github.com/marthijn/Sidio.Web.Security/wiki/Content%E2%80%90Security%E2%80%90Policy)
+- Referrer-Policy: [docs](https://github.com/marthijn/Sidio.Web.Security/wiki/Referrer%E2%80%90Policy)
+- Report-To: [docs](https://github.com/marthijn/Sidio.Web.Security/wiki/Report%E2%80%90To)
+- X-Content-Type-Options: [docs](https://github.com/marthijn/Sidio.Web.Security/wiki/X%E2%80%90Content%E2%80%90Type%E2%80%90Options)
+- X-Frame-Options: [docs](https://github.com/marthijn/Sidio.Web.Security/wiki/X%E2%80%90Frame%E2%80%90Options)
 
 ## Non-standard headers
-- X-XSS-Protection: [Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection)
+- X-XSS-Protection: [docs](https://github.com/marthijn/Sidio.Web.Security/wiki/X%E2%80%90XSS%E2%80%90Protection)
   - This header is non-standard and is not on a standard track. Do not use it.
 
 ## Example
@@ -63,33 +63,8 @@ app.UseContentSecurityPolicy(
 ```
 
 ## Reporting API
-The reporting API can be used to report violations of the Content Security Policy. Add the following headers:
-```csharp
-app.UseContentSecurityPolicy(
-    (services, b) =>
-    {
-        // ...
-        b.AddReportTo("csp-report");
-    });
-
-app.UseReportTo(
-    new ReportToHeaderOptions
-    {
-        Groups =
-        [
-            new("csp-report", "/Home/Report")
-        ],
-    });
-```
-Create an action named `Report` in the `HomeController`:
-```csharp
-[HttpPost]
-public IActionResult Report([FromBody] Reports model)
-{
-    _logger.LogWarning("Report sent from browser: {Report}", JsonSerializer.Serialize(model));
-    return Ok();
-}
-```
+The reporting API can be used to report violations of the Content Security Policy.
+Read more in the [wiki docs](https://github.com/marthijn/Sidio.Web.Security/wiki/Reporting-API).
 
 # Secure cookies
 By using the following code, a secure cookie policy is configured that is based 
