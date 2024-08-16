@@ -77,6 +77,20 @@ public abstract class SrcBuilderBaseTests<T>
     }
 
     [Fact]
+    public void AllowUrl_MultipleUrls_DirectiveShouldExist()
+    {
+        // arrange
+        var urls = _fixture.CreateMany<string>(10).ToArray();
+
+        // act
+        var result = Builder.AllowUrl(urls);
+
+        // assert
+        result.SourcesInternal.Should().BeEquivalentTo(urls);
+        result.Should().BeSameAs(Builder);
+    }
+
+    [Fact]
     public void AllowNone_DirectiveShouldExist()
     {
         // act
