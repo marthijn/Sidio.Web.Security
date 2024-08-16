@@ -23,8 +23,7 @@ public static class ApplicationBuilderExtensions
     {
         ArgumentNullException.ThrowIfNull(app);
         var optionsValue = options ?? new HeaderValidationOptions();
-        app.UseMiddleware<HeaderValidationMiddleware>(Options.Create(optionsValue));
-        return app;
+        return app.UseMiddleware<HeaderValidationMiddleware>(Options.Create(optionsValue));
     }
 
 
@@ -38,8 +37,7 @@ public static class ApplicationBuilderExtensions
     {
         ArgumentNullException.ThrowIfNull(app);
         var optionsValue = options ?? new XFrameOptionsHeaderOptions();
-        app.UseMiddleware<XFrameOptionsMiddleware>(Options.Create(optionsValue));
-        return app;
+        return app.UseMiddleware<XFrameOptionsMiddleware>(Options.Create(optionsValue));
     }
 
     /// <summary>
@@ -50,8 +48,7 @@ public static class ApplicationBuilderExtensions
     public static IApplicationBuilder UseXContentTypeOptions(this IApplicationBuilder app)
     {
         ArgumentNullException.ThrowIfNull(app);
-        app.UseMiddleware<XContentTypeOptionsMiddleware>();
-        return app;
+        return app.UseMiddleware<XContentTypeOptionsMiddleware>();
     }
 
     /// <summary>
@@ -64,8 +61,7 @@ public static class ApplicationBuilderExtensions
     {
         ArgumentNullException.ThrowIfNull(app);
         var optionsValue = options ?? new StrictTransportSecurityHeaderOptions();
-        app.UseMiddleware<StrictTransportSecurityMiddleware>(Options.Create(optionsValue));
-        return app;
+        return app.UseMiddleware<StrictTransportSecurityMiddleware>(Options.Create(optionsValue));
     }
 
     /// <summary>
@@ -79,8 +75,7 @@ public static class ApplicationBuilderExtensions
         Action<IServiceProvider, ContentSecurityPolicyHeaderOptionsBuilder> options)
     {
         ArgumentNullException.ThrowIfNull(app);
-        app.UseMiddleware<ContentSecurityPolicyMiddleware>(options);
-        return app;
+        return app.UseMiddleware<ContentSecurityPolicyMiddleware>(options);
     }
 
     /// <summary>
@@ -92,8 +87,23 @@ public static class ApplicationBuilderExtensions
     public static IApplicationBuilder UseReportTo(this IApplicationBuilder app, ReportToHeaderOptions options)
     {
         ArgumentNullException.ThrowIfNull(app);
-        app.UseMiddleware<ReportToMiddleware>(Options.Create(options));
-        return app;
+        return app.UseMiddleware<ReportToMiddleware>(Options.Create(options));
+    }
+
+    /// <summary>
+    /// Adds the X-XSS-Protection header middleware.
+    /// </summary>
+    /// <remarks>This feature is non-standard and is not on a standards track. Do not use it on production sites facing the Web: it will not work for every user.</remarks>
+    /// <param name="app">The application builder.</param>
+    /// <param name="options">The options.</param>
+    /// <returns>The <see cref="IApplicationBuilder"/>.</returns>
+    public static IApplicationBuilder UseXXssProtection(
+        this IApplicationBuilder app,
+        XXssProtectionHeaderOptions? options = null)
+    {
+        ArgumentNullException.ThrowIfNull(app);
+        var optionsValue = options ?? new XXssProtectionHeaderOptions();
+        return app.UseMiddleware<XXssProtectionMiddleware>(Options.Create(optionsValue));
     }
 
     /// <summary>
