@@ -1,7 +1,7 @@
 ﻿using Sidio.Web.Security.Headers.Options;
-using Sidio.Web.Security.Testing.Exceptions;
+using Sidio.Web.Security.Testing.Headers.Exceptions;
 
-namespace Sidio.Web.Security.Testing;
+namespace Sidio.Web.Security.Testing.Headers;
 
 public static class ReferrerPolicyHeaderExtensions
 {

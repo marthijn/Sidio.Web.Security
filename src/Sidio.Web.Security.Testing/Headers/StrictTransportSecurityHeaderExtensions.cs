@@ -1,8 +1,8 @@
 ﻿using Sidio.Web.Security.Headers;
 using Sidio.Web.Security.Headers.Options;
-using Sidio.Web.Security.Testing.Exceptions;
+using Sidio.Web.Security.Testing.Headers.Exceptions;
 
-namespace Sidio.Web.Security.Testing;
+namespace Sidio.Web.Security.Testing.Headers;
 
 /// <summary>
 /// Extensions for <see cref="StrictTransportSecurityHeader"/> and <see cref="StrictTransportSecurityHeaderOptions"/>.

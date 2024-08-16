@@ -1,8 +1,8 @@
 ﻿using System.Net.Http.Headers;
 using Sidio.Web.Security.Headers;
-using Sidio.Web.Security.Testing.Exceptions;
+using Sidio.Web.Security.Testing.Headers.Exceptions;
 
-namespace Sidio.Web.Security.Testing;
+namespace Sidio.Web.Security.Testing.Headers;
 
 /// <summary>
 /// The extension methods for <see cref="HttpHeaders"/>.

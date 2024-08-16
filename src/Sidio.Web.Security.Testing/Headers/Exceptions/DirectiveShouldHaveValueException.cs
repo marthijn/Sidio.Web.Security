@@ -1,4 +1,4 @@
-﻿namespace Sidio.Web.Security.Testing.Exceptions;
+﻿namespace Sidio.Web.Security.Testing.Headers.Exceptions;
 
 /// <summary>
 /// The exception that is thrown when a directive should have a specific value.

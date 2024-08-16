@@ -1,6 +1,6 @@
 ﻿using Sidio.Web.Security.Headers;
 
-namespace Sidio.Web.Security.Testing.Exceptions;
+namespace Sidio.Web.Security.Testing.Headers.Exceptions;
 
 /// <summary>
 /// The exception that is thrown when a header should have a specific value.
