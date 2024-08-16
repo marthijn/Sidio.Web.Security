@@ -1,21 +1,15 @@
-# Sidio.Web.Security
+# ASP.NET Core web security
 
 # Goal of this project
 The goal of this project is to provide a set of services, helper functions and middleware that can be used to secure an ASP.NET Core application.
 All features are based on the [Mozilla Web Security Guidelines](https://infosec.mozilla.org/guidelines/web_security).
 
 __Note:__
+
 The packages are currently in preview and is not yet ready for production use. During the preview phase,
 breaking changes may be introduced. Extensive documentation is also still being worked on.
 
 # Packages
-## Sidio.Web.Security
-[Sidio.Web.Security](https://www.nuget.org/packages/Sidio.Web.Security/) provides the core functionality. Can be used in projects targeting .NET Standard 2.0.
-It is useful to use this package if .NET Framework is still in use. Otherwise, use [Sidio.Web.Security.AspNetCore](https://www.nuget.org/packages/Sidio.Web.Security.AspNetCore/).
-
-[![build](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml/badge.svg)](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml)
-[![NuGet Version](https://img.shields.io/nuget/v/Sidio.Web.Security)](https://www.nuget.org/packages/Sidio.Web.Security/)
-
 ## Sidio.Web.Security.AspNetCore
 [Sidio.Web.Security.AspNetCore](https://www.nuget.org/packages/Sidio.Web.Security.AspNetCore/) provides the ASP.NET Core services and middleware. The project targets .NET 8.0 and higher.
 
@@ -28,6 +22,15 @@ functionality that can be used to verify that the security headers are set corre
 
 [![build](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml/badge.svg)](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml)
 [![NuGet Version](https://img.shields.io/nuget/v/Sidio.Web.Security.Testing)](https://www.nuget.org/packages/Sidio.Web.Security.Testing/)
+
+## .NET Framework support: Sidio.Web.Security
+[Sidio.Web.Security](https://www.nuget.org/packages/Sidio.Web.Security/) provides the core functionality. Can be used in projects targeting .NET Standard 2.0.
+It is useful to use this package if .NET Framework is still in use. Otherwise, use [Sidio.Web.Security.AspNetCore](https://www.nuget.org/packages/Sidio.Web.Security.AspNetCore/).
+Note that this package does not contain the middleware and services that are provided by the ASP.NET Core package. Feel free to make a contribution to this project or a fork
+targeting .NET Framework.
+
+[![build](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml/badge.svg)](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml)
+[![NuGet Version](https://img.shields.io/nuget/v/Sidio.Web.Security)](https://www.nuget.org/packages/Sidio.Web.Security/)
 
 # HTTP headers
 - Content-Security-Policy: [Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy)
