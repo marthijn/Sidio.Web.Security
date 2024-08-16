@@ -100,3 +100,9 @@ app.UseSecureCookiePolicy();
 
 # Testing
 _todo_
+
+# License
+This project is licensed under the [MIT License](LICENSE).
+
+Texts used in this project (including this readme, the code documentation and wiki pages) may come from, or be based on, the [MDN Web Doc's](https://developer.mozilla.org/en-US/docs/MDN/).
+[Attributions and copyright licensing](https://developer.mozilla.org/en-US/docs/MDN/Writing_guidelines/Attrib_copyright_license) by [Mozilla Contributors](https://developer.mozilla.org/en-US/docs/MDN/Community/Roles_teams#contributor) is licensed under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/).
