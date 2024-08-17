@@ -36,6 +36,7 @@ targeting .NET Framework.
 - Content-Security-Policy: [docs](https://github.com/marthijn/Sidio.Web.Security/wiki/Content%E2%80%90Security%E2%80%90Policy)
 - Referrer-Policy: [docs](https://github.com/marthijn/Sidio.Web.Security/wiki/Referrer%E2%80%90Policy)
 - Report-To: [docs](https://github.com/marthijn/Sidio.Web.Security/wiki/Report%E2%80%90To)
+- Strict-Transport-Security (HSTS): [docs](https://github.com/marthijn/Sidio.Web.Security/wiki/Strict%E2%80%90Transport%E2%80%90Security-(HSTS))
 - X-Content-Type-Options: [docs](https://github.com/marthijn/Sidio.Web.Security/wiki/X%E2%80%90Content%E2%80%90Type%E2%80%90Options)
 - X-Frame-Options: [docs](https://github.com/marthijn/Sidio.Web.Security/wiki/X%E2%80%90Frame%E2%80%90Options)
 
