@@ -29,6 +29,7 @@ app.UseXContentTypeOptions();
 app.UseStrictTransportSecurity(new StrictTransportSecurityHeaderOptions
 {
     MaxAge = 0,
+    DisableForLocalhostRequests = false, // disabled for testing purposes
 });
 app.UseContentSecurityPolicy(
     (services, b) =>

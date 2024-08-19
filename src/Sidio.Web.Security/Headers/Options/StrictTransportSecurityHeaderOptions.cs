@@ -24,6 +24,12 @@ public sealed class StrictTransportSecurityHeaderOptions : IHttpHeaderOptions
     /// </summary>
     public bool Preload { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether to disable localhost requests.
+    /// If set to true, localhost will be excluded from the HSTS header.
+    /// </summary>
+    public bool DisableForLocalhostRequests { get; set; } = true;
+
     /// <inheritdoc />
     public string Value => ToString();
 

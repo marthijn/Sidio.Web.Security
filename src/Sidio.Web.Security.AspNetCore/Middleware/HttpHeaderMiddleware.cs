@@ -31,11 +31,23 @@ internal abstract class HttpHeaderMiddleware
             throw new InvalidOperationException("The header is not set.");
         }
 
-        if (!context.Response.AppendHeaderIfNotExists(Header))
+        if (ShouldAppendHeader(context))
         {
-            _logger.LogWarning("The header `{HeaderName}` is already set", Header.Name);
+            if (!context.Response.AppendHeaderIfNotExists(Header))
+            {
+                _logger.LogWarning("The header `{HeaderName}` is already set", Header.Name);
+            }
+        }
+        else
+        {
+            _logger.LogDebug("The header `{HeaderName}` is not appended due to specific conditions", Header.Name);
         }
 
         return _next(context);
+    }
+
+    protected virtual bool ShouldAppendHeader(HttpContext context)
+    {
+        return true;
     }
 }
