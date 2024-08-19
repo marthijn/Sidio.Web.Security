@@ -56,7 +56,10 @@ public sealed class StrictTransportSecurityHeaderValidator : IHeaderValidator<St
         }
         else if (options.MaxAge  == 0)
         {
-            validationResult.Add(new HeaderValidation(HeaderValidationSeverityLevel.Warning, $"The {MaxAge} value is set to 0. The Strict-Transport-Security header will not be cached."));
+            validationResult.Add(
+                new HeaderValidation(
+                    HeaderValidationSeverityLevel.Warning,
+                    $"The {MaxAge} value is set to 0. The Strict-Transport-Security header will expire immediately. This is not recommended for production environments."));
         }
 
         if (options.Preload)
