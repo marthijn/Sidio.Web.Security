@@ -45,7 +45,7 @@ public sealed class ReferrerPolicyHeaderValidatorTests : HeaderValidatorTests<Re
             foreach (var name in Enum.GetNames(referrerPolicy))
             {
                 var enumMemberAttribute =
-                    ((EnumMemberAttribute[]) referrerPolicy.GetField(name)
+                    ((EnumMemberAttribute[]) referrerPolicy.GetField(name)!
                         .GetCustomAttributes(typeof(EnumMemberAttribute), true))
                     .Single();
                 _data.Add([enumMemberAttribute.Value, Enum.Parse(typeof(ReferrerPolicy), name)]);

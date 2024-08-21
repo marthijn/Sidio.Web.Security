@@ -26,6 +26,7 @@ public sealed class XFrameOptionsHeader : ValidatableHttpHeader<XFrameOptionsHea
     /// <summary>
     /// The ALLOW-FROM option.
     /// </summary>
+    // ReSharper disable once InconsistentNaming
     internal const string AllowFrom = "ALLOW-FROM";
 
     /// <summary>

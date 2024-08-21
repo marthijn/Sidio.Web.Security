@@ -16,7 +16,7 @@ public sealed class ReferrerPolicyHeaderExtensionsTests
         };
 
         // act
-        var action = () => header.WithPolicy(ReferrerPolicy.StrictOrigin);
+        var action = () => header.ContainsPolicy(ReferrerPolicy.StrictOrigin);
 
         // assert
         action.Should().NotThrow();
@@ -33,7 +33,7 @@ public sealed class ReferrerPolicyHeaderExtensionsTests
         };
 
         // act
-        var action = () => header.WithPolicy(ReferrerPolicy.NoReferrer);
+        var action = () => header.ContainsPolicy(ReferrerPolicy.NoReferrer);
 
         // assert
         action.Should().ThrowExactly<DirectiveShouldHaveValueException>();

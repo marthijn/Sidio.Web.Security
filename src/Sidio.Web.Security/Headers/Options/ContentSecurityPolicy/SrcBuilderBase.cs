@@ -3,6 +3,7 @@
 /// <summary>
 /// The builder for the Content Security Policy directive 'src'.
 /// </summary>
+// ReSharper disable InconsistentNaming
 public abstract class SrcBuilderBase<T> : ISrcBuilder
     where T : class, ISrcBuilder
 {
@@ -57,7 +58,7 @@ public abstract class SrcBuilderBase<T> : ISrcBuilder
 
         foreach (var url in urls)
         {
-            AllowSingleUrl(url);
+            _ = AllowSingleUrl(url);
         }
 
         return This;

@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Sidio.Web.Security.Examples.AspNetCore.Models;
 using System.Diagnostics;
-using System.Text;
 using System.Text.Json;
 using Sidio.Web.Security.AspNetCore.Reporting;
 

@@ -41,7 +41,7 @@ public sealed class EnumExtensionsTests
             foreach (var name in Enum.GetNames(sandboxType))
             {
                 var enumMemberAttribute =
-                    ((EnumMemberAttribute[]) sandboxType.GetField(name)
+                    ((EnumMemberAttribute[]) sandboxType.GetField(name)!
                         .GetCustomAttributes(typeof(EnumMemberAttribute), true))
                     .SingleOrDefault();
                 _data.Add([Enum.Parse(typeof(Sandbox), name), enumMemberAttribute?.Value ?? string.Empty]);

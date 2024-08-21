@@ -38,7 +38,7 @@ public sealed class XFrameOptionsHeaderValidatorTests : HeaderValidatorTests<XFr
     public void Validate_GivenAllowFrom_ShouldReturnInvalidResult()
     {
         // act
-        var result = Validator.Validate("ALLOW-FROM https://example.com", out var options);
+        var result = Validator.Validate("ALLOW-FROM https://example.com", out _);
 
         // assert
         result.IsValid.Should().BeFalse();

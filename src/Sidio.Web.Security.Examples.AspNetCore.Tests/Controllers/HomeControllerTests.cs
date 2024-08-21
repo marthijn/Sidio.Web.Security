@@ -38,7 +38,7 @@ public sealed class HomeControllerTests : IClassFixture<WebApplicationFactory<Pr
 
         response.Headers.ShouldHaveReportToHeader();
 
-        response.Headers.ShouldHaveReferrerPolicyHeader().HasValidOptions().WithPolicy(ReferrerPolicy.NoReferrer);
+        response.Headers.ShouldHaveReferrerPolicyHeader().HasValidOptions().ContainsPolicy(ReferrerPolicy.NoReferrer);
 
         var content = await response.Content.ReadAsStringAsync();
         content.Should().Contain("Home");
