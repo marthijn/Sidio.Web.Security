@@ -200,14 +200,11 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
         return this;
     }
 
-    public ContentSecurityPolicyHeaderOptionsBuilder SetFrameAncestors(params string[] sources)
+    public ContentSecurityPolicyHeaderOptionsBuilder SetFrameAncestors(Func<SrcBuilder, SrcBuilder> builder)
     {
-        if (sources.Length == 0)
-        {
-            throw new ArgumentException("At least one source should be provided.", nameof(sources));
-        }
-
-        _options.FrameAncestors = string.Join(" ", sources).Trim();
+        var srcBuilder = new SrcBuilder();
+        var result = builder.Invoke(srcBuilder);
+        _options.FrameAncestors = result.ToString();
         return this;
     }
 

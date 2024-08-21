@@ -372,32 +372,17 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilderTests
     }
 
     [Fact]
-    public void SetFrameAncestors_WithoutSource_ThrowException()
+    public void SetFrameAncestors_AllowSelfAllowUrl_DirectiveShouldExist()
     {
         // arrange
         var builder = new ContentSecurityPolicyHeaderOptionsBuilder();
+        var url = _fixture.Create<string>();
 
         // act
-        var action = () => builder.SetFrameAncestors().Build();
+        var result = builder.SetFrameAncestors(x => x.AllowSelf().AllowUrl(url)).Build();
 
         // assert
-        action.Should().Throw<ArgumentException>();
-    }
-
-    [Theory]
-    [InlineData(1)]
-    [InlineData(2)]
-    public void SetFrameAncestors_WithUrl_DirectiveShouldExist(int numberOfSources)
-    {
-        // arrange
-        var builder = new ContentSecurityPolicyHeaderOptionsBuilder();
-        var sources = _fixture.CreateMany<string>(numberOfSources).ToArray();
-
-        // act
-        var result = builder.SetFrameAncestors(sources).Build();
-
-        // assert
-        result.FrameAncestors.Should().ContainAll(sources);
+        result.FrameAncestors.Should().BeEquivalentTo($"'self' {url}");
     }
 
     [Fact]
