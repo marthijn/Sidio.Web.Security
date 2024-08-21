@@ -43,8 +43,8 @@ public sealed class XFrameOptionsHeaderValidator : IHeaderValidator<XFrameOption
         options = new XFrameOptionsHeaderOptions
         {
             Directive = headerValue.Equals(XFrameOptionsHeader.Deny, StringComparison.OrdinalIgnoreCase)
-                ? XFrameOptionsHeaderOptions.XFrameOptionsDirective.Deny
-                : XFrameOptionsHeaderOptions.XFrameOptionsDirective.SameOrigin
+                ? XFrameOptions.Deny
+                : XFrameOptions.SameOrigin
         };
 
         return new HeaderValidationResult([]);
