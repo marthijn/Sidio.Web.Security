@@ -40,9 +40,7 @@ targeting .NET Framework.
 - X-Content-Type-Options: [docs](https://github.com/marthijn/Sidio.Web.Security/wiki/X%E2%80%90Content%E2%80%90Type%E2%80%90Options)
 - X-Frame-Options: [docs](https://github.com/marthijn/Sidio.Web.Security/wiki/X%E2%80%90Frame%E2%80%90Options)
 
-## Non-standard headers
-- X-XSS-Protection: [docs](https://github.com/marthijn/Sidio.Web.Security/wiki/X%E2%80%90XSS%E2%80%90Protection)
-  - This header is non-standard and is not on a standard track. Do not use it.
+Read more in the [wiki docs](https://github.com/marthijn/Sidio.Web.Security/wiki/HTTP-headers).
 
 ## Example
 ```csharp
@@ -63,19 +61,19 @@ app.UseContentSecurityPolicy(
     });
 ```
 
+See [getting started](https://github.com/marthijn/Sidio.Web.Security/wiki/Getting-started) and
+the [recommended ASP.NET Core configuration](https://github.com/marthijn/Sidio.Web.Security/wiki/Recommended-configuration-for-ASP.NET-Core).
+
 ## Reporting API
 The reporting API can be used to report violations of the Content Security Policy.
 Read more in the [wiki docs](https://github.com/marthijn/Sidio.Web.Security/wiki/Reporting-API).
 
-# Secure cookies
-By using the following code, a secure cookie policy is configured that is based 
-on the [Mozilla Web Security Guidelines](https://infosec.mozilla.org/guidelines/web_security).
-```csharp
-app.UseSecureCookiePolicy();
-```
+# Default policies
+- A [secure cookie policy](https://github.com/marthijn/Sidio.Web.Security/wiki/Cookies)
 
 # Testing
-_todo_
+The package [Sidio.Web.Security.Testing](https://www.nuget.org/packages/Sidio.Web.Security.AspNetCore.Mvc/) provides a set of functions that can be used to test
+the security configuration of an ASP.Net Core application. [Read more](https://github.com/marthijn/Sidio.Web.Security/wiki/Testing).
 
 # License
 This project is licensed under the [MIT License](LICENSE).
