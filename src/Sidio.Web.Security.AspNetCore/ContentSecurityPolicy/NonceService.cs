@@ -11,6 +11,7 @@ public sealed class NonceService : INonceService
     private const string Key = $"{nameof(NonceService)}:Nonce";
 
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly object _nonceLock = new();
 
     /// <summary>
     /// Creates a new instance of <see cref="NonceService"/>.
@@ -41,5 +42,19 @@ public sealed class NonceService : INonceService
     public Nonce? GetNonce() => HttpContext.Items[Key] is not Nonce nonce ? null : nonce;
 
     /// <inheritdoc />
-    public Nonce GetOrCreateNonce() => GetNonce() ?? StoreNewNonce();
+    public Nonce GetOrCreateNonce()
+    {
+        var result = GetNonce();
+        if (result != null)
+        {
+            return result;
+        }
+
+        lock (_nonceLock)
+        {
+            result = GetNonce() ?? StoreNewNonce();
+        }
+
+        return result;
+    }
 }
