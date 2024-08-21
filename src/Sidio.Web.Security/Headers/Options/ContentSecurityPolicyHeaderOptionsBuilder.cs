@@ -346,8 +346,8 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
     /// <summary>
     /// Adds the 'trusted-types' directive to the Content Security Policy, which restricts the creation of Trusted Types policies.
     /// </summary>
-    /// <param name="allowDuplicates"></param>
-    /// <param name="policyNames"></param>
+    /// <param name="allowDuplicates">Allows for creating policies with a name that was already used.</param>
+    /// <param name="policyNames">The policy names (optional). A star (<c>*</c>) instructs the user agent to allow any policy.</param>
     /// <returns>The <see cref="ContentSecurityPolicyHeaderOptionsBuilder"/>.</returns>
     public ContentSecurityPolicyHeaderOptionsBuilder AddTrustedTypes(bool allowDuplicates = false, params string[] policyNames)
     {
