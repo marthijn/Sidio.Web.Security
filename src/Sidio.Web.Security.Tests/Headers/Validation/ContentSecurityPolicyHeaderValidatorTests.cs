@@ -1,8 +1,8 @@
 ﻿using System.Collections;
-using System.Runtime.Serialization;
 using Sidio.Web.Security.Headers.Options;
 using Sidio.Web.Security.Headers.Options.ContentSecurityPolicy;
 using Sidio.Web.Security.Headers.Validation;
+using Sidio.Web.Security.Tests.Common;
 
 namespace Sidio.Web.Security.Tests.Headers.Validation;
 
@@ -64,7 +64,7 @@ public sealed class ContentSecurityPolicyHeaderValidatorTests : HeaderValidatorT
 
     [Theory]
     [ClassData(typeof(SandboxDataGenerator))]
-    public void Validate_GivenValidSandboxValue_ShouldReturnValidOptionsValue(string value)
+    public void Validate_GivenValidSandboxValue_ShouldReturnValidOptionsValue(Sandbox _, string value)
     {
         // act
         var result = Validator.Validate($"sandbox {value}".Trim(), out var options);
@@ -158,32 +158,6 @@ public sealed class ContentSecurityPolicyHeaderValidatorTests : HeaderValidatorT
                 [propertyName, $"{directive} *", "*"],
                 [propertyName, $"{directive} data: blob:", "data: blob:"],
             ]);
-        }
-    }
-
-    private sealed class SandboxDataGenerator : IEnumerable<object[]>
-    {
-        private readonly List<object?[]> _data = new();
-
-        public SandboxDataGenerator()
-        {
-            var sandboxType = typeof(Sandbox);
-            foreach (var name in Enum.GetNames(sandboxType))
-            {
-                var enumMemberAttribute =
-                    ((EnumMemberAttribute[]) sandboxType.GetField(name)!
-                        .GetCustomAttributes(typeof(EnumMemberAttribute), true))
-                    .Single();
-                _data.Add([enumMemberAttribute.Value]);
-            }
-
-            _data.Should().NotBeEmpty();
-        }
-
-        public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
     }
 }
