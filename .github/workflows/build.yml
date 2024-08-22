@@ -42,5 +42,5 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           format: cobertura
-          files: /home/runner/work/Sidio.Web.Security/Sidio.Web.Security/src/Sidio.Web.Security.Testing.Tests/coverage/coverage.net8.0.json
+          files: /home/runner/work/Sidio.Web.Security/Sidio.Web.Security/src/Sidio.Web.Security.Examples.AspNetCore.Tests/coverage/coverage.cobertura.xml
         if: ${{ always() }}
