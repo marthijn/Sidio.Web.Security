@@ -75,6 +75,9 @@ Read more in the [wiki docs](https://github.com/marthijn/Sidio.Web.Security/wiki
 The package [Sidio.Web.Security.Testing](https://www.nuget.org/packages/Sidio.Web.Security.AspNetCore.Mvc/) provides a set of functions that can be used to test
 the security configuration of an ASP.Net Core application. [Read more](https://github.com/marthijn/Sidio.Web.Security/wiki/Testing).
 
+# Contributions
+Contributions are welcome! Feel free to create a pull request or an issue.
+
 # License
 This project is licensed under the [MIT License](LICENSE).
 
