@@ -11,8 +11,6 @@ on:
 
 env:
   DOTNET_NOLOGO: true
-  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   build:
@@ -25,26 +23,28 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-java@v3 #sonar scanner requires jdk
+        with:
+          distribution: 'microsoft'
+          java-version: '17'
       - name: Setup dotnet
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
+      - name: Install dotnet-sonarscanner
+        run: dotnet tool install --global dotnet-sonarscanner
+      - name: install dotnet-coverage
+        run: dotnet tool install --global dotnet-coverage
       - name: Install dependencies
         run: dotnet restore
-      - name: Build
-        run: dotnet build --configuration Release
-      - name: Test with dotnet
-        run: dotnet test --configuration Release
-      - name: SonarScanner for .NET 8 with pull request decoration support
-        uses: highbyte/sonarscan-dotnet@v2.3.2
-        with:
-          # The key of the SonarQube project
-          sonarProjectKey: marthijn_Sidio.Web.Security
-          # The name of the SonarQube project
-          sonarProjectName: Sidio.Web.Security
-          # The name of the SonarQube organization in SonarCloud. For hosted SonarQube, skip this setting.
-          sonarOrganization: marthijn
-          # Optional command arguments to dotnet test
-          dotnetTestArguments: --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
-          # Optional extra command arguments the the SonarScanner 'begin' command
-          sonarBeginArguments: /d:sonar.cs.opencover.reportsPaths="**/TestResults/**/coverage.opencover.xml" -d:sonar.cs.vstest.reportsPaths="**/TestResults/*.trx"
+      - name: dotnet build,test and sonar analyze
+        run: |
+          dotnet sonarscanner begin \
+          -k:"marthijn_Sidio.Web.Security" \
+          -o:"Sidio.Web.Security" \
+          -d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
+          -d:sonar.host.url="https://sonarcloud.io/" \
+          -d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
+          dotnet build --configuration Release
+          dotnet-coverage collect -s "dotnetcoverage.runsettings.xml" -f xml -o "coverage.xml" "dotnet test"
+          dotnet sonarscanner end -d:sonar.token="${{ secrets.SONAR_TOKEN }}"
