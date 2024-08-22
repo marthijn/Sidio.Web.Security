@@ -11,6 +11,8 @@ on:
 
 env:
   DOTNET_NOLOGO: true
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   build:
@@ -32,15 +34,17 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release
       - name: Test with dotnet
-        run: dotnet test --configuration Release 
-          /p:CollectCoverage=true 
-          /p:CoverletOutputFormat="\"cobertura,json\""
-          /p:CoverletOutput=coverage/
-          /p:IncludeTestAssembly=false
-      - name: Upload dotnet test results
-        uses: coverallsapp/github-action@v2.3.0
+        run: dotnet test --configuration Release
+      - name: SonarScanner for .NET 8 with pull request decoration support
+        uses: highbyte/sonarscan-dotnet@v2.3.2
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          format: cobertura
-          files: /home/runner/work/Sidio.Web.Security/Sidio.Web.Security/src/Sidio.Web.Security.AspNetCore.Tests/coverage/coverage.cobertura.xml /home/runner/work/Sidio.Web.Security/Sidio.Web.Security/src/Sidio.Web.Security.Testing.Tests/coverage/coverage.net481.cobertura.xml /home/runner/work/Sidio.Web.Security/Sidio.Web.Security/src/Sidio.Web.Security.Testing.Tests/coverage/coverage.net8.0.cobertura.xml /home/runner/work/Sidio.Web.Security/Sidio.Web.Security/src/Sidio.Web.Security.Examples.AspNetCore.Tests/coverage/coverage.cobertura.xml /home/runner/work/Sidio.Web.Security/Sidio.Web.Security/src/Sidio.Web.Security.Tests/coverage/coverage.net481.cobertura.xml /home/runner/work/Sidio.Web.Security/Sidio.Web.Security/src/Sidio.Web.Security.Tests/coverage/coverage.net8.0.cobertura.xml
-        if: ${{ always() }}
+          # The key of the SonarQube project
+          sonarProjectKey: marthijn_Sidio.Web.Security
+          # The name of the SonarQube project
+          sonarProjectName: Sidio.Web.Security
+          # The name of the SonarQube organization in SonarCloud. For hosted SonarQube, skip this setting.
+          sonarOrganization: marthijn
+          # Optional command arguments to dotnet test
+          dotnetTestArguments: --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+          # Optional extra command arguments the the SonarScanner 'begin' command
+          sonarBeginArguments: /d:sonar.cs.opencover.reportsPaths="**/TestResults/**/coverage.opencover.xml" -d:sonar.cs.vstest.reportsPaths="**/TestResults/*.trx"
