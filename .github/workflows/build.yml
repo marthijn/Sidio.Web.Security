@@ -34,7 +34,7 @@ jobs:
       - name: Test with dotnet
         run: dotnet test --configuration Release 
           /p:CollectCoverage=true 
-          /p:CoverletOutputFormat=cobertura 
+          /p:CoverletOutputFormat="json,opencover" 
           /p:CoverletOutput=../coverage/
           /p:IncludeTestAssembly=false 
           /p:MergeWith=../coverage/coverage.json
@@ -43,6 +43,4 @@ jobs:
         uses: coverallsapp/github-action@v2.3.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          format: cobertura
-          file: coverage/coverage.json
         if: ${{ always() }}
