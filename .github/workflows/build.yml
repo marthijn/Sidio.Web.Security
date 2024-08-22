@@ -38,4 +38,5 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           format: cobertura
+          file: "coverage/**/*.coverage"
         if: ${{ always() }}
