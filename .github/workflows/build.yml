@@ -34,7 +34,7 @@ jobs:
       - name: Test with dotnet
         run: dotnet test --configuration Release 
           /p:CollectCoverage=true 
-          /p:CoverletOutputFormat='\"json%2copencover\"' 
+          /p:CoverletOutputFormat="\"cobertura,json\""
           /p:CoverletOutput=../coverage/
           /p:IncludeTestAssembly=false 
           /p:MergeWith=../coverage/coverage.json
