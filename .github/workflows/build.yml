@@ -32,11 +32,11 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release
       - name: Test with dotnet
-        run: dotnet test --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=coverage/
+        run: dotnet test --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=coverage/ /p:IncludeTestAssembly=false /p:MergeWith=coverage/coverage.cobertura.xml
       - name: Upload dotnet test results
         uses: coverallsapp/github-action@v2.3.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           format: cobertura
-          base-path: "/Sidio.Web.Security/Sidio.Web.Security/src/"
+          file: coverage/coverage.cobertura.xml
         if: ${{ always() }}
