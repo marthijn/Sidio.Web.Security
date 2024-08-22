@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Sidio.Web.Security.Examples.AspNetCore.Models;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using Sidio.Web.Security.AspNetCore.Reporting;
 
 namespace Sidio.Web.Security.Examples.AspNetCore.Controllers;
 
+[ExcludeFromCodeCoverage]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
