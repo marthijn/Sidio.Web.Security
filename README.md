@@ -32,6 +32,10 @@ targeting .NET Framework.
 [![build](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml/badge.svg)](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml)
 [![NuGet Version](https://img.shields.io/nuget/v/Sidio.Web.Security)](https://www.nuget.org/packages/Sidio.Web.Security/)
 
+## Code quality
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=marthijn_Sidio.Web.Security&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=marthijn_Sidio.Web.Security)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=marthijn_Sidio.Web.Security&metric=coverage)](https://sonarcloud.io/summary/new_code?id=marthijn_Sidio.Web.Security)
+
 # HTTP headers
 - Content-Security-Policy: [docs](https://github.com/marthijn/Sidio.Web.Security/wiki/Content%E2%80%90Security%E2%80%90Policy)
 - Referrer-Policy: [docs](https://github.com/marthijn/Sidio.Web.Security/wiki/Referrer%E2%80%90Policy)
