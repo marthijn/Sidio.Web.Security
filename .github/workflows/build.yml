@@ -41,7 +41,7 @@ jobs:
         run: |
           dotnet sonarscanner begin \
           -k:"marthijn_Sidio.Web.Security" \
-          -o:"Sidio.Web.Security" \
+          -o:"marthijn" \
           -d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
           -d:sonar.host.url="https://sonarcloud.io/" \
           -d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
