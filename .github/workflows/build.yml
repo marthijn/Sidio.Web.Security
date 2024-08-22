@@ -32,7 +32,7 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release
       - name: Test with dotnet
-        run: dotnet test --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=coverage/ /p:IncludeTestAssembly=false /p:MergeWith=coverage/coverage.cobertura.xml
+        run: dotnet test --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=../coverage/ /p:IncludeTestAssembly=false /p:MergeWith=../coverage/coverage.cobertura.xml
       - name: Upload dotnet test results
         uses: coverallsapp/github-action@v2.3.0
         with:
