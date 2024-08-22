@@ -34,7 +34,9 @@ jobs:
       - name: Test with dotnet
         run: dotnet test --configuration Release /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
       - name: Upload dotnet test results
-        uses: coverallsapp/github-action@v2
+        uses: coverallsapp/github-action@v2.3.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          base-path: TestResults/
+          format: lcov
         if: ${{ always() }}
