@@ -32,11 +32,17 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release
       - name: Test with dotnet
-        run: dotnet test --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=../coverage/ /p:IncludeTestAssembly=false /p:MergeWith=../coverage/coverage.cobertura.xml
+        run: dotnet test --configuration Release 
+          /p:CollectCoverage=true 
+          /p:CoverletOutputFormat=cobertura 
+          /p:CoverletOutput=../coverage/
+          /p:IncludeTestAssembly=false 
+          /p:MergeWith=../coverage/coverage.json
+          /maxcpucount:1 -m:1
       - name: Upload dotnet test results
         uses: coverallsapp/github-action@v2.3.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           format: cobertura
-          file: coverage/coverage.cobertura.xml
+          file: coverage/coverage.json
         if: ${{ always() }}
