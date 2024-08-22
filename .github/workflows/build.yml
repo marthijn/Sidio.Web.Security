@@ -46,5 +46,5 @@ jobs:
           -d:sonar.host.url="https://sonarcloud.io/" \
           -d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
           dotnet build --configuration Release
-          dotnet-coverage collect -s "dotnetcoverage.runsettings.xml" -f xml -o "coverage.xml" "dotnet test"
+          dotnet-coverage collect -s "dotnet test" -f xml -o "coverage.xml"
           dotnet sonarscanner end -d:sonar.token="${{ secrets.SONAR_TOKEN }}"
