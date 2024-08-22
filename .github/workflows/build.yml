@@ -38,4 +38,5 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           format: cobertura
+          base-path: "/Sidio.Web.Security/Sidio.Web.Security/src/"
         if: ${{ always() }}
