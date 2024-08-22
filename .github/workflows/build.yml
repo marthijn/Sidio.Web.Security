@@ -42,11 +42,5 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           format: cobertura
-          files:
-            /home/runner/work/Sidio.Web.Security/Sidio.Web.Security/src/Sidio.Web.Security.AspNetCore.Tests/coverage/coverage.cobertura.xml,
-            /home/runner/work/Sidio.Web.Security/Sidio.Web.Security/src/Sidio.Web.Security.Testing.Tests/coverage/coverage.net481.cobertura.xml,
-            /home/runner/work/Sidio.Web.Security/Sidio.Web.Security/src/Sidio.Web.Security.Testing.Tests/coverage/coverage.net8.0.cobertura.xml
-            /home/runner/work/Sidio.Web.Security/Sidio.Web.Security/src/Sidio.Web.Security.Examples.AspNetCore.Tests/coverage/coverage.cobertura.xml,
-            /home/runner/work/Sidio.Web.Security/Sidio.Web.Security/src/Sidio.Web.Security.Tests/coverage/coverage.net481.cobertura.xml,
-            /home/runner/work/Sidio.Web.Security/Sidio.Web.Security/src/Sidio.Web.Security.Tests/coverage/coverage.net8.0.cobertura.xml
+          files: /home/runner/work/Sidio.Web.Security/Sidio.Web.Security/src/Sidio.Web.Security.AspNetCore.Tests/coverage/coverage.cobertura.xml /home/runner/work/Sidio.Web.Security/Sidio.Web.Security/src/Sidio.Web.Security.Testing.Tests/coverage/coverage.net481.cobertura.xml /home/runner/work/Sidio.Web.Security/Sidio.Web.Security/src/Sidio.Web.Security.Testing.Tests/coverage/coverage.net8.0.cobertura.xml /home/runner/work/Sidio.Web.Security/Sidio.Web.Security/src/Sidio.Web.Security.Examples.AspNetCore.Tests/coverage/coverage.cobertura.xml /home/runner/work/Sidio.Web.Security/Sidio.Web.Security/src/Sidio.Web.Security.Tests/coverage/coverage.net481.cobertura.xml /home/runner/work/Sidio.Web.Security/Sidio.Web.Security/src/Sidio.Web.Security.Tests/coverage/coverage.net8.0.cobertura.xml
         if: ${{ always() }}
