@@ -30,8 +30,13 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult Report([FromBody] Reports model)
     {
-        _logger.LogWarning("Report sent from browser: {Report}", JsonSerializer.Serialize(model));
-        return Ok();
+        if (ModelState.IsValid)
+        {
+            _logger.LogWarning("Report sent from browser: {Report}", JsonSerializer.Serialize(model));
+            return Ok();
+        }
+
+        return BadRequest();
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
