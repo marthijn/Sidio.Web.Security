@@ -10,6 +10,8 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
 {
     private readonly ContentSecurityPolicyHeaderOptions _options = new();
 
+    internal ContentSecurityPolicyHeaderOptions Options => _options;
+
     /// <summary>
     /// Adds the 'default-src' directive to the Content Security Policy, which serves as a fallback
     /// for other directives.
@@ -20,7 +22,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
     {
         var srcBuilder = new SrcBuilder();
         var result = builder.Invoke(srcBuilder);
-        _options.DefaultSrc = result.ToString();
+        _options.DefaultSrc = Append(_options.DefaultSrc, result.ToString());
         return this;
     }
 
@@ -33,7 +35,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
     {
         var srcBuilder = new ScriptSrcBuilder();
         var result = builder.Invoke(srcBuilder);
-        _options.ScriptSrc = result.ToString();
+        _options.ScriptSrc = Append(_options.ScriptSrc, result.ToString());
         return this;
     }
 
@@ -46,7 +48,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
     {
         var srcBuilder = new ScriptSrcBuilder();
         var result = builder.Invoke(srcBuilder);
-        _options.ScriptSrcAttr = result.ToString();
+        _options.ScriptSrcAttr = Append(_options.ScriptSrcAttr, result.ToString());
         return this;
     }
 
@@ -59,7 +61,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
     {
         var srcBuilder = new ScriptSrcBuilder();
         var result = builder.Invoke(srcBuilder);
-        _options.ScriptSrcElem = result.ToString();
+        _options.ScriptSrcElem = Append(_options.ScriptSrcElem, result.ToString());
         return this;
     }
 
@@ -72,7 +74,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
     {
         var srcBuilder = new StyleSrcBuilder();
         var result = builder.Invoke(srcBuilder);
-        _options.StyleSrc = result.ToString();
+        _options.StyleSrc = Append(_options.StyleSrc, result.ToString());
         return this;
     }
 
@@ -85,7 +87,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
     {
         var srcBuilder = new StyleSrcBuilder();
         var result = builder.Invoke(srcBuilder);
-        _options.StyleSrcAttr = result.ToString();
+        _options.StyleSrcAttr = Append(_options.StyleSrcAttr, result.ToString());
         return this;
     }
 
@@ -98,7 +100,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
     {
         var srcBuilder = new StyleSrcBuilder();
         var result = builder.Invoke(srcBuilder);
-        _options.StyleSrcElem = result.ToString();
+        _options.StyleSrcElem = Append(_options.StyleSrcElem, result.ToString());
         return this;
     }
 
@@ -111,7 +113,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
     {
         var srcBuilder = new SrcBuilder();
         var result = builder.Invoke(srcBuilder);
-        _options.ImgSrc = result.ToString();
+        _options.ImgSrc = Append(_options.ImgSrc, result.ToString());
         return this;
     }
 
@@ -124,7 +126,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
     {
         var srcBuilder = new SrcBuilder();
         var result = builder.Invoke(srcBuilder);
-        _options.ConnectSrc = result.ToString();
+        _options.ConnectSrc = Append(_options.ConnectSrc, result.ToString());
         return this;
     }
 
@@ -137,7 +139,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
     {
         var srcBuilder = new SrcBuilder();
         var result = builder.Invoke(srcBuilder);
-        _options.FontSrc = result.ToString();
+        _options.FontSrc = Append(_options.FontSrc, result.ToString());
         return this;
     }
 
@@ -150,7 +152,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
     {
         var srcBuilder = new SrcBuilder();
         var result = builder.Invoke(srcBuilder);
-        _options.ObjectSrc = result.ToString();
+        _options.ObjectSrc = Append(_options.ObjectSrc, result.ToString());
         return this;
     }
 
@@ -163,7 +165,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
     {
         var srcBuilder = new SrcBuilder();
         var result = builder.Invoke(srcBuilder);
-        _options.MediaSrc = result.ToString();
+        _options.MediaSrc = Append(_options.MediaSrc, result.ToString());
         return this;
     }
 
@@ -176,7 +178,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
     {
         var srcBuilder = new SrcBuilder();
         var result = builder.Invoke(srcBuilder);
-        _options.FrameSrc = result.ToString();
+        _options.FrameSrc = Append(_options.FrameSrc, result.ToString());
         return this;
     }
 
@@ -189,7 +191,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
     {
         var srcBuilder = new SrcBuilder();
         var result = builder.Invoke(srcBuilder);
-        _options.ChildSrc = result.ToString();
+        _options.ChildSrc = Append(_options.ChildSrc, result.ToString());
         return this;
     }
 
@@ -202,7 +204,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
     {
         var srcBuilder = new SrcBuilder();
         var result = builder.Invoke(srcBuilder);
-        _options.FormAction = result.ToString();
+        _options.FormAction = Append(_options.FormAction, result.ToString());
         return this;
     }
 
@@ -215,7 +217,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
     {
         var srcBuilder = new SrcBuilder();
         var result = builder.Invoke(srcBuilder);
-        _options.BaseUri = result.ToString();
+        _options.BaseUri = Append(_options.BaseUri, result.ToString());
         return this;
     }
 
@@ -228,7 +230,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
     {
         var srcBuilder = new SrcBuilder();
         var result = builder.Invoke(srcBuilder);
-        _options.WorkerSrc = result.ToString();
+        _options.WorkerSrc = Append(_options.WorkerSrc, result.ToString());
         return this;
     }
 
@@ -241,7 +243,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
     {
         var srcBuilder = new SrcBuilder();
         var result = builder.Invoke(srcBuilder);
-        _options.ManifestSrc = result.ToString();
+        _options.ManifestSrc = Append(_options.ManifestSrc, result.ToString());
         return this;
     }
 
@@ -255,7 +257,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
     {
         var srcBuilder = new SrcBuilder();
         var result = builder.Invoke(srcBuilder);
-        _options.PrefetchSrc = result.ToString();
+        _options.PrefetchSrc = Append(_options.PrefetchSrc, result.ToString());
         return this;
     }
 
@@ -268,7 +270,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
     {
         var srcBuilder = new SrcBuilder();
         var result = builder.Invoke(srcBuilder);
-        _options.FencedFrameSrc = result.ToString();
+        _options.FencedFrameSrc = Append(_options.FencedFrameSrc, result.ToString());
         return this;
     }
 
@@ -310,7 +312,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
     {
         var srcBuilder = new SrcBuilder();
         var result = builder.Invoke(srcBuilder);
-        _options.FrameAncestors = result.ToString();
+        _options.FrameAncestors = Append(_options.FrameAncestors, result.ToString());
         return this;
     }
 
@@ -382,4 +384,20 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilder
     /// </summary>
     /// <returns>An instance of <see cref="ContentSecurityPolicyHeaderOptions"/>.</returns>
     public ContentSecurityPolicyHeaderOptions Build() => _options;
+
+    /// <summary>
+    /// Appends the <c>value</c> to the <c>currentValue</c>.
+    /// </summary>
+    /// <param name="currentValue">The current value.</param>
+    /// <param name="value">The value.</param>
+    /// <returns>A <see cref="string"/>.</returns>
+    private static string? Append(string? currentValue, string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return currentValue;
+        }
+
+        return  $"{currentValue} {value}".Trim();
+    }
 }

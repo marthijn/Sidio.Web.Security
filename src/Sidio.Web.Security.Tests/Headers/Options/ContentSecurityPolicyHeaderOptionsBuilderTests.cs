@@ -76,6 +76,18 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilderTests
         // assert
         result.DefaultSrc.Should().Be($"'self' {url}");
     }
+    [Fact]
+    public void AddDefaultSrc_MultipleCalls_DirectivesShouldExist()
+    {
+        // arrange
+        var builder = new ContentSecurityPolicyHeaderOptionsBuilder();
+
+        // act
+        var result = builder.AddDefaultSrc(x => x.AllowAll()).AddDefaultSrc(x => x.AllowNone()).Build();
+
+        // assert
+        result.DefaultSrc.Should().Be("* 'none'");
+    }
 
     [Fact]
     public void AddScriptSrc_AllowSelfAllowStrictDynamic_DirectiveShouldExist()

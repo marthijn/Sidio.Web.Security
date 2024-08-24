@@ -90,7 +90,7 @@ public abstract class SrcBuilderBase<T> : ISrcBuilder
     /// <returns>The <see cref="ISrcBuilder"/> of type <see cref="ISrcBuilder"/></returns>
     public T AllowUnsafeInline()
     {
-        Sources.Add("'unsafe-inline'");
+        Sources.Add(SrcBuilder.UnsafeInline);
         return This;
     }
 
