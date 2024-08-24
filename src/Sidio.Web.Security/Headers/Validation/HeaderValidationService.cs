@@ -88,7 +88,7 @@ public sealed class HeaderValidationService
             }
         }
 
-        if (nonValidatedHeaders.Any())
+        if (nonValidatedHeaders.Count > 0)
         {
             _logger.LogDebug("The following headers are not validated: {Headers}", string.Join(", ", nonValidatedHeaders));
         }

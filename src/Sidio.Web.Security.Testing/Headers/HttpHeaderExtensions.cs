@@ -15,7 +15,7 @@ public static class HttpHeaderExtensions
     /// <param name="header">The header.</param>
     /// <param name="expectedValue">The expected value.</param>
     /// <typeparam name="T">The header type.</typeparam>
-    /// <returns>The header of type <see cref="T"/>.</returns>
+    /// <returns>The header of type <see cref="HttpHeader"/>.</returns>
     /// <exception cref="HttpHeaderShouldHaveValueException">Thrown when the actual value is different from the expected value.</exception>
     public static T WithValue<T>(this T header, string expectedValue)
         where T : HttpHeader
@@ -33,7 +33,7 @@ public static class HttpHeaderExtensions
     /// </summary>
     /// <param name="header">The header.</param>
     /// <typeparam name="T">The header type.</typeparam>
-    /// <returns>The header of type <see cref="T"/>.</returns>
+    /// <returns>The header of type <see cref="HttpHeader"/>.</returns>
     /// <exception cref="HttpHeaderShouldNotBeEmptyException">Thrown when the header value is empty.</exception>
     public static T WithNonEmptyValue<T>(this T header)
         where T : HttpHeader
@@ -52,7 +52,7 @@ public static class HttpHeaderExtensions
     /// <param name="header">The header.</param>
     /// <param name="expectedValue">The expected value.</param>
     /// <typeparam name="T">The header type.</typeparam>
-    /// <returns>The header of type <see cref="T"/>.</returns>
+    /// <returns>The header of type <see cref="HttpHeader"/>.</returns>
     /// <exception cref="HttpHeaderShouldHaveValueException">Thrown when the header value does not contain the expected value.</exception>
     public static T ContainsValue<T>(this T header, string expectedValue)
         where T : HttpHeader
