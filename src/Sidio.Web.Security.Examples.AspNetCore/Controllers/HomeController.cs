@@ -27,6 +27,11 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult ExternalResources()
+    {
+        return View();
+    }
+
     [HttpPost]
     public IActionResult Report([FromBody] Reports model)
     {

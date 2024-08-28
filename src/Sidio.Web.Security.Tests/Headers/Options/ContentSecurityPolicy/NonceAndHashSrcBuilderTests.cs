@@ -1,4 +1,4 @@
-﻿using Sidio.Web.Security.Headers.Cryptography;
+﻿using Sidio.Web.Security.Cryptography;
 using Sidio.Web.Security.Headers.Options.ContentSecurityPolicy;
 
 namespace Sidio.Web.Security.Tests.Headers.Options.ContentSecurityPolicy;

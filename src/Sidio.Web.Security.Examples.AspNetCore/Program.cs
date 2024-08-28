@@ -7,6 +7,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services
     .AddContentSecurityPolicy()
+    .AddSubresourceIntegrity()
+    .ConfigureTagHelpers(
+        x =>
+        {
+            x.AutoApplyNonce = true;
+            x.AutoApplySubresourceIntegrity = true;
+        })
     .AddControllersWithViews();
 
 var app = builder.Build();

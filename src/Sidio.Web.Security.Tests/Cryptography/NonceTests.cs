@@ -1,6 +1,6 @@
-﻿using Sidio.Web.Security.Headers.Cryptography;
+﻿using Sidio.Web.Security.Cryptography;
 
-namespace Sidio.Web.Security.Tests.Headers.Cryptography;
+namespace Sidio.Web.Security.Tests.Cryptography;
 
 public sealed class NonceTests
 {
