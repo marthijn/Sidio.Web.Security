@@ -53,7 +53,7 @@ public sealed class SubresourceIntegrityHashService : ISubresourceIntegrityHashS
             _logger.LogTrace("The integrity hash for `{Uri}` was found in the cache", uri);
 
             // returns a failed hash (stored as empty string)
-            return cachedData.Equals(string.Empty)
+            return string.IsNullOrEmpty(cachedData)
                 ? new SubresourceIntegrityHash(false)
                 : new SubresourceIntegrityHash(true, cachedData);
         }
