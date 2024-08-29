@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Sidio.Web.Security.AspNetCore.ContentSecurityPolicy;
-using Sidio.Web.Security.Headers.Cryptography;
+using Sidio.Web.Security.Cryptography;
 
 namespace Sidio.Web.Security.AspNetCore.Tests.ContentSecurityPolicy;
 

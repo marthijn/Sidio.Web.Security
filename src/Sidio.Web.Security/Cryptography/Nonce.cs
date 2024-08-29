@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Security.Cryptography;
 
-namespace Sidio.Web.Security.Headers.Cryptography;
+namespace Sidio.Web.Security.Cryptography;
 
 /// <summary>
 /// The Nonce class represents a cryptographic nonce.
@@ -45,6 +45,9 @@ public sealed record Nonce
         var bytes = new byte[length];
         using var rnd = RandomNumberGenerator.Create();
         rnd.GetBytes(bytes);
+
+        // the nonce should contain web-safe base64 characters to prevent encoding from
+        // ASP.NET Core
         return new Nonce(bytes.Base64UrlEncode());
     }
 

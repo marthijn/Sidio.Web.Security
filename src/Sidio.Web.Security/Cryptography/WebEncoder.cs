@@ -1,4 +1,4 @@
-﻿namespace Sidio.Web.Security.Headers.Cryptography;
+﻿namespace Sidio.Web.Security.Cryptography;
 
 internal static class WebEncoder
 {

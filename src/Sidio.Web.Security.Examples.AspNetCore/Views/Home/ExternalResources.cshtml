@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "External resources";
+}
+<h1>@ViewData["Title"]</h1>
+
+@section Head
+{
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-ui@1.14.0/themes/base/theme.min.css"/>
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery-ui@1.14.0/themes/base/theme.min.css" as="style"/>
+}
+
+@section Scripts
+{
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/jquery-ui@1.14.0/dist/jquery-ui.min.js"/>
+    <script></script>
+}

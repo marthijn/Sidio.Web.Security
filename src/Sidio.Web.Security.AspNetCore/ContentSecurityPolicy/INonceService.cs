@@ -1,4 +1,4 @@
-﻿using Sidio.Web.Security.Headers.Cryptography;
+﻿using Sidio.Web.Security.Cryptography;
 
 namespace Sidio.Web.Security.AspNetCore.ContentSecurityPolicy;
 
