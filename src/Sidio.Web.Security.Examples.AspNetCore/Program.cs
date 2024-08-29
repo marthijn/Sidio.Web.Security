@@ -49,6 +49,12 @@ app.UseContentSecurityPolicy(
 
         // add a deprecated header for testing purposes
         b.AddReportUri("/Home/Report");
+
+        // predefined policies
+        if (app.Environment.IsDevelopment())
+        {
+            b.AppendBrowserLinkPolicy();
+        }
     });
 
 app.UseReportTo(
