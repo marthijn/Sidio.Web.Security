@@ -127,21 +127,13 @@ public sealed class SubresourceIntegrityTagHelper : TagHelper
 
         if (!url.Contains("://"))
         {
-            if (_logger.IsEnabled(LogLevel.Trace))
-            {
-                _logger.LogTrace("Ignore relative url `{Url}`", url);
-            }
-
+            _logger.LogTrace("Ignore relative url `{Url}`", url);
             return false;
         }
 
         if (!Uri.TryCreate(url, UriKind.Absolute, out var absoluteUri))
         {
-            if (_logger.IsEnabled(LogLevel.Debug))
-            {
-                _logger.LogDebug("Unable to convert `{Url}` into an absolut URI", url);
-            }
-
+            _logger.LogDebug("Unable to convert `{Url}` into an absolut URI", url);
             return false;
         }
 

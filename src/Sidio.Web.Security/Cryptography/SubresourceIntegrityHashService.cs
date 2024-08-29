@@ -50,10 +50,7 @@ public sealed class SubresourceIntegrityHashService : ISubresourceIntegrityHashS
         // return the cached data
         if (cachedData != null)
         {
-            if (_logger.IsEnabled(LogLevel.Trace))
-            {
-                _logger.LogTrace("The integrity hash for `{Uri}` was found in the cache", uri);
-            }
+            _logger.LogTrace("The integrity hash for `{Uri}` was found in the cache", uri);
 
             // returns a failed hash (stored as empty string)
             return cachedData.Equals(string.Empty)
@@ -66,15 +63,12 @@ public sealed class SubresourceIntegrityHashService : ISubresourceIntegrityHashS
         // store empty string when integrity fails to prevent multiple requests
         if (hash != null || _options.Value.CacheWhenFailed)
         {
-            if (hash == null && _options.Value.CacheWhenFailed && _logger.IsEnabled(LogLevel.Warning))
+            if (hash == null && _options.Value.CacheWhenFailed)
             {
                 _logger.LogWarning("The integrity hash for `{Uri}` was not generated, an empty string is ", uri);
             }
 
-            if (_logger.IsEnabled(LogLevel.Trace))
-            {
-                _logger.LogTrace("The integrity hash for `{Uri}` will be stored in the cache", uri);
-            }
+            _logger.LogTrace("The integrity hash for `{Uri}` will be stored in the cache", uri);
 
             await _distributedCache.SetStringAsync(cacheKey, hash ?? string.Empty, CacheOptions, cancellationToken)
                 .ConfigureAwait(false);
