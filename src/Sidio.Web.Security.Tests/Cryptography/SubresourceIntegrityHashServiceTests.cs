@@ -145,7 +145,7 @@ public sealed class SubresourceIntegrityHashServiceTests
             Times.Never);
     }
 
-    private static ISubresourceIntegrityHashService CreateService(
+    private static SubresourceIntegrityHashService CreateService(
         MockHttpMessageHandler handler,
         out Mock<IDistributedCache> cache,
         SubresourceIntegrityOptions? options = null)
