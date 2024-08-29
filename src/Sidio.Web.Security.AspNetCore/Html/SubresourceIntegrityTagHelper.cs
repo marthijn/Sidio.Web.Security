@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Web;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -127,13 +128,13 @@ public sealed class SubresourceIntegrityTagHelper : TagHelper
 
         if (!url.Contains("://"))
         {
-            _logger.LogTrace("Ignore relative url `{Url}`", url);
+            _logger.LogTrace("Ignore relative url `{Url}`", HttpUtility.UrlEncode(url));
             return false;
         }
 
         if (!Uri.TryCreate(url, UriKind.Absolute, out var absoluteUri))
         {
-            _logger.LogDebug("Unable to convert `{Url}` into an absolut URI", url);
+            _logger.LogDebug("Unable to convert `{Url}` into an absolut URI", HttpUtility.UrlEncode(url));
             return false;
         }
 
