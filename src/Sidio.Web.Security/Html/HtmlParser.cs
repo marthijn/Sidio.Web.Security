@@ -23,7 +23,10 @@ public static partial class HtmlParser
 #if NET7_0_OR_GREATER
         var regex = ScriptTagRegex();
 #else
-        var regex = new Regex(ScriptTagsPattern, RegexOptions.IgnoreCase | RegexOptions.Multiline);
+        var regex = new Regex(
+            ScriptTagsPattern,
+            RegexOptions.IgnoreCase | RegexOptions.Multiline,
+            TimeSpan.FromSeconds(5));
 #endif
         var matches = regex.Matches(html);
 
