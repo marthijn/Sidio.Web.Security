@@ -1,4 +1,5 @@
 ﻿@using Sidio.Web.Security.Examples.AspNetCore
 @using Sidio.Web.Security.Examples.AspNetCore.Models
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@addTagHelper *, Sidio.Web.Security.AspNetCore
+@addTagHelper Sidio.Web.Security.AspNetCore.Html.NonceTagHelper, Sidio.Web.Security.AspNetCore
+@addTagHelper Sidio.Web.Security.AspNetCore.Html.SubresourceIntegrityTagHelper, Sidio.Web.Security.AspNetCore
