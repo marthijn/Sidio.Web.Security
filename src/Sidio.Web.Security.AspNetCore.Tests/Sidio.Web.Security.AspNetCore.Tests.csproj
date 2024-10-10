@@ -40,4 +40,8 @@
       <ProjectReference Include="..\Sidio.Web.Security.AspNetCore\Sidio.Web.Security.AspNetCore.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+    </ItemGroup>
+
 </Project>
