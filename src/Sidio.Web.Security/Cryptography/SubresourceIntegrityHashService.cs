@@ -65,7 +65,7 @@ public sealed class SubresourceIntegrityHashService : ISubresourceIntegrityHashS
         {
             if (hash == null && _options.Value.CacheWhenFailed)
             {
-                _logger.LogWarning("The integrity hash for `{Uri}` was not generated, an empty string is ", uri);
+                _logger.LogWarning("The integrity hash for `{Uri}` was not generated, an empty string is stored in the cache", uri);
             }
 
             _logger.LogTrace("The integrity hash for `{Uri}` will be stored in the cache", uri);
