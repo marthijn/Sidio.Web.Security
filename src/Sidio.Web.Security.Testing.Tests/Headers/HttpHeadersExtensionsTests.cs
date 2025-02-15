@@ -220,4 +220,31 @@ public sealed class HttpHeadersExtensionsTests
         // assert
         action.Should().Throw<HeaderShouldExistException>();
     }
+
+    [Fact]
+    public void ShouldHaveCrossOriginResourcePolicyHeader_WhenHeaderExists_ShouldNotThrowException()
+    {
+        // arrange
+        var headers = new MockHttpHeaders(new CrossOriginResourcePolicyHeader(string.Empty));
+
+        // act
+        var action = () => headers.ShouldHaveCrossOriginResourcePolicyHeader();
+
+        // assert
+        action.Should().NotThrow();
+        action().Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldHaveCrossOriginResourcePolicyHeader_WhenHeaderDoesNotExist_ShouldThrowException()
+    {
+        // arrange
+        var headers = new MockHttpHeaders();
+
+        // act
+        var action = () => headers.ShouldHaveCrossOriginResourcePolicyHeader();
+
+        // assert
+        action.Should().Throw<HeaderShouldExistException>();
+    }
 }
