@@ -7,6 +7,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services
     .AddContentSecurityPolicy()
+    .AddSubresourceIntegrity()
+    .ConfigureTagHelpers(
+        x =>
+        {
+            x.AutoApplyNonce = true;
+            x.AutoApplySubresourceIntegrity = true;
+        })
     .AddControllersWithViews();
 
 var app = builder.Build();
@@ -42,6 +49,12 @@ app.UseContentSecurityPolicy(
 
         // add a deprecated header for testing purposes
         b.AddReportUri("/Home/Report");
+
+        // predefined policies
+        if (app.Environment.IsDevelopment())
+        {
+            b.AppendBrowserLinkPolicy();
+        }
     });
 
 app.UseReportTo(
@@ -67,6 +80,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.Run();
+await app.RunAsync();
 
 public partial class Program;

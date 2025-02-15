@@ -67,7 +67,7 @@ public sealed class ReportToHeaderValidation : IHeaderValidator<ReportToHeaderOp
         return new HeaderValidationResult(validationResult);
     }
 
-    private static IReadOnlyCollection<HeaderValidation> Deserialize(string headerValue, out List<ReportGroup> reportGroups)
+    private static List<HeaderValidation> Deserialize(string headerValue, out List<ReportGroup> reportGroups)
     {
         var validationResult = new List<HeaderValidation>();
         reportGroups = [];
@@ -77,7 +77,12 @@ public sealed class ReportToHeaderValidation : IHeaderValidator<ReportToHeaderOp
             // convert to array if it is an object
             // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/report-to
             var value = headerValue.Trim();
+
+#if NETSTANDARD2_0
             if (headerValue.StartsWith("{"))
+#else
+            if (headerValue.StartsWith('{'))
+#endif
             {
                 value = $"[{value}]";
             }

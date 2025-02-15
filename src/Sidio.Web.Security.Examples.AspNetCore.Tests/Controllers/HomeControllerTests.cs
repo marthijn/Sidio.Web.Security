@@ -1,5 +1,7 @@
 ﻿using Sidio.Web.Security.Headers.Options;
+using Sidio.Web.Security.Html;
 using Sidio.Web.Security.Testing.Headers;
+using Sidio.Web.Security.Testing.Html;
 
 namespace Sidio.Web.Security.Examples.AspNetCore.Tests.Controllers;
 
@@ -38,9 +40,31 @@ public sealed class HomeControllerTests : IClassFixture<WebApplicationFactory<Pr
 
         response.Headers.ShouldHaveReportToHeader();
 
-        response.Headers.ShouldHaveReferrerPolicyHeader().HasValidOptions().WithPolicy(ReferrerPolicy.NoReferrer);
+        response.Headers.ShouldHaveReferrerPolicyHeader().HasValidOptions().ContainsPolicy(ReferrerPolicy.NoReferrer);
 
         var content = await response.Content.ReadAsStringAsync();
         content.Should().Contain("Home");
+    }
+
+    [Fact]
+    public async Task ExternalResources_ReturnsView()
+    {
+        // arrange
+        var client = _factory.CreateClient();
+
+        // act
+        var response = await client.GetAsync("/Home/ExternalResources");
+
+        // assert
+        response.IsSuccessStatusCode.Should().BeTrue();
+
+        var content = await response.Content.ReadAsStringAsync();
+        var scripts = HtmlParser.ExtractScriptTags(content);
+        scripts.ShouldNotBeEmpty();
+        scripts.ShouldAllHaveNonceAttribute();
+        scripts.FromExternalOrigin
+            .ShouldNotBeEmpty()
+            .ShouldAllHaveIntegrityAttribute()
+            .ShouldAllHaveCrossOriginAttribute();
     }
 }

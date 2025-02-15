@@ -12,10 +12,10 @@ public static class HttpHeaderFactory
     /// Creates a new instance of the specified header type with the given value.
     /// </summary>
     /// <param name="value">The value.</param>
-    /// <param name="validate">When true the <see cref="value"/> is validated. Validation involves minimal performance loss.</param>
+    /// <param name="validate">When true the <c>value</c> is validated. Validation involves minimal performance loss.</param>
     /// <typeparam name="T">The header type.</typeparam>
-    /// <returns>An HTTP header of type <see cref="T"/>.</returns>
-    /// <exception cref="InvalidHeaderException">Thrown when the header value is invalid (<see cref="validate"/> should be set to <c>true</c>).</exception>
+    /// <returns>An HTTP header of type <see cref="HttpHeader"/>.</returns>
+    /// <exception cref="InvalidHeaderException">Thrown when the header value is invalid (<c>validate</c> should be set to <c>true</c>).</exception>
     public static T Create<T>(string? value, bool validate = false)
         where T : HttpHeader
     {
@@ -41,7 +41,7 @@ public static class HttpHeaderFactory
     /// </summary>
     /// <param name="options">The options.</param>
     /// <typeparam name="T">The header type.</typeparam>
-    /// <returns>An HTTP header of type <see cref="T"/>.</returns>
+    /// <returns>An HTTP header of type <see cref="HttpHeader"/>.</returns>
     /// <exception cref="InvalidHeaderException">Thrown when the header value is invalid.</exception>
     public static T Create<T>(IHttpHeaderOptions options)
         where T : HttpHeader =>

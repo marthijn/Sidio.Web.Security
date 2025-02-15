@@ -34,7 +34,7 @@ public sealed class XXssProtectionHeaderOptions : IHttpHeaderOptions
 
         if (Enabled)
         {
-            sb.Append("1");
+            sb.Append('1');
 
             if (Block)
             {
@@ -47,7 +47,7 @@ public sealed class XXssProtectionHeaderOptions : IHttpHeaderOptions
         }
         else
         {
-            sb.Append("0");
+            sb.Append('0');
         }
 
         return sb.ToString();

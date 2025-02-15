@@ -10,7 +10,7 @@ internal static class HttpResponseExtensions
     /// </summary>
     /// <param name="response">The HTTP response.</param>
     /// <param name="headerName">The header name.</param>
-    /// <returns>Returns <c>true</c> when the header exists, false otherwise.</returns>
+    /// <returns>Returns <c>true</c> when the header exists, <c>false</c> otherwise.</returns>
     public static bool HeaderExists(this HttpResponse response, string headerName) =>
         response.Headers.ContainsKey(headerName);
 
@@ -19,7 +19,7 @@ internal static class HttpResponseExtensions
     /// </summary>
     /// <param name="response">The HTTP response.</param>
     /// <param name="header">The header to append.</param>
-    /// <returns>Returns <c>true</c> when the header is added, false otherwise.</returns>
+    /// <returns>Returns <c>true</c> when the header is added, <c>false</c> otherwise.</returns>
     public static bool AppendHeaderIfNotExists(this HttpResponse response, HttpHeader header)
     {
         if (!response.HeaderExists(header.Name))

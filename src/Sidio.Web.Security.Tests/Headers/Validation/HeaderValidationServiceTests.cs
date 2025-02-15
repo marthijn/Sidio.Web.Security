@@ -6,6 +6,10 @@ namespace Sidio.Web.Security.Tests.Headers.Validation;
 
 public sealed class HeaderValidationServiceTests
 {
+    private static readonly string[] HeaderValue1 = ["1"];
+    private static readonly string[] HeaderValueTest = ["TEST"];
+    private static readonly string[] HeaderValueDeny = ["DENY"];
+
     [Fact]
     public void Validate_SuppressWarningsAndDoNotValidateRecommendedHeaders_ExpectsLogging()
     {
@@ -19,8 +23,8 @@ public sealed class HeaderValidationServiceTests
 
         var httpHeaders = new Dictionary<string, IEnumerable<string?>>
         {
-            { "X-Frame-Options", new[] { "DENY" } },
-            { "X-XSS-Protection", new[] { "1" } }
+            { "X-Frame-Options", HeaderValueDeny },
+            { "X-XSS-Protection", HeaderValue1 }
         };
 
         var validator = new HeaderValidationService(
@@ -50,7 +54,7 @@ public sealed class HeaderValidationServiceTests
 
         var httpHeaders = new Dictionary<string, IEnumerable<string?>>
         {
-            { "X-XSS-Protection", new[] { "1" } }
+            { "X-XSS-Protection", HeaderValue1 }
         };
 
         var validator = new HeaderValidationService(
@@ -82,7 +86,7 @@ public sealed class HeaderValidationServiceTests
 
         var httpHeaders = new Dictionary<string, IEnumerable<string?>>
         {
-            { "X-XSS-Protection", new[] { "1" } }
+            { "X-XSS-Protection", HeaderValue1 }
         };
 
         var validator = new HeaderValidationService(
@@ -112,7 +116,7 @@ public sealed class HeaderValidationServiceTests
 
         var httpHeaders = new Dictionary<string, IEnumerable<string?>>
         {
-            { "test", new[] { "1" } }
+            { "test", HeaderValue1 }
         };
 
         var validator = new HeaderValidationService(
@@ -142,7 +146,7 @@ public sealed class HeaderValidationServiceTests
 
         var httpHeaders = new Dictionary<string, IEnumerable<string?>>
         {
-            { "x-frame-options", new[] { "TEST" } }
+            { "x-frame-options", HeaderValueTest }
         };
 
         var validator = new HeaderValidationService(

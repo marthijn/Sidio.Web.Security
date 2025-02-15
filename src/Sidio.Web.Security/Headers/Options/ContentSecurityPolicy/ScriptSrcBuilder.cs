@@ -3,6 +3,7 @@
 /// <summary>
 /// The builder for the Content Security Policy directive 'script-src'.
 /// </summary>
+// ReSharper disable InconsistentNaming
 public sealed class ScriptSrcBuilder : NonceAndHashSrcBuilder<ScriptSrcBuilder>
 {
     /// <summary>

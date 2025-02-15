@@ -1,4 +1,6 @@
-﻿namespace Sidio.Web.Security.Headers.Options.ContentSecurityPolicy;
+﻿using Sidio.Web.Security.Cryptography;
+
+namespace Sidio.Web.Security.Headers.Options.ContentSecurityPolicy;
 
 /// <summary>
 /// The nonce and hash builder for the Content Security Policy directive 'src'.
@@ -35,7 +37,7 @@ public abstract class NonceAndHashSrcBuilder<T> : SrcBuilderBase<T>
             throw new ArgumentException("The SHA hash should not be null or empty.", nameof(sha256));
         }
 
-        Sources.Add($"'sha256-{sha256}'");
+        Sources.Add($"'{SubresourceHashAlgorithmPrefix.Sha256}{sha256}'");
         return This;
     }
 
@@ -51,7 +53,7 @@ public abstract class NonceAndHashSrcBuilder<T> : SrcBuilderBase<T>
             throw new ArgumentException("The SHA hash should not be null or empty.", nameof(sha384));
         }
 
-        Sources.Add($"'sha384-{sha384}'");
+        Sources.Add($"'{SubresourceHashAlgorithmPrefix.Sha384}{sha384}'");
         return This;
     }
 
@@ -67,7 +69,7 @@ public abstract class NonceAndHashSrcBuilder<T> : SrcBuilderBase<T>
             throw new ArgumentException("The SHA hash should not be null or empty.", nameof(sha512));
         }
 
-        Sources.Add($"'sha512-{sha512}'");
+        Sources.Add($"'{SubresourceHashAlgorithmPrefix.Sha512}{sha512}'");
         return This;
     }
 }

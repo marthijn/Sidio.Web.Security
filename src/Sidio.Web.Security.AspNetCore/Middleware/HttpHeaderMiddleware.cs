@@ -35,7 +35,15 @@ internal abstract class HttpHeaderMiddleware
         {
             if (!context.Response.AppendHeaderIfNotExists(Header))
             {
-                _logger.LogWarning("The header `{HeaderName}` is already set", Header.Name);
+                string? currentHeaderValue = context.Response.Headers[Header.Name];
+                if (!(currentHeaderValue ?? string.Empty).Equals(Header.Value, StringComparison.OrdinalIgnoreCase))
+                {
+                    _logger.LogWarning(
+                        "The header `{HeaderName}` is already set with value `{CurrentValue}`, new value will be ignored `{NewValue}`",
+                        Header.Name,
+                        currentHeaderValue,
+                        Header.Value);
+                }
             }
         }
         else

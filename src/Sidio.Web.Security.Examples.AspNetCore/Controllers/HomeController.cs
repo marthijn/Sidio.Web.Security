@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Sidio.Web.Security.Examples.AspNetCore.Models;
 using System.Diagnostics;
-using System.Text;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using Sidio.Web.Security.AspNetCore.Reporting;
 
 namespace Sidio.Web.Security.Examples.AspNetCore.Controllers;
 
+[ExcludeFromCodeCoverage]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
@@ -26,11 +27,21 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult ExternalResources()
+    {
+        return View();
+    }
+
     [HttpPost]
     public IActionResult Report([FromBody] Reports model)
     {
-        _logger.LogWarning("Report sent from browser: {Report}", JsonSerializer.Serialize(model));
-        return Ok();
+        if (ModelState.IsValid)
+        {
+            _logger.LogWarning("Report sent from browser: {Report}", JsonSerializer.Serialize(model));
+            return Ok();
+        }
+
+        return BadRequest();
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

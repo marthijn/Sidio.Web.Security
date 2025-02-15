@@ -4,11 +4,6 @@
 The goal of this project is to provide a set of services, helper functions and middleware that can be used to secure an ASP.NET Core application.
 All features are based on the [Mozilla Web Security Guidelines](https://infosec.mozilla.org/guidelines/web_security).
 
-__Note:__
-
-The packages are currently in preview and is not yet ready for production use. During the preview phase,
-breaking changes may be introduced. Extensive documentation is also still being worked on.
-
 # Packages
 ## Sidio.Web.Security.AspNetCore
 [Sidio.Web.Security.AspNetCore](https://www.nuget.org/packages/Sidio.Web.Security.AspNetCore/) provides the ASP.NET Core services and middleware. The project targets .NET 8.0 and higher.
@@ -32,7 +27,15 @@ targeting .NET Framework.
 [![build](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml/badge.svg)](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml)
 [![NuGet Version](https://img.shields.io/nuget/v/Sidio.Web.Security)](https://www.nuget.org/packages/Sidio.Web.Security/)
 
-# HTTP headers
+## Code quality
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=marthijn_Sidio.Web.Security&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=marthijn_Sidio.Web.Security)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=marthijn_Sidio.Web.Security&metric=coverage)](https://sonarcloud.io/summary/new_code?id=marthijn_Sidio.Web.Security)
+
+# Documentation
+See the [wiki docs](https://github.com/marthijn/Sidio.Web.Security/wiki/HTTP-headers).
+
+# Features
+## HTTP headers
 - Content-Security-Policy: [docs](https://github.com/marthijn/Sidio.Web.Security/wiki/Content%E2%80%90Security%E2%80%90Policy)
 - Referrer-Policy: [docs](https://github.com/marthijn/Sidio.Web.Security/wiki/Referrer%E2%80%90Policy)
 - Report-To: [docs](https://github.com/marthijn/Sidio.Web.Security/wiki/Report%E2%80%90To)
@@ -42,7 +45,7 @@ targeting .NET Framework.
 
 Read more in the [wiki docs](https://github.com/marthijn/Sidio.Web.Security/wiki/HTTP-headers).
 
-## Example
+### Example
 ```csharp
 builder.Services
     .AddContentSecurityPolicy();
@@ -64,16 +67,19 @@ app.UseContentSecurityPolicy(
 See [getting started](https://github.com/marthijn/Sidio.Web.Security/wiki/Getting-started) and
 the [recommended ASP.NET Core configuration](https://github.com/marthijn/Sidio.Web.Security/wiki/Recommended-configuration-for-ASP.NET-Core).
 
-## Reporting API
+### Reporting API
 The reporting API can be used to report violations of the Content Security Policy.
 Read more in the [wiki docs](https://github.com/marthijn/Sidio.Web.Security/wiki/Reporting-API).
 
-# Default policies
+## Default policies
 - A [secure cookie policy](https://github.com/marthijn/Sidio.Web.Security/wiki/Cookies)
 
-# Testing
+## Testing
 The package [Sidio.Web.Security.Testing](https://www.nuget.org/packages/Sidio.Web.Security.AspNetCore.Mvc/) provides a set of functions that can be used to test
 the security configuration of an ASP.Net Core application. [Read more](https://github.com/marthijn/Sidio.Web.Security/wiki/Testing).
+
+# Contributions
+Contributions are welcome! Feel free to create a pull request or an issue.
 
 # License
 This project is licensed under the [MIT License](LICENSE).

@@ -7,7 +7,7 @@ namespace Sidio.Web.Security.Testing.Tests.Headers;
 public sealed class ReferrerPolicyHeaderExtensionsTests
 {
     [Fact]
-    public void WithPolicy_WhenHeaderHasExpectedPolicy_ShouldNotThrowException()
+    public void ContainsPolicy_WhenHeaderHasExpectedPolicy_ShouldNotThrowException()
     {
         // arrange
         var header = new ReferrerPolicyHeaderOptions
@@ -16,7 +16,7 @@ public sealed class ReferrerPolicyHeaderExtensionsTests
         };
 
         // act
-        var action = () => header.WithPolicy(ReferrerPolicy.StrictOrigin);
+        var action = () => header.ContainsPolicy(ReferrerPolicy.StrictOrigin);
 
         // assert
         action.Should().NotThrow();
@@ -24,7 +24,7 @@ public sealed class ReferrerPolicyHeaderExtensionsTests
     }
 
     [Fact]
-    public void WithPolicy_WhenHeaderHasDifferentPolicy_ShouldThrowException()
+    public void ContainsPolicy_WhenHeaderHasDifferentPolicy_ShouldThrowException()
     {
         // arrange
         var header = new ReferrerPolicyHeaderOptions
@@ -33,7 +33,7 @@ public sealed class ReferrerPolicyHeaderExtensionsTests
         };
 
         // act
-        var action = () => header.WithPolicy(ReferrerPolicy.NoReferrer);
+        var action = () => header.ContainsPolicy(ReferrerPolicy.NoReferrer);
 
         // assert
         action.Should().ThrowExactly<DirectiveShouldHaveValueException>();

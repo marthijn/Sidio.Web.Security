@@ -13,8 +13,8 @@ public sealed class HeaderValidationResultTests
         var validations = _fixture.CreateMany<HeaderValidation>(20).ToList();
         var warnings = validations.Where(v => v.SeverityLevel == HeaderValidationSeverityLevel.Warning).ToList();
         var errors = validations.Where(v => v.SeverityLevel == HeaderValidationSeverityLevel.Error).ToList();
-        var hasWarnings = warnings.Any();
-        var hasErrors = errors.Any();
+        var hasWarnings = warnings.Count > 0;
+        var hasErrors = errors.Count > 0;
 
         // act
         var headerValidationResult = new HeaderValidationResult(validations);

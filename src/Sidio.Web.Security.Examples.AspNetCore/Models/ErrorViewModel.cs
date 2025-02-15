@@ -1,9 +1,11 @@
-namespace Sidio.Web.Security.Examples.AspNetCore.Models
-{
-    public class ErrorViewModel
-    {
-        public string? RequestId { get; set; }
+using System.Diagnostics.CodeAnalysis;
 
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
-    }
+namespace Sidio.Web.Security.Examples.AspNetCore.Models;
+
+[ExcludeFromCodeCoverage]
+public class ErrorViewModel
+{
+    public string? RequestId { get; set; }
+
+    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 }

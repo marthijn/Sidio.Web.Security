@@ -8,9 +8,9 @@ public sealed class XFrameOptionsHeaderValidatorTests : HeaderValidatorTests<XFr
     protected override IHeaderValidator<XFrameOptionsHeaderOptions> Validator => new XFrameOptionsHeaderValidator();
 
     [Theory]
-    [InlineData("DENY", XFrameOptionsHeaderOptions.XFrameOptionsDirective.Deny)]
-    [InlineData("SAMEORIGIN", XFrameOptionsHeaderOptions.XFrameOptionsDirective.SameOrigin)]
-    public void Validate_GivenValidValue_ShouldReturnValidResult(string value, XFrameOptionsHeaderOptions.XFrameOptionsDirective expectedDirective)
+    [InlineData("DENY", XFrameOptions.Deny)]
+    [InlineData("SAMEORIGIN", XFrameOptions.SameOrigin)]
+    public void Validate_GivenValidValue_ShouldReturnValidResult(string value, XFrameOptions expectedDirective)
     {
         // act
         var result = Validator.Validate(value, out var options);
@@ -38,7 +38,7 @@ public sealed class XFrameOptionsHeaderValidatorTests : HeaderValidatorTests<XFr
     public void Validate_GivenAllowFrom_ShouldReturnInvalidResult()
     {
         // act
-        var result = Validator.Validate("ALLOW-FROM https://example.com", out var options);
+        var result = Validator.Validate("ALLOW-FROM https://example.com", out _);
 
         // assert
         result.IsValid.Should().BeFalse();
