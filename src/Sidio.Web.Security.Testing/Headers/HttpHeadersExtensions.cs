@@ -152,4 +152,20 @@ public static class HttpHeadersExtensions
 
         throw new HeaderShouldExistException(ReferrerPolicyHeader.HeaderName);
     }
+
+    /// <summary>
+    /// Asserts that the headers contain the Cross-Origin-Resource-Policy header.
+    /// </summary>
+    /// <param name="headers">The HTTP headers.</param>
+    /// <returns>A <see cref="CrossOriginResourcePolicyHeader"/>.</returns>
+    /// <exception cref="HeaderShouldExistException">Thrown when the expected header does not exist.</exception>
+    public static CrossOriginResourcePolicyHeader ShouldHaveCrossOriginResourcePolicyHeader(this HttpHeaders headers)
+    {
+        if (headers.TryGetValues(CrossOriginResourcePolicyHeader.HeaderName, out var values))
+        {
+            return new CrossOriginResourcePolicyHeader(values.First());
+        }
+
+        throw new HeaderShouldExistException(CrossOriginResourcePolicyHeader.HeaderName);
+    }
 }

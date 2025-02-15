@@ -143,4 +143,20 @@ public static class ApplicationBuilderExtensions
                 MinimumSameSitePolicy = strictSameSite ? SameSiteMode.Strict : SameSiteMode.Lax,
             });
     }
+
+    /// <summary>
+    /// Use the Cross-Origin-Resource-Policy header.
+    /// </summary>
+    /// <param name="app">The application builder.</param>
+    /// <param name="policy">The policy.</param>
+    /// <returns>The <see cref="IApplicationBuilder"/>.</returns>
+    public static IApplicationBuilder UseCrossOriginResourcePolicy(this IApplicationBuilder app, CrossOriginResourcePolicy policy = CrossOriginResourcePolicy.SameOrigin)
+    {
+        ArgumentNullException.ThrowIfNull(app);
+        var optionsValue = new CrossOriginResourcePolicyHeaderOptions
+        {
+            Policy = policy,
+        };
+        return app.UseMiddleware<CrossOriginResourcePolicyHeaderMiddleware>(Options.Create(optionsValue));
+    }
 }

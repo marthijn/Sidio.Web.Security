@@ -143,6 +143,20 @@ public sealed class ApplicationBuilderExtensionsTests
         applicationBuilder.Middleware.Should().ContainSingle();
     }
 
+    [Fact]
+    public void UseCrossOriginResourcePolicy_ReturnsApplicationBuilder()
+    {
+        // arrange
+        var applicationBuilder = CreateApplicationBuilder();
+
+        // act
+        var result = applicationBuilder.UseCrossOriginResourcePolicy();
+
+        // assert
+        result.Should().BeSameAs(applicationBuilder);
+        applicationBuilder.Middleware.Should().ContainSingle();
+    }
+
     private static ApplicationBuilderSpy CreateApplicationBuilder()
     {
         var serviceCollection = new ServiceCollection();

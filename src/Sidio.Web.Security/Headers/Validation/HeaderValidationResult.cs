@@ -5,9 +5,9 @@
 /// </summary>
 public sealed record HeaderValidationResult
 {
-    internal HeaderValidationResult(IEnumerable<HeaderValidation> validations)
+    internal HeaderValidationResult(IEnumerable<HeaderValidation>? validations)
     {
-        ValidationResults = validations.ToList();
+        ValidationResults = (validations ?? new List<HeaderValidation>()).ToList();
         HasWarnings = ValidationResults.Any(v => v.SeverityLevel == HeaderValidationSeverityLevel.Warning);
         HasErrors = ValidationResults.Any(v => v.SeverityLevel == HeaderValidationSeverityLevel.Error);
     }
