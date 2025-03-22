@@ -11,6 +11,6 @@ internal static class TestResources
             assembly.GetManifestResourceStream(filename);
         using var reader = new StreamReader(resource!);
         var result = reader.ReadToEnd();
-        return result;
+        return result.Replace("\r\n", "\n").Replace("\r", "\n");
     }
 }
