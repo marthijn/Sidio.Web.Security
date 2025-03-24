@@ -115,6 +115,39 @@ public sealed class SubresourceIntegrityHashServiceTests
         result.Hash.Should().BeNull();
     }
 
+    [Theory]
+    [InlineData(SubresourceHashAlgorithm.SHA256, "sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=")]
+    [InlineData(
+        SubresourceHashAlgorithm.SHA384,
+        "sha384-1H217gwSVyLSIfaLxHbE7dRb3v4mYCKbpQvzx0cegeju1MVsGrX5xXxAvs/HgeFs")]
+    [InlineData(
+        SubresourceHashAlgorithm.SHA512,
+        "sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==")]
+    public async Task GetHashFromUrlAsync_WithoutCache_ReturnsHash(
+        SubresourceHashAlgorithm algorithm,
+        string expectedHash)
+    {
+        // arrange
+        const string Url = "https://localhost/jquery-3.6.0.min.js";
+        var mockHttp = new MockHttpMessageHandler();
+        mockHttp.When(Url).Respond(
+            HttpStatusCode.OK,
+            "application/javascript",
+            TestResources.GetFileContents("Sidio.Web.Security.Tests.Cryptography.Resources.example.js"));
+
+        var service = CreateServiceWithoutCache(mockHttp, new SubresourceIntegrityOptions
+        {
+            Algorithm = algorithm,
+        });
+
+        // act
+        var result = await service.GetIntegrityHashFromUrlAsync(new Uri(Url));
+
+        // assert
+        result.Success.Should().BeTrue();
+        result.Hash.Should().BeEquivalentTo(expectedHash);
+    }
+
     private static SubresourceIntegrityHashService CreateService(
         MockHttpMessageHandler handler,
         out FakeHybridCache cache,
@@ -129,6 +162,21 @@ public sealed class SubresourceIntegrityHashServiceTests
         return new SubresourceIntegrityHashService(
             httpClientFactory.Object,
             cache,
+            Options.Create(options ?? new SubresourceIntegrityOptions()),
+            NullLogger<SubresourceIntegrityHashService>.Instance);
+    }
+
+    private static SubresourceIntegrityHashService CreateServiceWithoutCache(
+        MockHttpMessageHandler handler,
+        SubresourceIntegrityOptions? options = null)
+    {
+        var client = new HttpClient(handler);
+        var httpClientFactory = new Mock<IHttpClientFactory>();
+        httpClientFactory.Setup(x => x.CreateClient(It.IsAny<string>())).Returns(client);
+
+        return new SubresourceIntegrityHashService(
+            httpClientFactory.Object,
+            null,
             Options.Create(options ?? new SubresourceIntegrityOptions()),
             NullLogger<SubresourceIntegrityHashService>.Instance);
     }
