@@ -1,6 +1,4 @@
 ﻿using System.Net;
-using System.Text;
-using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Moq;
@@ -23,10 +21,7 @@ public sealed class SubresourceIntegrityHashServiceTests
         var mockHttp = new MockHttpMessageHandler();
         mockHttp.When(Url).Respond(HttpStatusCode.NotFound);
 
-        var service = CreateService(mockHttp, out var cache);
-
-        cache.Setup(x => x.GetAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync((byte[]?) null);
+        var service = CreateService(mockHttp, out _);
 
         // act
         var result = await service.GetIntegrityHashFromUrlAsync(new Uri(Url));
@@ -62,8 +57,7 @@ public sealed class SubresourceIntegrityHashServiceTests
             Algorithm = algorithm,
         });
 
-        cache.Setup(x => x.GetAsync(expectedCacheKey, It.IsAny<CancellationToken>()))
-            .ReturnsAsync((byte[]?) null);
+        cache.KeyNotExists(expectedCacheKey);
 
         // act
         var result = await service.GetIntegrityHashFromUrlAsync(new Uri(Url));
@@ -71,13 +65,7 @@ public sealed class SubresourceIntegrityHashServiceTests
         // assert
         result.Success.Should().BeTrue();
         result.Hash.Should().BeEquivalentTo(expectedHash);
-
-        cache.Verify(
-            x => x.SetAsync(
-                expectedCacheKey,
-                It.IsAny<byte[]>(),
-                It.IsAny<DistributedCacheEntryOptions>(),
-                It.IsAny<CancellationToken>()));
+        cache.KeyExists(expectedCacheKey);
     }
 
     [Fact]
@@ -94,8 +82,7 @@ public sealed class SubresourceIntegrityHashServiceTests
             Algorithm = Algorithm,
         });
 
-        cache.Setup(x => x.GetAsync(ExpectedCacheKey, It.IsAny<CancellationToken>()))
-            .ReturnsAsync(Encoding.UTF8.GetBytes(ExpectedHash));
+        await cache.SetAsync(ExpectedCacheKey, ExpectedHash);
 
         // act
         var result = await service.GetIntegrityHashFromUrlAsync(new Uri(Url));
@@ -103,14 +90,6 @@ public sealed class SubresourceIntegrityHashServiceTests
         // assert
         result.Success.Should().BeTrue();
         result.Hash.Should().BeEquivalentTo(ExpectedHash);
-
-        cache.Verify(
-            x => x.SetAsync(
-                It.IsAny<string>(),
-                It.IsAny<byte[]>(),
-                It.IsAny<DistributedCacheEntryOptions>(),
-                It.IsAny<CancellationToken>()),
-            Times.Never);
     }
 
     [Fact]
@@ -126,8 +105,7 @@ public sealed class SubresourceIntegrityHashServiceTests
             Algorithm = Algorithm,
         });
 
-        cache.Setup(x => x.GetAsync(ExpectedCacheKey, It.IsAny<CancellationToken>()))
-            .ReturnsAsync(Encoding.UTF8.GetBytes(string.Empty));
+        await cache.SetAsync(ExpectedCacheKey, string.Empty);
 
         // act
         var result = await service.GetIntegrityHashFromUrlAsync(new Uri(Url));
@@ -135,30 +113,22 @@ public sealed class SubresourceIntegrityHashServiceTests
         // assert
         result.Success.Should().BeFalse();
         result.Hash.Should().BeNull();
-
-        cache.Verify(
-            x => x.SetAsync(
-                It.IsAny<string>(),
-                It.IsAny<byte[]>(),
-                It.IsAny<DistributedCacheEntryOptions>(),
-                It.IsAny<CancellationToken>()),
-            Times.Never);
     }
 
     private static SubresourceIntegrityHashService CreateService(
         MockHttpMessageHandler handler,
-        out Mock<IDistributedCache> cache,
+        out FakeHybridCache cache,
         SubresourceIntegrityOptions? options = null)
     {
         var client = new HttpClient(handler);
         var httpClientFactory = new Mock<IHttpClientFactory>();
         httpClientFactory.Setup(x => x.CreateClient(It.IsAny<string>())).Returns(client);
 
-        cache = new Mock<IDistributedCache>();
+        cache = new FakeHybridCache();
 
         return new SubresourceIntegrityHashService(
             httpClientFactory.Object,
-            cache.Object,
+            cache,
             Options.Create(options ?? new SubresourceIntegrityOptions()),
             NullLogger<SubresourceIntegrityHashService>.Instance);
     }
