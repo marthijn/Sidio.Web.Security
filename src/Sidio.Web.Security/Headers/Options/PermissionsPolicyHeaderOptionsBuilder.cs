@@ -14,9 +14,9 @@ public sealed class PermissionsPolicyHeaderOptionsBuilder
     /// </summary>
     /// <param name="builder">The builder.</param>
     /// <returns>The <see cref="PermissionsPolicyHeaderOptionsBuilder"/> instance.</returns>
-    public PermissionsPolicyHeaderOptionsBuilder AddAccelerometer(Func<DirectivesBuilder, DirectivesBuilder> builder)
+    public PermissionsPolicyHeaderOptionsBuilder AddAccelerometer(Func<DirectiveValueBuilder, DirectiveValueBuilder> builder)
     {
-        _options.Accelerometer = builder(new DirectivesBuilder()).Build();
+        _options.Accelerometer = builder(new DirectiveValueBuilder()).Build();
         return this;
     }
 

@@ -2,13 +2,13 @@
 
 namespace Sidio.Web.Security.Tests.Headers.Options.PermissionsPolicy;
 
-public sealed class DirectivesBuilderTests
+public sealed class DirectiveValueBuilderTests
 {
     [Fact]
     public void Build_NothingSpecified_ReturnsNull()
     {
         // Arrange
-        var builder = new DirectivesBuilder();
+        var builder = new DirectiveValueBuilder();
 
         // Act
         var result = builder.Build();
@@ -21,7 +21,7 @@ public sealed class DirectivesBuilderTests
     public void Build_AddSelf_ReturnsValue()
     {
         // Arrange
-        var builder = new DirectivesBuilder();
+        var builder = new DirectiveValueBuilder();
 
         // Act
         var result = builder.AddSelf().Build();
@@ -34,7 +34,7 @@ public sealed class DirectivesBuilderTests
     public void Build_AddOrigin_ReturnsValue()
     {
         // Arrange
-        var builder = new DirectivesBuilder();
+        var builder = new DirectiveValueBuilder();
         const string Origin1 = "https://example.com";
         const string Origin2 = "https://*.example2.com";
 
@@ -49,7 +49,7 @@ public sealed class DirectivesBuilderTests
     public void Build_AllowAll_ReturnsValue()
     {
         // Arrange
-        var builder = new DirectivesBuilder();
+        var builder = new DirectiveValueBuilder();
 
         // Act
         var result = builder.AllowAll().Build();
@@ -62,7 +62,7 @@ public sealed class DirectivesBuilderTests
     public void Build_AllowNone_ReturnsValue()
     {
         // Arrange
-        var builder = new DirectivesBuilder();
+        var builder = new DirectiveValueBuilder();
 
         // Act
         var result = builder.AllowNone().Build();

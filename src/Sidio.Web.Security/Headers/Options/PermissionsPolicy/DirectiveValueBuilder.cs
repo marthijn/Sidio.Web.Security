@@ -3,7 +3,7 @@
 /// <summary>
 /// The builder for the Permissions-Policy directive.
 /// </summary>
-public sealed class DirectivesBuilder
+public sealed class DirectiveValueBuilder
 {
     private const string Wildcard = "*";
 
@@ -15,7 +15,7 @@ public sealed class DirectivesBuilder
     /// <param name="url"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
-    public DirectivesBuilder AddOrigin(string url)
+    public DirectiveValueBuilder AddOrigin(string url)
     {
         if (string.IsNullOrWhiteSpace(url))
         {
@@ -30,8 +30,8 @@ public sealed class DirectivesBuilder
     /// The feature will be allowed in the document, and all nested browsing contexts in the
     /// same origin only.
     /// </summary>
-    /// <returns>The <see cref="DirectivesBuilder"/> instance.</returns>
-    public DirectivesBuilder AddSelf()
+    /// <returns>The <see cref="DirectiveValueBuilder"/> instance.</returns>
+    public DirectiveValueBuilder AddSelf()
     {
         _directives.Add("self");
         return this;
@@ -42,8 +42,8 @@ public sealed class DirectivesBuilder
     /// regardless of their origin.
     /// </summary>
     /// <remarks>This function will overwrite all other directives.</remarks>
-    /// <returns>The <see cref="DirectivesBuilder"/> instance.</returns>
-    public DirectivesBuilder AllowAll()
+    /// <returns>The <see cref="DirectiveValueBuilder"/> instance.</returns>
+    public DirectiveValueBuilder AllowAll()
     {
         _directives.Add(Wildcard);
         return this;
@@ -54,8 +54,8 @@ public sealed class DirectivesBuilder
     /// </summary>
     /// <remarks>This function will overwrite all other directives. When <see cref="AllowAll"/> is
     /// specified, this feature will be ignored.</remarks>
-    /// <returns>The <see cref="DirectivesBuilder"/> instance.</returns>
-    public DirectivesBuilder AllowNone()
+    /// <returns>The <see cref="DirectiveValueBuilder"/> instance.</returns>
+    public DirectiveValueBuilder AllowNone()
     {
         _directives.Add(string.Empty);
         return this;
