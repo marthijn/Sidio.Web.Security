@@ -57,58 +57,154 @@ public sealed class PermissionsPolicyHeaderOptions : IHttpHeaderOptions
     /// </summary>
     public string? CrossOriginIsolated { get; set; }
 
+    /// <summary>
+    /// Controls whether or not the current document is permitted to use the getDisplayMedia() method to capture
+    /// screen contents.
+    /// </summary>
     public string? DisplayCapture { get; set; }
 
+    /// <summary>
+    /// Controls whether the current document is allowed to set document.domain.
+    /// </summary>
     public string? DocumentDomain { get; set; }
 
+    /// <summary>
+    /// Controls whether the current document is allowed to use the Encrypted Media Extensions API (EME).
+    /// </summary>
     public string? EncryptedMedia { get; set; }
 
+    /// <summary>
+    /// Controls whether the current document is allowed to use Element.requestFullscreen().
+    /// </summary>
     public string? Fullscreen { get; set; }
 
+    /// <summary>
+    /// Controls whether the current document is allowed to use the Gamepad API.
+    /// </summary>
     public string? Gamepad { get; set; }
 
+    /// <summary>
+    /// Controls whether the current document is allowed to use the Geolocation Interface.
+    /// </summary>
     public string? Geolocation { get; set; }
 
+    /// <summary>
+    /// Controls whether the current document is allowed to gather information about the orientation of the
+    /// device through the Gyroscope interface.
+    /// </summary>
     public string? Gyroscope { get; set; }
 
+    /// <summary>
+    /// Controls whether the current document is allowed to use the WebHID API to connect to uncommon or
+    /// exotic human interface devices such as alternative keyboards or gamepads.
+    /// </summary>
     public string? Hid { get; set; }
 
+    /// <summary>
+    /// Controls whether the current document is allowed to use the Federated Credential Management API (FedCM),
+    /// and more specifically the navigator.credentials.get() method with an identity option.
+    /// </summary>
     public string? IdentityCredentialsGet { get; set; }
 
+    /// <summary>
+    /// Controls whether the current document is allowed to use the Idle Detection API to detect when users are
+    /// interacting with their devices, for example to report "available"/"away" status in chat applications.
+    /// </summary>
     public string? IdleDetection { get; set; }
 
+    /// <summary>
+    /// Controls whether the current document is allowed to gather data on the user's locally-installed fonts
+    /// via the Window.queryLocalFonts() method.
+    /// </summary>
     public string? LocalFonts { get; set; }
 
+    /// <summary>
+    /// Controls whether the current document is allowed to gather information about the orientation of the
+    /// device through the Magnetometer interface.
+    /// </summary>
     public string? Magnetometer { get; set; }
 
+    /// <summary>
+    /// Controls whether the current document is allowed to use audio input devices.
+    /// </summary>
     public string? Microphone { get; set; }
 
+    /// <summary>
+    /// Controls whether the current document is allowed to use the Web MIDI API.
+    /// </summary>
     public string? Midi { get; set; }
 
+    /// <summary>
+    /// Controls whether the current document is allowed to use the WebOTP API to request a one-time password (OTP)
+    /// from a specially-formatted SMS message sent by the app's server.
+    /// </summary>
     public string? OptCredentials { get; set; }
 
+    /// <summary>
+    /// Controls whether the current document is allowed to use the Payment Request API.
+    /// </summary>
     public string? Payment { get; set; }
 
+    /// <summary>
+    /// Controls whether the current document is allowed to play a video in a Picture-in-Picture mode via
+    /// the corresponding API.
+    /// </summary>
     public string? PictureInPicture { get; set; }
 
+    /// <summary>
+    /// Controls whether the current document is allowed to use the Web Authentication API to create new
+    /// asymmetric key credentials.
+    /// </summary>
     public string? PublicKeyCredentialsCreate { get; set; }
 
+    /// <summary>
+    /// Controls whether the current document is allowed to use the Web Authentication API to retrieve already
+    /// stored public-key credentials.
+    /// </summary>
     public string? PublicKeyCredentialsGet { get; set; }
 
+    /// <summary>
+    /// Controls whether the current document is allowed to use Screen Wake Lock API to indicate that device
+    /// should not turn off or dim the screen.
+    /// </summary>
     public string? ScreenWakeLock { get; set; }
 
+    /// <summary>
+    /// Controls whether the current document is allowed to use the Web Serial API to communicate with serial devices,
+    /// either directly connected via a serial port, or via USB or Bluetooth devices emulating a serial port.
+    /// </summary>
     public string? Serial { get; set; }
 
+    /// <summary>
+    /// Controls whether the current document is allowed to use the Audio Output Devices API to list and select speakers.
+    /// </summary>
     public string? SpeakerSelection { get; set; }
 
+    /// <summary>
+    /// Controls whether a document loaded in a third-party context
+    /// is allowed to use the Storage Access API to request access to unpartitioned cookies.
+    /// </summary>
     public string? StorageAccess { get; set; }
 
+    /// <summary>
+    /// Controls whether the current document is allowed to use the WebUSB API.
+    /// </summary>
     public string? Usb { get; set; }
 
+    /// <summary>
+    /// Controls whether or not the current document is allowed to use the Navigator.share() of Web Share API to share text,
+    /// links, images, and other content to arbitrary destinations of user's choice, e.g. mobile apps.
+    /// </summary>
     public string? WebShare { get; set; }
 
+    /// <summary>
+    /// Controls whether or not the current document is allowed to use the Window Management API to manage windows on multiple displays.
+    /// </summary>
     public string? WindowManagement { get; set; }
 
+    /// <summary>
+    /// Controls whether or not the current document is allowed to use the WebXR Device API to interact with a WebXR session.
+    /// </summary>
     public string? XrSpatialTracking { get; set; }
 
     /// <inheritdoc />
