@@ -161,8 +161,8 @@ public sealed class SubresourceIntegrityHashServiceTests
 
         return new SubresourceIntegrityHashService(
             httpClientFactory.Object,
-            cache,
             Options.Create(options ?? new SubresourceIntegrityOptions()),
+            cache,
             NullLogger<SubresourceIntegrityHashService>.Instance);
     }
 
@@ -176,7 +176,6 @@ public sealed class SubresourceIntegrityHashServiceTests
 
         return new SubresourceIntegrityHashService(
             httpClientFactory.Object,
-            null,
             Options.Create(options ?? new SubresourceIntegrityOptions()),
             NullLogger<SubresourceIntegrityHashService>.Instance);
     }

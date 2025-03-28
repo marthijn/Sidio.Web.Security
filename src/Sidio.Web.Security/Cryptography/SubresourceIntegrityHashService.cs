@@ -24,18 +24,34 @@ public sealed class SubresourceIntegrityHashService : ISubresourceIntegrityHashS
     /// <param name="logger">The logger.</param>
     public SubresourceIntegrityHashService(
         IHttpClientFactory httpClientFactory,
-        HybridCache? hybridCache,
         IOptions<SubresourceIntegrityOptions> options,
+        HybridCache hybridCache,
         ILogger<SubresourceIntegrityHashService> logger)
     {
         _httpClientFactory = httpClientFactory;
         _hybridCache = hybridCache;
         _options = options;
         _logger = logger;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SubresourceIntegrityHashService"/> class.
+    /// </summary>
+    /// <param name="httpClientFactory">The HTTP client factory.</param>
+    /// <param name="options">The options.</param>
+    /// <param name="logger">The logger.</param>
+    public SubresourceIntegrityHashService(
+        IHttpClientFactory httpClientFactory,
+        IOptions<SubresourceIntegrityOptions> options,
+        ILogger<SubresourceIntegrityHashService> logger)
+    {
+        _httpClientFactory = httpClientFactory;
+        _options = options;
+        _logger = logger;
 
         if (_hybridCache == null)
         {
-            _logger.LogWarning("An instance of HybridCache is not configured, caching of subresources is disabled");
+            _logger.LogWarning("An instance of HybridCache is not configured, caching of subresource integrity hashes is disabled");
         }
     }
 
