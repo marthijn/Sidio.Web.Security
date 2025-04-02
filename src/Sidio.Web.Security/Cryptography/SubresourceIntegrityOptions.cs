@@ -27,4 +27,10 @@ public sealed class SubresourceIntegrityOptions
     /// Setting this to true prevents multiple requests to the same URL every time a hash is requested.
     /// </summary>
     public bool CacheWhenFailed { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether to disable the cache.
+    /// Default is false.
+    /// </summary>
+    public bool CacheDisabled { get; set; }
 }

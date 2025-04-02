@@ -51,7 +51,13 @@ public sealed class SubresourceIntegrityHashService : ISubresourceIntegrityHashS
 
         if (_hybridCache == null)
         {
-            _logger.LogWarning("An instance of HybridCache is not configured, caching of subresource integrity hashes is disabled");
+            if (!options.Value.CacheDisabled)
+            {
+                throw new InvalidOperationException(
+                    "An instance of HybridCache is not configured, but caching of subresource integrity hashes is enabled. Please configure HybridCache or disable caching.");
+            }
+
+            _logger.LogInformation("An instance of HybridCache is not configured, caching of subresource integrity hashes is disabled");
         }
     }
 
