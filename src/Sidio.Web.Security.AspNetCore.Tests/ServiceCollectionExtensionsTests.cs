@@ -28,7 +28,7 @@ public sealed class ServiceCollectionExtensionsTests
     {
         // arrange
         var services = new ServiceCollection();
-        services.AddDistributedMemoryCache();
+        services.AddHybridCache();
 
         // act
         services.AddSubresourceIntegrity();
@@ -44,7 +44,7 @@ public sealed class ServiceCollectionExtensionsTests
     {
         // arrange
         var services = new ServiceCollection();
-        services.AddDistributedMemoryCache();
+        services.AddHybridCache();
 
         // act
         services.AddSubresourceIntegrity(options => options.Algorithm = SubresourceHashAlgorithm.SHA512);
