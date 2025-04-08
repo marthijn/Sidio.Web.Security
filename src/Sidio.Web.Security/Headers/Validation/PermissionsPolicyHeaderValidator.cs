@@ -85,7 +85,7 @@ public sealed class PermissionsPolicyHeaderValidator : IHeaderValidator<Permissi
     private static string? GetDirectiveValue(string directive, string headerValue)
 #endif
     {
-        var regex = new Regex($@"{directive}=(\*|\(.*?\))");
+        var regex = new Regex($@"{directive}=(\*|\(.*?\))", RegexOptions.None, TimeSpan.FromMilliseconds(100));
         var match = regex.Match(headerValue);
         if (match.Success)
         {
