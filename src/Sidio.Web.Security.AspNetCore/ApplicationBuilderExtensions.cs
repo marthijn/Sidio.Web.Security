@@ -159,4 +159,23 @@ public static class ApplicationBuilderExtensions
         };
         return app.UseMiddleware<CrossOriginResourcePolicyHeaderMiddleware>(Options.Create(optionsValue));
     }
+
+    /// <summary>
+    /// Use the Permissions-Policy header.
+    /// </summary>
+    /// <param name="app">The application builder.</param>
+    /// <param name="options">The options builder.</param>
+    /// <returns>The <see cref="IApplicationBuilder"/>.</returns>
+    public static IApplicationBuilder UsePermissionPolicy(
+        this IApplicationBuilder app,
+        Action<PermissionsPolicyHeaderOptionsBuilder> options)
+    {
+        ArgumentNullException.ThrowIfNull(app);
+
+        var builder = new PermissionsPolicyHeaderOptionsBuilder();
+        options(builder);
+        var optionsValue = builder.Build();
+
+        return app.UseMiddleware<PermissionsPolicyMiddleware>(Options.Create(optionsValue));
+    }
 }

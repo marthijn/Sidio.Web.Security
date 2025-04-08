@@ -59,13 +59,13 @@ public sealed class DirectiveValueBuilderTests
     }
 
     [Fact]
-    public void Build_AllowNone_ReturnsValue()
+    public void Build_Disallow_ReturnsValue()
     {
         // Arrange
         var builder = new DirectiveValueBuilder();
 
         // Act
-        var result = builder.AllowNone().Build();
+        var result = builder.Disallow().Build();
 
         // Assert
         result.Should().Be("()");

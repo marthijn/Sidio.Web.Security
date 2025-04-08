@@ -55,7 +55,7 @@ public sealed class DirectiveValueBuilder
     /// <remarks>This function will overwrite all other directives. When <see cref="AllowAll"/> is
     /// specified, this feature will be ignored.</remarks>
     /// <returns>The <see cref="DirectiveValueBuilder"/> instance.</returns>
-    public DirectiveValueBuilder AllowNone()
+    public DirectiveValueBuilder Disallow()
     {
         _directives.Add(string.Empty);
         return this;
@@ -65,7 +65,7 @@ public sealed class DirectiveValueBuilder
     /// Builds the directives. Returns null when no directives are specified.
     /// </summary>
     /// <returns>The header directive.</returns>
-    public string? Build()
+    internal string? Build()
     {
         if (_directives.Count == 0)
         {
