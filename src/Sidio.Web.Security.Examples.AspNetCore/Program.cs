@@ -57,6 +57,15 @@ app.UseContentSecurityPolicy(
         }
     });
 
+app.UsePermissionPolicy(
+    b =>
+    {
+        b
+            .AddAccelerometer(x => x.Disallow())
+            .AddPayment(x => x.Disallow())
+            .AddAutoplay(x => x.AddSelf());
+    });
+
 app.UseReportTo(
     new ReportToHeaderOptions
     {

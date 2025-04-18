@@ -42,6 +42,9 @@ public sealed class HomeControllerTests : IClassFixture<WebApplicationFactory<Pr
 
         response.Headers.ShouldHaveReferrerPolicyHeader().HasValidOptions().ContainsPolicy(ReferrerPolicy.NoReferrer);
 
+        response.Headers.ShouldHavePermissionsPolicyHeader().ContainsValue("accelerometer=()")
+            .ContainsValue("payment=()").ContainsValue("autoplay=(self)");
+
         var content = await response.Content.ReadAsStringAsync();
         content.Should().Contain("Home");
     }
