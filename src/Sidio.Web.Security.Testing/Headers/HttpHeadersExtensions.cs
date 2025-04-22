@@ -168,4 +168,20 @@ public static class HttpHeadersExtensions
 
         throw new HeaderShouldExistException(CrossOriginResourcePolicyHeader.HeaderName);
     }
+
+    /// <summary>
+    /// Asserts that the headers contain the Permissions-Policy header.
+    /// </summary>
+    /// <param name="headers">The HTTP headers.</param>
+    /// <returns>A <see cref="PermissionsPolicyHeader"/>.</returns>
+    /// <exception cref="HeaderShouldExistException">Thrown when the expected header does not exist.</exception>
+    public static PermissionsPolicyHeader ShouldHavePermissionsPolicyHeader(this HttpHeaders headers)
+    {
+        if (headers.TryGetValues(PermissionsPolicyHeader.HeaderName, out var values))
+        {
+            return new PermissionsPolicyHeader(values.First());
+        }
+
+        throw new HeaderShouldExistException(PermissionsPolicyHeader.HeaderName);
+    }
 }

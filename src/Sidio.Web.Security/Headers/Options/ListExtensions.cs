@@ -2,11 +2,11 @@
 
 internal static class ListExtensions
 {
-    public static List<string> AddIfNotNull(this List<string> list, string directive, string? value)
+    public static List<string> AddIfNotNull(this List<string> list, string directive, string? value, string separator = " ")
     {
         if (value != null)
         {
-            list.Add($"{directive} {value}");
+            list.Add($"{directive}{separator}{value}");
         }
 
         return list;

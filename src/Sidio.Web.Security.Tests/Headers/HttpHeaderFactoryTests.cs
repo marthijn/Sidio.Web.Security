@@ -45,6 +45,16 @@ public sealed class HttpHeaderFactoryTests
         result.Should().NotBeNull();
     }
 
+    [Fact]
+    public void Create_PermissionsPolicyHeader_ReturnsInstance()
+    {
+        // act
+        var result = HttpHeaderFactory.Create<PermissionsPolicyHeader>("geolocation=*");
+
+        // assert
+        result.Should().NotBeNull();
+    }
+
     [Theory]
     [InlineData(true)]
     [InlineData(false)]

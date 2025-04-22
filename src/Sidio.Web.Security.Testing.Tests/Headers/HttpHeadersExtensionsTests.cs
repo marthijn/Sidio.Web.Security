@@ -247,4 +247,31 @@ public sealed class HttpHeadersExtensionsTests
         // assert
         action.Should().Throw<HeaderShouldExistException>();
     }
+
+    [Fact]
+    public void ShouldHavePermissionsPolicyHeader_WhenHeaderExists_ShouldNotThrowException()
+    {
+        // arrange
+        var headers = new MockHttpHeaders(new PermissionsPolicyHeader("geolocation=()"));
+
+        // act
+        var action = () => headers.ShouldHavePermissionsPolicyHeader();
+
+        // assert
+        action.Should().NotThrow();
+        action().Should().NotBeNull();
+    }
+
+    [Fact]
+    public void ShouldHavePermissionsPolicyHeader_WhenHeaderDoesNotExist_ShouldThrowException()
+    {
+        // arrange
+        var headers = new MockHttpHeaders();
+
+        // act
+        var action = () => headers.ShouldHavePermissionsPolicyHeader();
+
+        // assert
+        action.Should().Throw<HeaderShouldExistException>();
+    }
 }
