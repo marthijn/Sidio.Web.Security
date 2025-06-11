@@ -12,7 +12,8 @@ public sealed class SubresourceIntegrityOptionsTests
 
         // assert
         result.Algorithm.Should().Be(SubresourceHashAlgorithm.SHA256);
-        result.AbsoluteExpiration.Should().Be(TimeSpan.FromDays(90));
+        result.CacheExpiration.Should().Be(TimeSpan.FromDays(90));
+        result.LocalCacheExpiration.Should().Be(TimeSpan.FromMinutes(5));
         result.CacheWhenFailed.Should().BeTrue();
     }
 }
