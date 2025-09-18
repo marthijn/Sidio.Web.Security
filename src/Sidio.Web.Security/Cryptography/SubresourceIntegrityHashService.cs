@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Security.Cryptography;
 using Microsoft.Extensions.Caching.Hybrid;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -32,11 +33,6 @@ public sealed class SubresourceIntegrityHashService : ISubresourceIntegrityHashS
         _hybridCache = hybridCache;
         _options = options;
         _logger = logger;
-
-        if (_options.Value.CacheDisabled)
-        {
-            _logger.LogWarning("An instance of HybridCache is configured, but caching of subresource integrity hashes is disabled");
-        }
     }
 
     /// <summary>
@@ -53,17 +49,6 @@ public sealed class SubresourceIntegrityHashService : ISubresourceIntegrityHashS
         _httpClientFactory = httpClientFactory;
         _options = options;
         _logger = logger;
-
-        if (_hybridCache == null)
-        {
-            if (!options.Value.CacheDisabled)
-            {
-                throw new InvalidOperationException(
-                    "An instance of HybridCache is not configured, but caching of subresource integrity hashes is enabled. Please configure HybridCache or disable caching.");
-            }
-
-            _logger.LogInformation("An instance of HybridCache is not configured, caching of subresource integrity hashes is disabled");
-        }
     }
 
     /// <inheritdoc />
@@ -76,7 +61,11 @@ public sealed class SubresourceIntegrityHashService : ISubresourceIntegrityHashS
             throw new ArgumentNullException(nameof(uri));
         }
 
-        if (_hybridCache == null)
+#if NET5_0_OR_GREATER
+        if (!IsCacheEnabled())
+#else
+        if (!IsCacheEnabled() || _hybridCache == null)
+#endif
         {
             var h = await GetHashAsync(uri, cancellationToken).ConfigureAwait(false);
             return string.IsNullOrEmpty(h)
@@ -151,6 +140,32 @@ public sealed class SubresourceIntegrityHashService : ISubresourceIntegrityHashS
             SubresourceHashAlgorithm.SHA512 => SubresourceHashAlgorithmPrefix.Sha512,
             _ => throw new ArgumentOutOfRangeException(nameof(algorithm), algorithm, null)
         };
+    }
+
+#if NET5_0_OR_GREATER
+    [MemberNotNullWhen(true, nameof(_hybridCache))]
+#endif
+    private bool IsCacheEnabled()
+    {
+        if (_hybridCache != null)
+        {
+            if (_options.Value.CacheDisabled)
+            {
+                _logger.LogWarning("An instance of HybridCache is configured, but caching of subresource integrity hashes is disabled");
+                return false;
+            }
+
+            return true;
+        }
+
+        if (!_options.Value.CacheDisabled)
+        {
+            throw new InvalidOperationException(
+                "An instance of HybridCache is not configured, but caching of subresource integrity hashes is enabled. Please configure HybridCache or disable caching.");
+        }
+
+        _logger.LogInformation("An instance of HybridCache is not configured, caching of subresource integrity hashes is disabled");
+        return false;
     }
 
     private async Task<string?> GetHashAsync(Uri uri, CancellationToken cancellationToken)

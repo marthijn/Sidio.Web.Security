@@ -14,19 +14,22 @@ namespace Sidio.Web.Security.Tests.Cryptography;
 public sealed class SubresourceIntegrityHashServiceTests
 {
     [Fact]
-    public void Construct_WithoutHybridCacheRegisteredAndCacheEnabled_ThrowException()
+    public async Task GetHashFromUrlAsync_WithoutHybridCacheRegisteredAndCacheEnabled_ThrowException()
     {
         // Arrange
         var options = Options.Create(new SubresourceIntegrityOptions());
+        const string Url = "https://localhost/jquery-3.6.0.min.js";
 
-        // Act
-        var action = () => new SubresourceIntegrityHashService(
-            Mock.Of<IHttpClientFactory>(),
+        var service = new SubresourceIntegrityHashService(
+            new Mock<IHttpClientFactory>().Object,
             options,
             NullLogger<SubresourceIntegrityHashService>.Instance);
 
+        // Act
+        var action = () => service.GetIntegrityHashFromUrlAsync(new Uri(Url));
+
         // Assert
-        action.Should().Throw<InvalidOperationException>().WithMessage("*cache*");
+        await action.Should().ThrowAsync<InvalidOperationException>().WithMessage("*cache*");
     }
 
     [Fact]
