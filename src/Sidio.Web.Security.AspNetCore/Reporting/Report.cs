@@ -7,7 +7,7 @@ namespace Sidio.Web.Security.AspNetCore.Reporting;
 /// Report that is sent by the browser when a violation occurs.
 /// See: https://www.w3.org/TR/reporting/
 /// </summary>
-public sealed record Report
+public sealed class Report
 {
     /// <summary>
     /// Gets the report type.
