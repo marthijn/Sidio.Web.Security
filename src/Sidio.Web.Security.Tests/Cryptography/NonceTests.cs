@@ -27,4 +27,18 @@ public sealed class NonceTests
         nonce.Value.Should().NotContain("+");
         nonce.Value.Should().NotContain("/");
     }
+
+    [Fact]
+    public void Equals_WithSameValue_ReturnsTrue()
+    {
+        // arrange
+        var nonce1 = new Nonce("test");
+        var nonce2 = new Nonce("test");
+
+        // act
+        var result = nonce1 == nonce2;
+
+        // assert
+        result.Should().BeTrue();
+    }
 }
