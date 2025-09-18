@@ -87,7 +87,7 @@ public sealed class SubresourceIntegrityTagHelper : TagHelper
             return;
         }
 
-        var integrityHash = await _subresourceIntegrityHashService.GetIntegrityHashFromUrlAsync(uri);
+        var integrityHash = await _subresourceIntegrityHashService.GetIntegrityHashFromUrlAsync(uri).ConfigureAwait(false);
         if (!integrityHash.Success)
         {
             return;
