@@ -78,6 +78,10 @@ Read more in the [wiki docs](https://github.com/marthijn/Sidio.Web.Security/wiki
 The package [Sidio.Web.Security.Testing](https://www.nuget.org/packages/Sidio.Web.Security.AspNetCore.Mvc/) provides a set of functions that can be used to test
 the security configuration of an ASP.Net Core application. [Read more](https://github.com/marthijn/Sidio.Web.Security/wiki/Testing).
 
+## Upgrade to version 2.x
+In version 2.x the `IDistributedCache` is replaced by the `HybridCache`:
+- `SubresourceIntegrityOptions`: the property `AbsoluteExpiration` is removed and replaced by `LocalCacheExpiration` and `CacheExpiration`
+
 # Contributions
 Contributions are welcome! Feel free to create a pull request or an issue.
 
