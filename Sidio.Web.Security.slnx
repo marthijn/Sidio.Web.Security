@@ -1,0 +1,27 @@
+<Solution>
+  <Folder Name="/Examples/">
+    <Project Path="src/Sidio.Web.Security.Examples.AspNetCore/Sidio.Web.Security.Examples.AspNetCore.csproj" />
+  </Folder>
+  <Folder Name="/SolutionItems/">
+    <File Path=".gitignore" />
+    <File Path="README.md" />
+    <File Path="SECURITY.md" />
+  </Folder>
+  <Folder Name="/Src/">
+    <Project Path="src/Sidio.Web.Security.AspNetCore/Sidio.Web.Security.AspNetCore.csproj" />
+    <Project Path="src/Sidio.Web.Security.Testing/Sidio.Web.Security.Testing.csproj" />
+    <Project Path="src/Sidio.Web.Security/Sidio.Web.Security.csproj" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="src/Sidio.Web.Security.AspNetCore.Tests/Sidio.Web.Security.AspNetCore.Tests.csproj" />
+    <Project Path="src/Sidio.Web.Security.Examples.AspNetCore.Tests/Sidio.Web.Security.Examples.AspNetCore.Tests.csproj" />
+    <Project Path="src/Sidio.Web.Security.Testing.Tests/Sidio.Web.Security.Testing.Tests.csproj" />
+    <Project Path="src/Sidio.Web.Security.Tests/Sidio.Web.Security.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Workflows/">
+    <File Path=".github/dependabot.yml" />
+    <File Path=".github/workflows/build.yml" />
+    <File Path=".github/workflows/dependabot-autoapprove.yml" />
+    <File Path=".github/workflows/release.yml" />
+  </Folder>
+</Solution>
