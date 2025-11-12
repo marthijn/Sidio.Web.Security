@@ -80,8 +80,7 @@ the security configuration of an ASP.Net Core application. [Read more](https://g
 
 ## Upgrade to version 2.x
 In version 2.x the `IDistributedCache` is replaced by the `HybridCache`:
-- `SubresourceIntegrityOptions`: the property
-`AbsoluteExpiration` is removed and replaced by `LocalCacheExpiration` and `CacheExpiration`
+- `SubresourceIntegrityOptions`: the property `AbsoluteExpiration` is removed and replaced by `LocalCacheExpiration` and `CacheExpiration`
 
 # Contributions
 Contributions are welcome! Feel free to create a pull request or an issue.
