@@ -36,6 +36,10 @@ jobs:
         uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 9.x
+      - name: Setup dotnet 10.x
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.x
       - name: Install dotnet-sonarscanner
         run: dotnet tool install --global dotnet-sonarscanner
       - name: install dotnet-coverage
