@@ -79,7 +79,7 @@ public sealed class SubresourceIntegrityHashService : ISubresourceIntegrityHashS
             cacheKey,
             async ct =>
             {
-                _logger.LogTrace("The integrity hash for `{Uri}` was not found in the cache and will be created", uri);
+                _logger.LogTrace("The integrity hash for `{Uri}` was not found in the cache and will be created", SanitizeForLog(uri.AbsoluteUri));
                 return await GetHashAsync(uri, ct).ConfigureAwait(false);
             },
             new HybridCacheEntryOptions
@@ -95,14 +95,14 @@ public sealed class SubresourceIntegrityHashService : ISubresourceIntegrityHashS
             {
                 _logger.LogWarning(
                     "The integrity hash for `{Uri}` was not generated",
-                    uri);
-                await _hybridCache.RemoveAsync(cacheKey, cancellationToken);
+                    SanitizeForLog(uri.AbsoluteUri));
+                await _hybridCache.RemoveAsync(cacheKey, cancellationToken).ConfigureAwait(false);
             }
             else
             {
                 _logger.LogWarning(
                     "The integrity hash for `{Uri}` was not generated, an empty string is stored in the cache",
-                    uri);
+                    SanitizeForLog(uri.AbsoluteUri));
             }
 
             return new SubresourceIntegrityHash(false);
@@ -140,6 +140,17 @@ public sealed class SubresourceIntegrityHashService : ISubresourceIntegrityHashS
             SubresourceHashAlgorithm.SHA512 => SubresourceHashAlgorithmPrefix.Sha512,
             _ => throw new ArgumentOutOfRangeException(nameof(algorithm), algorithm, null)
         };
+    }
+
+    private static string? SanitizeForLog(string? absoluteUrl)
+    {
+        if (string.IsNullOrWhiteSpace(absoluteUrl))
+        {
+            return absoluteUrl;
+        }
+
+        return absoluteUrl.Replace("\r", string.Empty)
+            .Replace("\n", string.Empty);
     }
 
 #if NET5_0_OR_GREATER
@@ -184,7 +195,7 @@ public sealed class SubresourceIntegrityHashService : ISubresourceIntegrityHashS
         }
         catch (HttpRequestException ex)
         {
-            _logger.LogWarning(ex, "Failed to get the content from: {Uri}", uri);
+            _logger.LogWarning(ex, "Failed to get the content from: {Uri}", SanitizeForLog(uri.AbsoluteUri));
             return null;
         }
     }
