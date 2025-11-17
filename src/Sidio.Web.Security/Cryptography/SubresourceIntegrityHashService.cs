@@ -1,5 +1,6 @@
-﻿using System.Security.Cryptography;
-using Microsoft.Extensions.Caching.Distributed;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Security.Cryptography;
+using Microsoft.Extensions.Caching.Hybrid;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -11,7 +12,7 @@ namespace Sidio.Web.Security.Cryptography;
 public sealed class SubresourceIntegrityHashService : ISubresourceIntegrityHashService
 {
     private readonly IHttpClientFactory _httpClientFactory;
-    private readonly IDistributedCache _distributedCache;
+    private readonly HybridCache? _hybridCache;
     private readonly IOptions<SubresourceIntegrityOptions> _options;
     private readonly ILogger<SubresourceIntegrityHashService> _logger;
 
@@ -19,17 +20,33 @@ public sealed class SubresourceIntegrityHashService : ISubresourceIntegrityHashS
     /// Initializes a new instance of the <see cref="SubresourceIntegrityHashService"/> class.
     /// </summary>
     /// <param name="httpClientFactory">The HTTP client factory.</param>
-    /// <param name="distributedCache">The distributed cache.</param>
+    /// <param name="hybridCache">The hybrid cache.</param>
     /// <param name="options">The options.</param>
     /// <param name="logger">The logger.</param>
     public SubresourceIntegrityHashService(
         IHttpClientFactory httpClientFactory,
-        IDistributedCache distributedCache,
+        IOptions<SubresourceIntegrityOptions> options,
+        HybridCache hybridCache,
+        ILogger<SubresourceIntegrityHashService> logger)
+    {
+        _httpClientFactory = httpClientFactory;
+        _hybridCache = hybridCache;
+        _options = options;
+        _logger = logger;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SubresourceIntegrityHashService"/> class.
+    /// </summary>
+    /// <param name="httpClientFactory">The HTTP client factory.</param>
+    /// <param name="options">The options.</param>
+    /// <param name="logger">The logger.</param>
+    public SubresourceIntegrityHashService(
+        IHttpClientFactory httpClientFactory,
         IOptions<SubresourceIntegrityOptions> options,
         ILogger<SubresourceIntegrityHashService> logger)
     {
         _httpClientFactory = httpClientFactory;
-        _distributedCache = distributedCache;
         _options = options;
         _logger = logger;
     }
@@ -44,39 +61,54 @@ public sealed class SubresourceIntegrityHashService : ISubresourceIntegrityHashS
             throw new ArgumentNullException(nameof(uri));
         }
 
-        var cacheKey = CacheKey(_options.Value.Algorithm, uri.AbsoluteUri);
-        var cachedData = await _distributedCache.GetStringAsync(cacheKey, cancellationToken).ConfigureAwait(false);
-
-        // return the cached data
-        if (cachedData != null)
+#if NET5_0_OR_GREATER
+        if (!IsCacheEnabled())
+#else
+        if (!IsCacheEnabled() || _hybridCache == null)
+#endif
         {
-            _logger.LogTrace("The integrity hash for `{Uri}` was found in the cache", uri);
-
-            // returns a failed hash (stored as empty string)
-            return string.IsNullOrEmpty(cachedData)
+            var h = await GetHashAsync(uri, cancellationToken).ConfigureAwait(false);
+            return string.IsNullOrEmpty(h)
                 ? new SubresourceIntegrityHash(false)
-                : new SubresourceIntegrityHash(true, cachedData);
+                : new SubresourceIntegrityHash(true, h);
         }
 
-        var hash = await GetHashAsync(uri, cancellationToken).ConfigureAwait(false);
+        var cacheKey = CacheKey(_options.Value.Algorithm, uri.AbsoluteUri);
 
-        // store empty string when integrity fails to prevent multiple requests
-        if (hash != null || _options.Value.CacheWhenFailed)
-        {
-            if (hash == null && _options.Value.CacheWhenFailed)
+        var data = await _hybridCache.GetOrCreateAsync(
+            cacheKey,
+            async ct =>
             {
-                _logger.LogWarning("The integrity hash for `{Uri}` was not generated, an empty string is stored in the cache", uri);
+                _logger.LogTrace("The integrity hash for `{Uri}` was not found in the cache and will be created", SanitizeForLog(uri.AbsoluteUri));
+                return await GetHashAsync(uri, ct).ConfigureAwait(false);
+            },
+            new HybridCacheEntryOptions
+            {
+                LocalCacheExpiration = _options.Value.LocalCacheExpiration,
+                Expiration = _options.Value.CacheExpiration,
+            },
+            cancellationToken: cancellationToken);
+
+        if (string.IsNullOrWhiteSpace(data))
+        {
+            if (!_options.Value.CacheWhenFailed)
+            {
+                _logger.LogWarning(
+                    "The integrity hash for `{Uri}` was not generated",
+                    SanitizeForLog(uri.AbsoluteUri));
+                await _hybridCache.RemoveAsync(cacheKey, cancellationToken).ConfigureAwait(false);
+            }
+            else
+            {
+                _logger.LogWarning(
+                    "The integrity hash for `{Uri}` was not generated, an empty string is stored in the cache",
+                    SanitizeForLog(uri.AbsoluteUri));
             }
 
-            _logger.LogTrace("The integrity hash for `{Uri}` will be stored in the cache", uri);
-
-            await _distributedCache.SetStringAsync(cacheKey, hash ?? string.Empty, CacheOptions, cancellationToken)
-                .ConfigureAwait(false);
+            return new SubresourceIntegrityHash(false);
         }
 
-        return string.IsNullOrEmpty(hash)
-            ? new SubresourceIntegrityHash(false)
-            : new SubresourceIntegrityHash(true, hash);
+        return new SubresourceIntegrityHash(true, data);
     }
 
     private static string CacheKey(SubresourceHashAlgorithm algorithm, string url) => $"SRI:{algorithm}:{url}";
@@ -110,10 +142,42 @@ public sealed class SubresourceIntegrityHashService : ISubresourceIntegrityHashS
         };
     }
 
-    private DistributedCacheEntryOptions CacheOptions => new()
+    private static string? SanitizeForLog(string? absoluteUrl)
     {
-        AbsoluteExpirationRelativeToNow = _options.Value.AbsoluteExpiration,
-    };
+        if (string.IsNullOrWhiteSpace(absoluteUrl))
+        {
+            return absoluteUrl;
+        }
+
+        return absoluteUrl.Replace("\r", string.Empty)
+            .Replace("\n", string.Empty);
+    }
+
+#if NET5_0_OR_GREATER
+    [MemberNotNullWhen(true, nameof(_hybridCache))]
+#endif
+    private bool IsCacheEnabled()
+    {
+        if (_hybridCache != null)
+        {
+            if (_options.Value.CacheDisabled)
+            {
+                _logger.LogWarning("An instance of HybridCache is configured, but caching of subresource integrity hashes is disabled");
+                return false;
+            }
+
+            return true;
+        }
+
+        if (!_options.Value.CacheDisabled)
+        {
+            throw new InvalidOperationException(
+                "An instance of HybridCache is not configured, but caching of subresource integrity hashes is enabled. Please configure HybridCache or disable caching.");
+        }
+
+        _logger.LogInformation("An instance of HybridCache is not configured, caching of subresource integrity hashes is disabled");
+        return false;
+    }
 
     private async Task<string?> GetHashAsync(Uri uri, CancellationToken cancellationToken)
     {
@@ -131,7 +195,7 @@ public sealed class SubresourceIntegrityHashService : ISubresourceIntegrityHashS
         }
         catch (HttpRequestException ex)
         {
-            _logger.LogWarning(ex, "Failed to get the content from: {Uri}", uri);
+            _logger.LogWarning(ex, "Failed to get the content from: {Uri}", SanitizeForLog(uri.AbsoluteUri));
             return null;
         }
     }

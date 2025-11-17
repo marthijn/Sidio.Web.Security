@@ -16,6 +16,8 @@ builder.Services
         })
     .AddControllersWithViews();
 
+builder.Services.AddHybridCache();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
