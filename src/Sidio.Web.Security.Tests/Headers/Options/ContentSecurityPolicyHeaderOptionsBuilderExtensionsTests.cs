@@ -14,7 +14,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilderExtensionsTests
         var result = builder.AppendBrowserLinkPolicy();
 
         // Assert
-        result.Options.DefaultSrc.Should().Be("'unsafe-inline' http://localhost:* https://localhost:* ws://localhost:*");
+        result.Options.DefaultSrc.Should().Be("'unsafe-inline' http://localhost:* https://localhost:* ws://localhost:* wss://localhost:*");
         result.Options.ScriptSrc.Should().Be("'unsafe-inline' http://localhost:* https://localhost:*");
     }
 
@@ -35,7 +35,7 @@ public sealed class ContentSecurityPolicyHeaderOptionsBuilderExtensionsTests
         var result = builder.AppendBrowserLinkPolicy();
 
         // Assert
-        result.Options.DefaultSrc.Should().Be("'self' 'unsafe-inline' http://localhost:* https://localhost:* ws://localhost:*");
+        result.Options.DefaultSrc.Should().Be("'self' 'unsafe-inline' http://localhost:* https://localhost:* ws://localhost:* wss://localhost:*");
         result.Options.ScriptSrc.Should().Be("'self' 'unsafe-inline' http://localhost:* https://localhost:*");
     }
 }

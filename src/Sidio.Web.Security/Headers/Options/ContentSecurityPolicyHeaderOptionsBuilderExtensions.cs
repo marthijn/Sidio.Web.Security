@@ -20,6 +20,7 @@ public static class ContentSecurityPolicyHeaderOptionsBuilderExtensions
         const string HttpLocalhost = "http://localhost:*";
         const string HttpsLocalhost = "https://localhost:*";
         const string WsLocalhost = "ws://localhost:*";
+        const string WssLocalhost = "wss://localhost:*";
         const string Space = " ";
 
         builder.Options.DefaultSrc ??= string.Empty;
@@ -44,6 +45,11 @@ public static class ContentSecurityPolicyHeaderOptionsBuilderExtensions
         if (!builder.Options.DefaultSrc.Contains(WsLocalhost))
         {
             defaultSrcDirectives.Add(WsLocalhost);
+        }
+
+        if (!builder.Options.DefaultSrc.Contains(WssLocalhost))
+        {
+            defaultSrcDirectives.Add(WssLocalhost);
         }
 
         builder.Options.DefaultSrc += Space + string.Join(Space, defaultSrcDirectives);
