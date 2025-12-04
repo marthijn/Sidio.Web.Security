@@ -23,37 +23,37 @@ public static class ContentSecurityPolicyHeaderOptionsBuilderExtensions
         const string WssLocalhost = "wss://localhost:*";
         const string Space = " ";
 
-        builder.Options.DefaultSrc ??= string.Empty;
+        builder.Options.ConnectSrc ??= string.Empty;
         builder.Options.ScriptSrc ??= string.Empty;
 
-        var defaultSrcDirectives = new List<string>();
-        if (!builder.Options.DefaultSrc.Contains(SrcBuilder.UnsafeInline))
+        var defaultConnectSrcDirective = new List<string>();
+        if (!builder.Options.ConnectSrc.Contains(SrcBuilder.UnsafeInline))
         {
-            defaultSrcDirectives.Add(SrcBuilder.UnsafeInline);
+            defaultConnectSrcDirective.Add(SrcBuilder.UnsafeInline);
         }
 
-        if (!builder.Options.DefaultSrc.Contains(HttpLocalhost))
+        if (!builder.Options.ConnectSrc.Contains(HttpLocalhost))
         {
-            defaultSrcDirectives.Add(HttpLocalhost);
+            defaultConnectSrcDirective.Add(HttpLocalhost);
         }
 
-        if (!builder.Options.DefaultSrc.Contains(HttpsLocalhost))
+        if (!builder.Options.ConnectSrc.Contains(HttpsLocalhost))
         {
-            defaultSrcDirectives.Add(HttpsLocalhost);
+            defaultConnectSrcDirective.Add(HttpsLocalhost);
         }
 
-        if (!builder.Options.DefaultSrc.Contains(WsLocalhost))
+        if (!builder.Options.ConnectSrc.Contains(WsLocalhost))
         {
-            defaultSrcDirectives.Add(WsLocalhost);
+            defaultConnectSrcDirective.Add(WsLocalhost);
         }
 
-        if (!builder.Options.DefaultSrc.Contains(WssLocalhost))
+        if (!builder.Options.ConnectSrc.Contains(WssLocalhost))
         {
-            defaultSrcDirectives.Add(WssLocalhost);
+            defaultConnectSrcDirective.Add(WssLocalhost);
         }
 
-        builder.Options.DefaultSrc += Space + string.Join(Space, defaultSrcDirectives);
-        builder.Options.DefaultSrc = builder.Options.DefaultSrc.Trim();
+        builder.Options.ConnectSrc += Space + string.Join(Space, defaultConnectSrcDirective);
+        builder.Options.ConnectSrc = builder.Options.ConnectSrc.Trim();
 
         var scriptSrcDirectives = new List<string>();
         if (!builder.Options.ScriptSrc.Contains(SrcBuilder.UnsafeInline))
