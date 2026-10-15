@@ -25,16 +25,35 @@ internal sealed class ContentSecurityPolicyMiddleware
     {
         if (context.Response.HeaderExists(ContentSecurityPolicyHeader.HeaderName))
         {
-            _logger.LogWarning("The header `{HeaderName}` is already set", ContentSecurityPolicyHeader.HeaderName);
+            var expectedHeader = GetHeaderValue(context);
+            var actualValue = context.Response.Headers[ContentSecurityPolicyHeader.HeaderName].ToString();
+            if (!string.Equals(expectedHeader.Value, actualValue, StringComparison.OrdinalIgnoreCase))
+            {
+                _logger.LogWarning(
+                    "The header `{HeaderName}` is already set with a different value. Expected: `{ExpectedValue}`, Actual: `{ActualValue}`",
+                    ContentSecurityPolicyHeader.HeaderName,
+                    expectedHeader.Value,
+                    actualValue);
+            }
+
             return _next(context);
         }
 
         // since the CSP header contains dynamic content (e.g. a nonce), we need to build it on each request
+        var header = GetHeaderValue(context);
+        if (!string.IsNullOrWhiteSpace(header.Value))
+        {
+            context.Response.Headers.Append(header.Name, header.Value);
+        }
+
+        return _next(context);
+    }
+
+    private ContentSecurityPolicyHeader GetHeaderValue(HttpContext context)
+    {
         var builder = new ContentSecurityPolicyHeaderOptionsBuilder();
         _optionsBuilder(context.RequestServices, builder);
         var header = new ContentSecurityPolicyHeader(builder.Build().ToString());
-        context.Response.Headers.Append(header.Name, header.Value);
-
-        return _next(context);
+        return header;
     }
 }
