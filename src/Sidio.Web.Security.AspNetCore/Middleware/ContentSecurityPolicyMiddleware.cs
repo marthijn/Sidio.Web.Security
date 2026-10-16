@@ -25,6 +25,11 @@ internal sealed class ContentSecurityPolicyMiddleware
     {
         if (context.Response.HeaderExists(ContentSecurityPolicyHeader.HeaderName))
         {
+            if (_logger.IsEnabled(LogLevel.Debug))
+            {
+                _logger.LogDebug("The header `{HeaderName}` is already set", ContentSecurityPolicyHeader.HeaderName);
+            }
+
             var expectedHeader = GetHeaderValue(context);
             var actualValue = context.Response.Headers[ContentSecurityPolicyHeader.HeaderName].ToString();
             if (!string.Equals(expectedHeader.Value, actualValue, StringComparison.OrdinalIgnoreCase))
