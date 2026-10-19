@@ -31,31 +31,49 @@ internal abstract class HttpHeaderMiddleware
             throw new InvalidOperationException("The header is not set.");
         }
 
-        if (ShouldAppendHeader(context))
+        if (!ShouldAppendHeader(context))
         {
-            if (!context.Response.AppendHeaderIfNotExists(Header))
+            if (_logger.IsEnabled(LogLevel.Debug))
             {
-                string? currentHeaderValue = context.Response.Headers[Header.Name];
-                if (!(currentHeaderValue ?? string.Empty).Equals(Header.Value, StringComparison.OrdinalIgnoreCase))
-                {
-                    _logger.LogWarning(
-                        "The header `{HeaderName}` is already set with value `{CurrentValue}`, new value will be ignored `{NewValue}`",
-                        Header.Name,
-                        currentHeaderValue,
-                        Header.Value);
-                }
+                _logger.LogDebug("The header `{HeaderName}` is not appended due to specific conditions", Header.Name);
             }
-        }
-        else
-        {
-            _logger.LogDebug("The header `{HeaderName}` is not appended due to specific conditions", Header.Name);
+
+            return _next(context);
         }
 
-        return _next(context);
+        return AppendHeaderAsync(context);
     }
 
     protected virtual bool ShouldAppendHeader(HttpContext context)
     {
         return true;
+    }
+
+    private Task AppendHeaderAsync(HttpContext context)
+    {
+        if (Header == null)
+        {
+            throw new InvalidOperationException("The header is not set.");
+        }
+
+        if (!context.Response.AppendHeaderIfNotExists(Header))
+        {
+            if (_logger.IsEnabled(LogLevel.Debug))
+            {
+                _logger.LogDebug("The header `{HeaderName}` is already set", Header.Name);
+            }
+
+            string? currentHeaderValue = context.Response.Headers[Header.Name];
+            if (!(currentHeaderValue ?? string.Empty).Equals(Header.Value, StringComparison.OrdinalIgnoreCase))
+            {
+                _logger.LogWarning(
+                    "The header `{HeaderName}` is already set with a different value. Expected: `{ExpectedValue}`, Actual: `{ActualValue}`",
+                    Header.Name,
+                    Header.Value,
+                    currentHeaderValue);
+            }
+        }
+
+        return _next(context);
     }
 }
