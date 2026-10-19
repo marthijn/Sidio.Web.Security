@@ -64,6 +64,7 @@ public sealed class ContentSecurityPolicyMiddlewareTests
     {
         // arrange
         var logger = new Mock<ILogger<ContentSecurityPolicyMiddleware>>();
+        logger.Setup(x => x.IsEnabled(It.IsAny<LogLevel>())).Returns(true);
         var middleware = new ContentSecurityPolicyMiddleware(
             _ => Task.CompletedTask,
             OptionsBuilder,

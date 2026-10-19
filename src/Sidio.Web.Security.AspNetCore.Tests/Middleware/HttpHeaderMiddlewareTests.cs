@@ -14,6 +14,7 @@ public sealed class HttpHeaderMiddlewareTests
         // arrange
         var header = new CustomHttpHeader("test");
         var logger = new Mock<ILogger<CustomMiddleware>>();
+        logger.Setup(x => x.IsEnabled(It.IsAny<LogLevel>())).Returns(true);
 
         var middleware = new CustomMiddleware(
             _ => Task.CompletedTask,
@@ -43,6 +44,7 @@ public sealed class HttpHeaderMiddlewareTests
         // arrange
         var header = new CustomHttpHeader("test");
         var logger = new Mock<ILogger<CustomMiddleware>>();
+        logger.Setup(x => x.IsEnabled(It.IsAny<LogLevel>())).Returns(true);
 
         var middleware = new CustomMiddleware(
             _ => Task.CompletedTask,
