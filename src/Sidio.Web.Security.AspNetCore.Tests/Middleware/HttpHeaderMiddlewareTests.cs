@@ -14,6 +14,7 @@ public sealed class HttpHeaderMiddlewareTests
         // arrange
         var header = new CustomHttpHeader("test");
         var logger = new Mock<ILogger<CustomMiddleware>>();
+        logger.Setup(x => x.IsEnabled(It.IsAny<LogLevel>())).Returns(true);
 
         var middleware = new CustomMiddleware(
             _ => Task.CompletedTask,
@@ -27,7 +28,14 @@ public sealed class HttpHeaderMiddlewareTests
         await middleware.InvokeAsync(context);
 
         // assert
-        logger.VerifyNoOtherCalls();
+        logger.Verify(
+            x => x.Log(
+                It.Is<LogLevel>(y => y == LogLevel.Warning),
+                It.IsAny<EventId>(),
+                It.IsAny<It.IsAnyType>(),
+                It.IsAny<Exception?>(),
+                It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
+            Times.Never);
     }
 
     [Fact]
@@ -36,6 +44,7 @@ public sealed class HttpHeaderMiddlewareTests
         // arrange
         var header = new CustomHttpHeader("test");
         var logger = new Mock<ILogger<CustomMiddleware>>();
+        logger.Setup(x => x.IsEnabled(It.IsAny<LogLevel>())).Returns(true);
 
         var middleware = new CustomMiddleware(
             _ => Task.CompletedTask,
@@ -53,7 +62,10 @@ public sealed class HttpHeaderMiddlewareTests
             x => x.Log(
                 It.Is<LogLevel>(y => y == LogLevel.Warning),
                 It.IsAny<EventId>(),
-                It.IsAny<It.IsAnyType>(),
+                It.Is<It.IsAnyType>((state, _) =>
+                    state != null &&
+                    (state.ToString() ?? string.Empty).Contains("Expected: `test`", StringComparison.Ordinal) &&
+                    (state.ToString() ?? string.Empty).Contains("Actual: `different`", StringComparison.Ordinal)),
                 It.IsAny<Exception?>(),
                 It.IsAny<Func<It.IsAnyType, Exception?, string>>()));
     }
