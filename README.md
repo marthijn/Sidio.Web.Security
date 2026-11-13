@@ -6,23 +6,20 @@ All features are based on the [Mozilla Web Security Guidelines](https://infosec.
 
 # Packages
 ## Sidio.Web.Security.AspNetCore
-[Sidio.Web.Security.AspNetCore](https://www.nuget.org/packages/Sidio.Web.Security.AspNetCore/) provides the ASP.NET Core services and middleware. The project targets .NET 9.0 and higher.
+[Sidio.Web.Security.AspNetCore](https://www.nuget.org/packages/Sidio.Web.Security.AspNetCore/) provides the ASP.NET Core services and middleware. The project targets .NET 10.0 and higher.
 
 [![build](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml/badge.svg)](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml)
 [![NuGet Version](https://img.shields.io/nuget/v/Sidio.Web.Security.AspNetCore)](https://www.nuget.org/packages/Sidio.Web.Security.AspNetCore/)
 
 ## Sidio.Web.Security.Testing
-[Sidio.Web.Security.Testing](https://www.nuget.org/packages/Sidio.Web.Security.AspNetCore.Mvc/) provides testing 
+[Sidio.Web.Security.Testing](https://www.nuget.org/packages/Sidio.Web.Security.Testing/) provides testing 
 functionality that can be used to verify that the security headers are set correctly.
 
 [![build](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml/badge.svg)](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml)
 [![NuGet Version](https://img.shields.io/nuget/v/Sidio.Web.Security.Testing)](https://www.nuget.org/packages/Sidio.Web.Security.Testing/)
 
-## .NET Framework support: Sidio.Web.Security
-[Sidio.Web.Security](https://www.nuget.org/packages/Sidio.Web.Security/) provides the core functionality. Can be used in projects targeting .NET Standard 2.0.
-It is useful to use this package if .NET Framework is still in use. Otherwise, use [Sidio.Web.Security.AspNetCore](https://www.nuget.org/packages/Sidio.Web.Security.AspNetCore/).
-Note that this package does not contain the middleware and services that are provided by the ASP.NET Core package. Feel free to make a contribution to this project or a fork
-targeting .NET Framework.
+## Sidio.Web.Security
+[Sidio.Web.Security](https://www.nuget.org/packages/Sidio.Web.Security/) provides the core functionality.
 
 [![build](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml/badge.svg)](https://github.com/marthijn/Sidio.Web.Security/actions/workflows/build.yml)
 [![NuGet Version](https://img.shields.io/nuget/v/Sidio.Web.Security)](https://www.nuget.org/packages/Sidio.Web.Security/)
@@ -81,6 +78,9 @@ the security configuration of an ASP.Net Core application. [Read more](https://g
 ## Upgrade to version 2.x
 In version 2.x the `IDistributedCache` is replaced by the `HybridCache`:
 - `SubresourceIntegrityOptions`: the property `AbsoluteExpiration` is removed and replaced by `LocalCacheExpiration` and `CacheExpiration`
+
+## Upgrade to version 3.x
+In version 3.x the support for .NET 8, .NET 9 and .NET Standard 2.0 is removed.
 
 # Contributions
 Contributions are welcome! Feel free to create a pull request or an issue.

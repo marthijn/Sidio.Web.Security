@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;net10.0;net11.0</TargetFrameworks>
+        <TargetFrameworks>net10.0;net11.0</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LangVersion>Latest</LangVersion>
 
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
         <Authors>Marthijn van den Heuvel,Sidio</Authors>
-        <Copyright>Copyright (c) 2024-2025 Marthijn van den Heuvel</Copyright>
+        <Copyright>Copyright (c) 2024-2026 Marthijn van den Heuvel</Copyright>
         <PackageId>Sidio.Web.Security.Testing</PackageId>
         <RepositoryType>git</RepositoryType>
         <PackageReadmeFile>README.md</PackageReadmeFile>
